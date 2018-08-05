@@ -2,11 +2,14 @@ import Phaser from 'phaser'
 import HomeScene from './HomeScene'
 import LogoImage from '../components/LogoImage'
 import LogoAudio from '../components/LogoAudio'
+import HomeAudio from '../components/HomeAudio'
+import WelcomeAudio from '../components/WelcomeAudio'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
 import GameOneBloonImage from '../components/GameOneBloonImage'
 import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
+import MusicButton from '../components/MusicButton'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -22,11 +25,14 @@ class BootScene extends Phaser.Scene {
   preload () {
     LogoImage.preload(this)
     LogoAudio.preload(this)
+    HomeAudio.preload(this)
+    WelcomeAudio.preload(this)
     HomeBackgroundImage.preload(this)
     GameOneBloonImage.preload(this)
     GameTwoBloonImage.preload(this)
     GameThreeBloonImage.preload(this)
     GameFourBloonImage.preload(this)
+    MusicButton.preload(this)
   }
 
   create () {

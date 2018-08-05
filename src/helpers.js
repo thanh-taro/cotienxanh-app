@@ -1,7 +1,8 @@
 export const loadAsset = (scene, assetSpec) => {
-  const { side, base, items } = assetSpec
-  const size = side === 'height' ? scene.sys.game.config.height : scene.sys.game.config.width
-  const percent = Math.floor(Math.max(1, size / base))
+  const { assetScaleBy, assetScale, assetScaleBase } = assetSpec
+  const gameSize = assetScaleBy === 'height' ? scene.sys.game.config.height : scene.sys.game.config.width
+  const assetSize = assetScale * assetScaleBase
+  const scale = gameSize / assetSize
 
-  return percent <= items.length ? items[percent - 1] : items[items.length - 1]
+  return { ...assetSpec, scale }
 }

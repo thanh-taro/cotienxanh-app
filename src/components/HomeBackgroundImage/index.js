@@ -14,13 +14,12 @@ class HomeBackgroundImage extends Phaser.GameObjects.Image {
     super(scene, x, y, HomeBackgroundImage.KEY)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
-    this.finished = 0
+    this.setOrigin(0, 0)
 
     if (addToScene) this.addToScene(scene)
   }
 
   addToScene (scene) {
-    this.setOrigin(0, 0)
     const scale = scene.physics.world.bounds.width / this.width
     this.setScale(scale + 0.01)
     this.setPosition(0, scene.physics.world.bounds.height - this.displayHeight)

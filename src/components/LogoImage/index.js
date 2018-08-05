@@ -8,15 +8,17 @@ class LogoImage extends Phaser.GameObjects.Image {
   }
 
   static preload (scene) {
-    const asset = loadAsset(scene, assetSpec)
+    const { asset } = loadAsset(scene, assetSpec)
     scene.load.image(LogoImage.KEY, asset)
   }
 
   constructor (scene, x, y, addToScene = true, config = {}) {
+    const { scale } = loadAsset(scene, assetSpec)
+
     super(scene, x, y, LogoImage.KEY)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y, alpha: 0 })
-    this.finished = 0
+    this.setScale(scale)
 
     if (addToScene) this.addToScene(scene)
   }
@@ -27,6 +29,8 @@ class LogoImage extends Phaser.GameObjects.Image {
   }
 
   play () {
+    this.finished = 0
+
     this.scene.tweens.add({
       targets: this,
       alpha: 1,
