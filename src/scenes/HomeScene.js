@@ -4,6 +4,10 @@ import GameOneBloonImage from '../components/GameOneBloonImage'
 import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
+import MusicButton from '../components/MusicButton'
+import HomeAudio from '../components/HomeAudio'
+import WelcomeAudio from '../components/WelcomeAudio'
+import Setting from '../components/Setting'
 
 class HomeScene extends Phaser.Scene {
   static get KEY () {
@@ -22,12 +26,40 @@ class HomeScene extends Phaser.Scene {
     this.things.gameTwoBloonImage = new GameTwoBloonImage(this)
     this.things.gameThreeBloonImage = new GameThreeBloonImage(this)
     this.things.gameFourBloonImage = new GameFourBloonImage(this)
+    this.things.musicButton = new MusicButton(this, this.onMusicSettingChange.bind(this))
+    this.things.homeAudio = HomeAudio.make(this)
+    this.things.welcomeAudio = WelcomeAudio.make(this)
+
+    if (this.musicEnabled()) {
+      this.things.homeAudio.play()
+      this.things.welcomeAudio.play()
+      this.things.welcomeAudio.alreadyPlay = true
+    }
   }
 
   update () {
     for (let index in this.things) {
       const thing = this.things[index]
       if (thing.update) thing.update()
+    }
+  }
+
+  musicEnabled () {
+    return Setting.MUSIC_ENABLED
+  }
+
+  onMusicSettingChange (enabled) {
+    if (enabled) {
+      if (this.things.homeAudio.isPaused) this.things.homeAudio.resume()
+      else this.things.homeAudio.play()
+
+      if (this.things.welcomeAudio.alreadyPlay === undefined) {
+        if (this.things.welcomeAudio.isPaused) this.things.welcomeAudio.resume()
+        else this.things.welcomeAudio.play()
+      }
+    } else {
+      if (this.things.homeAudio.isPlaying) this.things.homeAudio.pause()
+      if (this.things.welcomeAudio.isPlaying) this.things.welcomeAudio.pause()
     }
   }
 }

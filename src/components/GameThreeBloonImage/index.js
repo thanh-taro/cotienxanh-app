@@ -8,20 +8,23 @@ class GameThreeBloonImage extends Phaser.GameObjects.Image {
   }
 
   static preload (scene) {
-    const asset = loadAsset(scene, assetSpec)
+    const { asset } = loadAsset(scene, assetSpec)
     scene.load.image(GameThreeBloonImage.KEY, asset)
   }
 
   constructor (scene, addToScene = true, config = {}) {
+    const { scale } = loadAsset(scene, assetSpec)
     const y = scene.physics.world.bounds.centerY
     const x = scene.physics.world.bounds.width / 5 * 3
     const rangeY = 3
+
     super(scene, x, y, GameThreeBloonImage.KEY)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y: y + rangeY })
 
     this.saveY = y
     this.rangeY = rangeY
+    this.setScale(scale)
 
     if (addToScene) this.addToScene(scene)
   }

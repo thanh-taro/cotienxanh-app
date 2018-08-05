@@ -12,6 +12,9 @@ export const height = document.documentElement.clientHeight
 export const zoom = 1
 export const pixelArt = false
 export const roundPixels = true
+export const input = {
+  activePointer: 10
+}
 export const physics = {
   default: 'arcade',
   arcade: {
