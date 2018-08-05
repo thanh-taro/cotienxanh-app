@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.taro.cotienxanh" version="0.0.1">
+    <name>Cô Tiên Xanh</name>
+    <description>
+      Cô Tiên Xanh - Trò chơi học tập cho bé
+    </description>
+    <author email="adamnguyen.itdn@gmail.com" href="https://facebook.com/thanh.taro">
+      Nguyen Tri Thanh
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="BackgroundColor" value="0xff0000ff" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true" />
+    <preference name="Orientation" value="landscape" />
+    <engine name="android" spec="^7.1.1" />
+</widget>
