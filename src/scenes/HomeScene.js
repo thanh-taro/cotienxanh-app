@@ -23,6 +23,13 @@ class HomeScene extends Phaser.Scene {
     this.things.gameThreeBloonImage = new GameThreeBloonImage(this)
     this.things.gameFourBloonImage = new GameFourBloonImage(this)
   }
+
+  update () {
+    for (let index in this.things) {
+      const thing = this.things[index]
+      if (thing.update) thing.update()
+    }
+  }
 }
 
 export default HomeScene
