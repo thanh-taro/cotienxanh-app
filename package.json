@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode=development",
+    "build-cordova": "webpack --mode=production --config webpack.cordova.config.js",
     "test": "eslint ."
   },
   "keywords": [
@@ -36,6 +37,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
+    "cordova": "^8.0.0",
     "css-loader": "^0.28.11",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
@@ -46,6 +48,7 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.3.1",
+    "mini-css-extract-plugin": "^0.4.1",
     "postcss-loader": "^2.1.5",
     "precss": "^3.1.2",
     "style-loader": "^0.21.0",
@@ -55,6 +58,12 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
+    "cordova-android": "^7.1.1",
     "phaser": "photonstorm/phaser#master"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
   }
 }

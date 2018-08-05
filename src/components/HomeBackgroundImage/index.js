@@ -5,7 +5,7 @@ class HomeBackgroundImage extends Phaser.GameObjects.Image {
   static get KEY () {
     return 'HomeBackgroundImage'
   }
-  
+
   static preload (scene) {
     scene.load.image(HomeBackgroundImage.KEY, background)
   }
@@ -20,11 +20,12 @@ class HomeBackgroundImage extends Phaser.GameObjects.Image {
   }
 
   addToScene (scene) {
-    const scale = scene.physics.world.bounds.width / this.width
-    this.setScale(scale)
-    this.setPosition(0, scene.physics.world.bounds.height - this.displayHeight)
-    scene.add.existing(this)
     this.setOrigin(0, 0)
+    const scale = scene.physics.world.bounds.width / this.width
+    this.setScale(scale + 0.01)
+    this.setPosition(0, scene.physics.world.bounds.height - this.displayHeight)
+
+    scene.add.existing(this)
   }
 }
 
