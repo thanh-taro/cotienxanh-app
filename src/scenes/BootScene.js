@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import HomeScene from './HomeScene'
 import LogoImage from '../components/LogoImage'
+import LogoAudio from '../components/LogoAudio'
+import HomeBackgroundImage from '../components/HomeBackgroundImage'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -15,10 +17,13 @@ class BootScene extends Phaser.Scene {
 
   preload () {
     LogoImage.preload(this)
+    LogoAudio.preload(this)
+    HomeBackgroundImage.preload(this)
   }
 
   create () {
     this.things.logoImage = this.makeLogoImage()
+    LogoAudio.make(this).play()
   }
 
   update () {

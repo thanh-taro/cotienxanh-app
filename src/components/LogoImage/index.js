@@ -30,12 +30,12 @@ class LogoImage extends Phaser.GameObjects.Image {
     this.scene.tweens.add({
       targets: this,
       alpha: 1,
-      duration: 2000,
+      duration: 1500,
       onComplete: () => {
         this.scene.tweens.add({
           targets: this,
-          delay: 1000,
-          duration: 2000,
+          delay: 2000,
+          duration: 1500,
           alpha: 0,
           finished: 1
         })

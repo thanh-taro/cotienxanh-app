@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import HomeBackgroundImage from '../components/HomeBackgroundImage'
 
 class HomeScene extends Phaser.Scene {
   static get KEY () {
@@ -7,10 +8,12 @@ class HomeScene extends Phaser.Scene {
 
   constructor () {
     super({ key: HomeScene.KEY })
+
+    this.things = {}
   }
 
   create () {
-    console.log(HomeScene.KEY)
+    this.things.backgroundImage = new HomeBackgroundImage(this, 0, 0)
   }
 }
 
