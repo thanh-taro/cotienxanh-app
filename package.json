@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/thanh-taro/cotienxanh-app.git#readme",
   "devDependencies": {
+    "android-versions": "^1.3.0",
     "autoprefixer": "^8.6.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
@@ -38,6 +39,7 @@
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
     "cordova": "^8.0.0",
+    "cordova-android": "^7.1.1",
     "css-loader": "^0.28.11",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
@@ -59,7 +61,6 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "cordova-android": "^7.1.1",
     "phaser": "photonstorm/phaser#master"
   },
   "cordova": {

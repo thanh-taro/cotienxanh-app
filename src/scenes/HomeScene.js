@@ -27,13 +27,13 @@ class HomeScene extends Phaser.Scene {
     this.things.gameThreeBloonImage = new GameThreeBloonImage(this)
     this.things.gameFourBloonImage = new GameFourBloonImage(this)
     this.things.musicButton = new MusicButton(this, this.onMusicSettingChange.bind(this))
-    this.things.homeAudio = HomeAudio.make(this)
+    this.things.homeAudio = HomeAudio.make(this, { loop: true })
     this.things.welcomeAudio = WelcomeAudio.make(this)
 
     if (this.musicEnabled()) {
       this.things.homeAudio.play()
       this.things.welcomeAudio.play()
-      this.things.welcomeAudio.alreadyPlay = true
+      this.things.welcomeAudioAlreadyPlay = true
     }
   }
 
@@ -53,7 +53,7 @@ class HomeScene extends Phaser.Scene {
       if (this.things.homeAudio.isPaused) this.things.homeAudio.resume()
       else this.things.homeAudio.play()
 
-      if (this.things.welcomeAudio.alreadyPlay === undefined) {
+      if (this.things.welcomeAudioAlreadyPlay === undefined) {
         if (this.things.welcomeAudio.isPaused) this.things.welcomeAudio.resume()
         else this.things.welcomeAudio.play()
       }
