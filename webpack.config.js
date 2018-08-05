@@ -10,7 +10,6 @@ var definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
   entry: {
-    vendor: [ 'phaser' ],
     app: path.join(appDir, 'index.js')
   },
   devtool: 'cheap-source-map',
@@ -25,7 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(appDir, 'index.html'),
-      chunks: [ 'vendor', 'app' ],
+      chunks: [ 'app' ],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: false,
@@ -48,10 +47,10 @@ module.exports = {
       test: /\.js$/,
       use: [ 'babel-loader' ]
     }, {
-      test: /\.(woff(2)?|ttf|eot|svg|jsonf|ogg|mp3)(\?v=\d+\.\d+\.\d+)?$/,
+      test: /\.(woff(2)?|ttf|eot|jsonf|ogg|mp3)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]
     }, {
-      test: /\.(png|jpg)$/,
+      test: /\.(png|jpg|svg)$/,
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }, 'image-webpack-loader']
     }]
   }
