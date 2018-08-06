@@ -6,7 +6,10 @@ class Setting {
   }
 
   static get MUSIC_ENABLED () {
-    return store.get(Setting.MUSIC_ENABLED_KEY)
+    let value = store.get(Setting.MUSIC_ENABLED_KEY)
+    if (value === undefined) value = true
+
+    return value
   }
 
   static set MUSIC_ENABLED (value) {

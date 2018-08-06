@@ -4,8 +4,9 @@
   "description": "Vui học cùng Cô Tiên Xanh",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode=development",
-    "build-cordova": "webpack --mode=production --config webpack.cordova.config.js",
+    "start": "webpack-dev-server",
+    "build": "webpack --config webpack.production.config.js",
+    "build-cordova": "webpack --config webpack.cordova.config.js",
     "test": "eslint ."
   },
   "keywords": [
@@ -56,12 +57,13 @@
     "store": "^2.0.12",
     "style-loader": "^0.21.0",
     "svg-inline-loader": "^0.8.0",
-    "webpack": "^4.16.4",
+    "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "phaser": "photonstorm/phaser#master"
+    "cordova-android": "^7.1.1",
+    "phaser": "github:photonstorm/phaser#master"
   },
   "cordova": {
     "platforms": [

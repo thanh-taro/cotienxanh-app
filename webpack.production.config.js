@@ -16,7 +16,7 @@ module.exports = {
     app: path.join(appDir, 'index.js')
   },
   output: {
-    path: path.resolve(__dirname, 'www'),
+    path: path.resolve(__dirname, 'build'),
     pathinfo: true,
     library: '[name]',
     libraryTarget: 'umd',
@@ -24,14 +24,14 @@ module.exports = {
   },
   plugins: [
     definePlugin,
-    new CleanWebpackPlugin(['www']),
+    new CleanWebpackPlugin(['build']),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(appDir, 'index-cordova.html'),
+      template: path.join(appDir, 'index.html'),
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
