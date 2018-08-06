@@ -20,8 +20,9 @@ class HomeBackgroundImage extends Phaser.GameObjects.Image {
   }
 
   addToScene (scene) {
-    const scale = scene.physics.world.bounds.width / this.width
-    this.setScale(scale + 0.01)
+    const ratio = this.width / this.height
+    this.displayWidth = scene.physics.world.bounds.width + 1
+    this.displayHeight = Math.ceil(this.displayWidth / ratio)
     this.setPosition(0, scene.physics.world.bounds.height - this.displayHeight)
 
     scene.add.existing(this)
