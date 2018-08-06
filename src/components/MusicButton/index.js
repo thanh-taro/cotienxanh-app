@@ -38,9 +38,7 @@ class MusicButton extends Phaser.GameObjects.Sprite {
   }
 
   onPointerDown () {
-    let settingValue = Setting.MUSIC_ENABLED
-    if (settingValue === undefined) settingValue = false
-    else settingValue = !settingValue
+    let settingValue = !Setting.MUSIC_ENABLED
 
     if (settingValue === true) this.setFrame(0)
     else this.setFrame(3)

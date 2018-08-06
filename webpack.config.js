@@ -9,6 +9,7 @@ var definePlugin = new webpack.DefinePlugin({
 })
 
 module.exports = {
+  mode: 'development',
   entry: {
     app: path.join(appDir, 'index.js')
   },
@@ -45,7 +46,8 @@ module.exports = {
       use: [ 'style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader' ]
     }, {
       test: /\.js$/,
-      use: [ 'babel-loader' ]
+      use: [ 'babel-loader' ],
+      include: path.join(__dirname, 'src')
     }, {
       test: /\.(woff(2)?|ttf|eot|jsonf|ogg|mp3)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]
