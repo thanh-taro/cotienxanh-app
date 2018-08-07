@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "cordova-android": "^7.1.1",
-    "phaser": "github:photonstorm/phaser#master"
+    "phaser": "3.12.0-beta1"
   },
   "cordova": {
     "platforms": [

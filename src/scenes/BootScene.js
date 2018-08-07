@@ -10,6 +10,12 @@ import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
 import MusicButton from '../components/MusicButton'
+import HomeButton from '../components/HomeButton'
+import GameOneTilemap from '../components/GameOneTilemap'
+import GamePadLeftButton from '../components/GamePadLeftButton'
+import GamePadRightButton from '../components/GamePadRightButton'
+import GamePadUpButton from '../components/GamePadUpButton'
+import GameOnePlayer from '../components/GameOnePlayer'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -33,6 +39,12 @@ class BootScene extends Phaser.Scene {
     GameThreeBloonImage.preload(this)
     GameFourBloonImage.preload(this)
     MusicButton.preload(this)
+    HomeButton.preload(this)
+    GameOneTilemap.preload(this)
+    GamePadLeftButton.preload(this)
+    GamePadRightButton.preload(this)
+    GamePadUpButton.preload(this)
+    GameOnePlayer.preload(this)
   }
 
   create () {
@@ -49,8 +61,9 @@ class BootScene extends Phaser.Scene {
   }
 
   moveToHome () {
+    this.things.logoImage.destroy()
+    this.things.logoImage = null
     this.things = null
-    delete this.things
 
     this.scene.start(HomeScene.KEY)
   }

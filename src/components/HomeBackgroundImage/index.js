@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import background from './background-2.jpg'
+import background from './background.jpg'
 
 class HomeBackgroundImage extends Phaser.GameObjects.Image {
   static get KEY () {
