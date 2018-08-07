@@ -5,7 +5,7 @@ import HomeScene from './scenes/HomeScene'
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
 export const parent = 'game-panel'
-export const type = Phaser.AUTO
+export const type = Phaser.CANVAS
 export const resolution = window.devicePixelRatio || 1
 export const width = document.documentElement.clientWidth
 export const height = document.documentElement.clientHeight
