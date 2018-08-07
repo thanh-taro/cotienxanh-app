@@ -9,7 +9,7 @@ class WelcomeAudio {
     scene.load.audio(WelcomeAudio.KEY, sound)
   }
 
-  static make(scene, config = {}) {
+  static make (scene, config = {}) {
     return scene.sound.add(WelcomeAudio.KEY, config)
   }
 }
