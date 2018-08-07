@@ -54,8 +54,7 @@ module.exports = {
       use: [ MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { importLoaders: 1, minimize: true } }, 'postcss-loader' ]
     }, {
       test: /\.js$/,
-      use: [ 'babel-loader' ],
-      include: path.join(__dirname, 'src')
+      use: [ 'babel-loader' ]
     }, {
       test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]', outputPath: 'fonts' } }]

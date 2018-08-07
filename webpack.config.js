@@ -46,8 +46,7 @@ module.exports = {
       use: [ 'style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader' ]
     }, {
       test: /\.js$/,
-      use: [ 'babel-loader' ],
-      include: path.join(__dirname, 'src')
+      use: [ 'babel-loader' ]
     }, {
       test: /\.(woff(2)?|ttf|eot|jsonf|ogg|mp3)(\?v=\d+\.\d+\.\d+)?$/,
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]

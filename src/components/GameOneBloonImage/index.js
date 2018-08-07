@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
+import GameOneScene from '../../scenes/GameOneScene'
 
 class GameOneBloonImage extends Phaser.GameObjects.Image {
   static get KEY () {
@@ -51,6 +52,12 @@ class GameOneBloonImage extends Phaser.GameObjects.Image {
 
   addToScene (scene) {
     scene.add.existing(this)
+    this.setInteractive()
+    this.on('pointerdown', this.onPointerDown, this)
+  }
+
+  onPointerDown () {
+    this.scene.scene.start(GameOneScene.KEY)
   }
 }
 
