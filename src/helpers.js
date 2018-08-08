@@ -15,3 +15,10 @@ export const loadAsset = (scene, assetSpec) => {
 
   return result
 }
+
+export const destroyObject = (object) => {
+  if (object === undefined) return
+
+  object.destroy()
+  object = null
+}

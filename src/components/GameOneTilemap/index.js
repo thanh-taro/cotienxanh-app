@@ -24,6 +24,7 @@ class GameOneTilemap extends Phaser.Tilemaps.Tilemap {
     const tileset = this.addTilesetImage('tilesets', 'GameOneTilemap.tilesets')
     this.backgroundLayer = this.createStaticLayer('background-layer', tileset)
     this.platformLayer = this.createStaticLayer('platform-layer', tileset, 0, 0)
+    this.objectLayer = this.createStaticLayer('object-layer', tileset, 0, 0)
     this.coinLayer = this.createStaticLayer('coin-layer', tileset, 0, 0)
     this.questLayer = this.createStaticLayer('quest-layer', tileset, 0, 0)
 

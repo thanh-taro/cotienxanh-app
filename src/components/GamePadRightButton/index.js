@@ -24,6 +24,7 @@ class GamePadRightButton extends Phaser.GameObjects.Sprite {
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y, alpha: 0.2 })
     this.setOrigin(-1, 1)
     this.setScale(scale)
+    this.setSize(this.displayWidth, this.displayHeight)
     this.setScrollFactor(0)
     this.setInteractive()
     this.setFrame(2)

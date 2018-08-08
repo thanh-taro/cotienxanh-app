@@ -25,6 +25,7 @@ class MusicButton extends Phaser.GameObjects.Sprite {
     this.setScale(scale)
     this.setScrollFactor(0)
     this.setInteractive()
+    this.soundStates = {}
     this.on('pointerdown', this.onPointerDown, this)
 
     if (addToScene) this.addToScene(scene)
@@ -38,14 +39,42 @@ class MusicButton extends Phaser.GameObjects.Sprite {
   }
 
   onPointerDown () {
-    const settingValue = !Setting.MUSIC_ENABLED
+    const enabled = !Setting.MUSIC_ENABLED
 
-    Setting.MUSIC_ENABLED = settingValue
+    Setting.MUSIC_ENABLED = enabled
 
-    if (settingValue === true) this.setFrame(0)
-    else this.setFrame(3)
+    if (enabled) this.enableSounds()
+    else this.disableSounds()
+  }
 
-    this.emit('settingchange', settingValue)
+  disableSounds () {
+    this.setFrame(3)
+
+    for (let index in this.scene.sound.sounds) {
+      const { key, isPlaying, isPaused, willPlay } = this.scene.sound.sounds[index]
+      this.soundStates[key] = { isPlaying, isPaused, willPlay }
+      this.scene.sound.sounds[index].pause()
+    }
+  }
+
+  enableSounds () {
+    this.setFrame(0)
+
+    for (let index in this.scene.sound.sounds) {
+      let soundState = this.soundStates[this.scene.sound.sounds[index].key]
+      if (soundState === undefined) {
+        soundState = {
+          isPlaying: this.scene.sound.sounds[index].isPlaying,
+          isPaused: this.scene.sound.sounds[index].isPaused
+        }
+      }
+      const { isPlaying, isPaused, willPlay } = soundState
+      const { playOnce } = this.scene.sound.sounds[index]
+
+      if (isPlaying) this.scene.sound.sounds[index].resume()
+      else if (willPlay) this.scene.sound.sounds[index].play()
+      else if (!isPaused && (playOnce === undefined || !playOnce)) this.scene.sound.sounds[index].play()
+    }
   }
 }
 
