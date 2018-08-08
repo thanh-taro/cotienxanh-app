@@ -27,7 +27,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
   }
 
   static preload (scene) {
-    scene.load.spritesheet(GameOnePlayer.KEY, player, { frameWidth: 176, frameHeight: 192 })
+    scene.load.spritesheet(GameOnePlayer.KEY, player, { frameWidth: 88, frameHeight: 96 })
   }
 
   constructor (scene, x, y, scaleHeight, addToScene = true, config = {}) {
@@ -39,6 +39,19 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     this.setSize(scaleWidth, scaleHeight)
     this.isRunning = false
     this.isJumping = false
+    if (scaleHeight === 32) {
+      this.gravityY = 100
+      this.velocityY = 520
+      this.velocityX = 120
+    } else if (scaleHeight === 64) {
+      this.gravityY = 200
+      this.velocityY = 780
+      this.velocityX = 240
+    } else {
+      this.gravityY = 300
+      this.velocityY = 1000
+      this.velocityX = 360
+    }
 
     if (scene.anims.get(GameOnePlayer.IDLE_KEY) === undefined) {
       scene.anims.create({
@@ -76,7 +89,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     scene.physics.add.existing(this)
     scene.cameras.main.startFollow(this)
     this.body.setCollideWorldBounds(true)
-    this.body.setGravityY(300)
+    this.body.setGravityY(this.gravityY)
 
     this.play(GameOnePlayer.IDLE_KEY)
   }
@@ -99,8 +112,8 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
       if (!this.isJumping) this.play(GameOnePlayer.RUN_KEY)
     }
 
-    if (direction === GameOnePlayer.DIRECTION_LEFT) this.body.setVelocityX(-250)
-    else if (direction === GameOnePlayer.DIRECTION_RIGHT) this.body.setVelocityX(250)
+    if (direction === GameOnePlayer.DIRECTION_LEFT) this.body.setVelocityX(-this.velocityX)
+    else if (direction === GameOnePlayer.DIRECTION_RIGHT) this.body.setVelocityX(this.velocityX)
   }
 
   jump () {
@@ -109,7 +122,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
       this.play(GameOnePlayer.JUMP_KEY)
     }
 
-    this.body.setVelocityY(-1000)
+    this.body.setVelocityY(-this.velocityY)
   }
 
   stopActions () {

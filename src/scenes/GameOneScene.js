@@ -6,6 +6,7 @@ import GamePadRightButton from '../components/GamePadRightButton'
 import GamePadUpButton from '../components/GamePadUpButton'
 import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
+import { destroyObject } from '../helpers'
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -32,56 +33,43 @@ class GameOneScene extends Phaser.Scene {
     for (let index in this.things) if (this.things[index].update) this.things[index].update()
 
     if (this.things.keyLeft.isDown) this.onKeyLeftDown()
-    else this.onKeyLeftUp()
+    else if (this.things.keyLeft.isUp && !this.touching) this.onKeyLeftUp()
     if (this.things.keyRight.isDown) this.onKeyRightDown()
-    else this.onKeyRightUp()
+    else if (this.things.keyRight.isUp && !this.touching) this.onKeyRightUp()
     if (this.things.keySpace.isDown) this.onKeySpaceDown()
-    else this.onKeySpaceUp()
+    else if (this.things.keySpace.isUp && !this.touching) this.onKeySpaceUp()
 
     const onFloor = this.things.player.body.onFloor()
 
     if (this.things.player.isJumping && onFloor) this.things.player.stopActions()
 
+    if (this.isJumping && onFloor) this.things.player.jump()
     if (this.isMovingLeft) this.things.player.run(GameOnePlayer.DIRECTION_LEFT)
     if (this.isMovingRight) this.things.player.run(GameOnePlayer.DIRECTION_RIGHT)
-    if (this.isJumping && onFloor) this.things.player.jump()
 
     if (!this.isMovingLeft && !this.isMovingRight && !this.isJumping && !this.things.player.isJumping) this.things.player.stopActions()
   }
 
   createBackToHomeButton () {
-    if (this.things.homeButton !== undefined) {
-      this.things.homeButton.destroy()
-      this.things.homeButton = null
-    }
+    destroyObject(this.things.homeButton)
 
     this.things.homeButton = new HomeButton(this)
   }
 
   createMusicButton () {
-    if (this.things.musicButton !== undefined) {
-      this.things.musicButton.destroy()
-      this.things.musicButton = null
-    }
+    destroyObject(this.things.musicButton)
 
     this.things.musicButton = new MusicButton(this)
-    this.things.musicButton.on('settingchange', this.onMusicSettingChange.bind(this))
   }
 
   createTilemap () {
-    if (this.things.tilemap !== undefined) {
-      this.things.tilemap.destroy()
-      this.things.tilemap = null
-    }
+    destroyObject(this.things.tilemap)
 
     this.things.tilemap = new GameOneTilemap(this)
   }
 
   createPlayer () {
-    if (this.things.player !== undefined) {
-      this.things.player.destroy()
-      this.things.player = null
-    }
+    destroyObject(this.things.player)
 
     this.things.player = new GameOnePlayer(this, 100, 100, this.things.tilemap.tileHeight)
   }
@@ -120,13 +108,6 @@ class GameOneScene extends Phaser.Scene {
     this.things.gamePadUpButton.on('release', this.onGamePadUpRelease.bind(this))
   }
 
-  onMusicSettingChange (enabled) {
-    if (enabled) {
-      if (this.things.homeMusic.isPaused) this.things.homeMusic.resume()
-      else this.things.homeMusic.play()
-    } else if (this.things.homeMusic.isPlaying) this.things.homeMusic.pause()
-  }
-
   createGameKeyboardKeys () {
     if (this.things.keyLeft === undefined) this.things.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
     if (this.things.keyRight === undefined) this.things.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
@@ -139,7 +120,6 @@ class GameOneScene extends Phaser.Scene {
   }
 
   onGamePadLeftRelease () {
-    this.touching = false
     this.isMovingLeft = false
   }
 
@@ -149,7 +129,6 @@ class GameOneScene extends Phaser.Scene {
   }
 
   onGamePadRightRelease () {
-    this.touching = false
     this.isMovingRight = false
   }
 
@@ -159,7 +138,6 @@ class GameOneScene extends Phaser.Scene {
   }
 
   onGamePadUpRelease () {
-    this.touching = false
     this.isJumping = false
   }
 

@@ -7,15 +7,12 @@ export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
 export const parent = 'game-panel'
 export const type = Phaser.AUTO
-export const resolution = window.devicePixelRatio || 1
+export const resolution = 1 // window.devicePixelRatio || 1
 export const width = document.documentElement.clientWidth
 export const height = document.documentElement.clientHeight
 export const zoom = 1
 export const pixelArt = false
 export const roundPixels = true
-export const input = {
-  activePointer: 10
-}
 export const physics = {
   default: 'arcade',
   arcade: {
