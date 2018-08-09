@@ -2,12 +2,14 @@ import Setting from '../Setting'
 import LogoAudio from '../LogoAudio'
 import WelcomeAudio from '../WelcomeAudio'
 import BackgroundAudio from '../BackgroundAudio'
+import CollectCoinAudio from '../CollectCoinAudio'
 
 class SoundManager {
   static preload (scene) {
     LogoAudio.preload(scene)
     WelcomeAudio.preload(scene)
     BackgroundAudio.preload(scene)
+    CollectCoinAudio.preload(scene)
   }
 
   static play (scene, key, config = {}) {

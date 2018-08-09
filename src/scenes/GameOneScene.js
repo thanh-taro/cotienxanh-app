@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import SoundManager from '../components/SoundManager'
 import GameOneTilemap from '../components/GameOneTilemap'
 import GameOnePlayer from '../components/GameOnePlayer'
 import GamePadLeftButton from '../components/GamePadLeftButton'
@@ -6,6 +7,7 @@ import GamePadRightButton from '../components/GamePadRightButton'
 import GamePadUpButton from '../components/GamePadUpButton'
 import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
+import CollectCoinAudio from '../components/CollectCoinAudio'
 import { destroyObject } from '../helpers'
 
 class GameOneScene extends Phaser.Scene {
@@ -21,7 +23,7 @@ class GameOneScene extends Phaser.Scene {
 
   create () {
     this.createTilemap()
-    this.createPlayer()
+    this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.tileHeight)
     this.createPlayerInteractiveWithMap()
     this.createGameTouchPads()
     this.createGameKeyboardKeys()
@@ -68,10 +70,10 @@ class GameOneScene extends Phaser.Scene {
     this.things.tilemap = new GameOneTilemap(this)
   }
 
-  createPlayer () {
+  createPlayer (playerStartX, playerStartY, scaleHeight) {
     destroyObject(this.things.player)
 
-    this.things.player = new GameOnePlayer(this, 100, 100, this.things.tilemap.tileHeight)
+    this.things.player = new GameOnePlayer(this, playerStartX, playerStartY, scaleHeight)
   }
 
   createPlayerInteractiveWithMap () {
@@ -80,6 +82,8 @@ class GameOneScene extends Phaser.Scene {
     this.physics.add.collider(this.things.tilemap.platformLayer, this.things.player)
     this.physics.add.overlap(this.things.tilemap.coinLayer, this.things.player)
     this.physics.add.overlap(this.things.tilemap.questLayer, this.things.player)
+    this.things.tilemap.coinLayer.setTileIndexCallback(18, this.onHitCoin, this)
+    this.things.tilemap.questLayer.setTileIndexCallback(27, this.onHitQuest, this)
   }
 
   createGameTouchPads () {
@@ -112,6 +116,16 @@ class GameOneScene extends Phaser.Scene {
     if (this.things.keyLeft === undefined) this.things.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
     if (this.things.keyRight === undefined) this.things.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
     if (this.things.keySpace === undefined) this.things.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+  }
+
+  onHitCoin (sprite, tile) {
+    // SoundManager.stop(this, CollectCoinAudio.KEY)
+    this.things.tilemap.coinLayer.removeTileAt(tile.x, tile.y)
+    // SoundManager.play(this, CollectCoinAudio.KEY, { volume: 0.1 })
+  }
+
+  onHitQuest (sprite, tile) {
+    this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
   }
 
   onGamePadLeftDown () {
