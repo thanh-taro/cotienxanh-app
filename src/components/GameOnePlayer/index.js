@@ -36,21 +36,25 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     const scaleWidth = this.width * scaleHeight / this.height
     this.setDisplaySize(scaleWidth, scaleHeight)
-    this.setSize(scaleWidth, scaleHeight)
+    this.setSize(scaleWidth - 10, scaleHeight)
     this.isRunning = false
     this.isJumping = false
     if (scaleHeight === 32) {
       this.gravityY = 100
-      this.velocityY = 520
-      this.velocityX = 120
+      this.velocityY = 370
+      this.velocityX = 100
     } else if (scaleHeight === 64) {
       this.gravityY = 200
-      this.velocityY = 780
-      this.velocityX = 240
-    } else {
+      this.velocityY = 570
+      this.velocityX = 200
+    } else if (scaleHeight === 96) {
       this.gravityY = 300
+      this.velocityY = 780
+      this.velocityX = 300
+    } else {
+      this.gravityY = 400
       this.velocityY = 1000
-      this.velocityX = 360
+      this.velocityX = 400
     }
 
     if (scene.anims.get(GameOnePlayer.IDLE_KEY) === undefined) {

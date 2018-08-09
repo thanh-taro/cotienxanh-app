@@ -1,23 +1,27 @@
 import tilemap from './map.jsonf'
 import tilemap2x from './map2x.jsonf'
 import tilemap3x from './map3x.jsonf'
-import tilesets from './tilesets.png'
-import tilesets2x from './tilesets2x.png'
-import tilesets3x from './tilesets3x.png'
+import tilemap4x from './map4x.jsonf'
+import tileset from './tileset.png'
+import tileset2x from './tileset2x.png'
+import tileset3x from './tileset3x.png'
+import tileset4x from './tileset4x.png'
 
 const assetSpec = {
-  asset: { tilemap, tilesets },
+  asset: { tilemap, tileset },
   assetScaleBy: 'height',
   assetScale: 1,
   assetScaleBase: 320,
   assetWidth: 32,
   assetHeight: 32,
   assets: [{
-    tilemap: tilemap, tilesets: tilesets
+    tilemap: tilemap, tileset: tileset
   }, {
-    tilemap: tilemap2x, tilesets: tilesets2x
+    tilemap: tilemap2x, tileset: tileset2x
   }, {
-    tilemap: tilemap3x, tilesets: tilesets3x
+    tilemap: tilemap3x, tileset: tileset3x
+  }, {
+    tilemap: tilemap4x, tileset: tileset4x
   }]
 }
 

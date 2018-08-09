@@ -65,7 +65,7 @@ class BootScene extends Phaser.Scene {
 
     this.input.addPointer(3)
 
-    SoundManager.play(this, BackgroundAudio.KEY, { loop: true })
+    SoundManager.play(this, BackgroundAudio.KEY, { loop: true, volume: 0.3 })
     SoundManager.play(this, WelcomeAudio.KEY, { playOnce: true })
 
     this.scene.start(HomeScene.KEY)
