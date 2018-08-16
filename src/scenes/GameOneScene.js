@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import SoundManager from '../components/SoundManager'
+import GameOneBackgroundAudio from '../components/GameOneBackgroundAudio'
 import GameOneTilemap from '../components/GameOneTilemap'
 import GameOnePlayer from '../components/GameOnePlayer'
 import GamePadLeftButton from '../components/GamePadLeftButton'
@@ -8,7 +8,10 @@ import GamePadUpButton from '../components/GamePadUpButton'
 import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
+import HitQuestSound from '../components/HitQuestSound'
 import { destroyObject } from '../helpers'
+import CoinBadge from '../components/CoinBadge'
+import UserAvatar from '../components/UserAvatar'
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -22,11 +25,16 @@ class GameOneScene extends Phaser.Scene {
   }
 
   create () {
+    this.sound.stopAll()
+    this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 0.8 })
+
     this.createTilemap()
     this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.tileHeight)
     this.createPlayerInteractiveWithMap()
     this.createGameTouchPads()
     this.createGameKeyboardKeys()
+    this.createUserAvatar()
+    this.createCoinBadge()
     this.createBackToHomeButton()
     this.createMusicButton()
   }
@@ -52,10 +60,25 @@ class GameOneScene extends Phaser.Scene {
     if (!this.isMovingLeft && !this.isMovingRight && !this.isJumping && !this.things.player.isJumping) this.things.player.stopActions()
   }
 
+  createUserAvatar () {
+    destroyObject(this.things.coinBadge)
+
+    this.things.userAvatar = new UserAvatar(this)
+  }
+
+  createCoinBadge () {
+    destroyObject(this.things.coinBadge)
+
+    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
+    this.things.coinBadge = new CoinBadge(this, x)
+  }
+
   createBackToHomeButton () {
     destroyObject(this.things.homeButton)
 
-    this.things.homeButton = new HomeButton(this)
+    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
+    const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
+    this.things.homeButton = new HomeButton(this, x, y)
   }
 
   createMusicButton () {
@@ -119,12 +142,13 @@ class GameOneScene extends Phaser.Scene {
   }
 
   onHitCoin (sprite, tile) {
-    // SoundManager.stop(this, CollectCoinAudio.KEY)
+    this.things.coinBadge.addCoin(1)
+    this.sound.play(CollectCoinAudio.KEY, { volume: 0.1 })
     this.things.tilemap.coinLayer.removeTileAt(tile.x, tile.y)
-    // SoundManager.play(this, CollectCoinAudio.KEY, { volume: 0.1 })
   }
 
   onHitQuest (sprite, tile) {
+    this.sound.play(HitQuestSound.KEY)
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
   }
 

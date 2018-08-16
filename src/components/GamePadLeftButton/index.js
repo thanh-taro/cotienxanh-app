@@ -14,8 +14,8 @@ class GamePadLeftButton extends Phaser.GameObjects.Sprite {
 
   constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
-    const x = 16
-    const y = scene.cameras.main.height - 16
+    const x = 8
+    const y = scene.cameras.main.height - 8
 
     super(scene, x, y, GamePadLeftButton.KEY, 0)
 

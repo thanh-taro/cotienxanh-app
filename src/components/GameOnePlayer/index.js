@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import JumpAudio from '../JumpAudio'
 import player from './player.png'
 
 class GameOnePlayer extends Phaser.GameObjects.Sprite {
@@ -27,7 +28,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
   }
 
   static preload (scene) {
-    scene.load.spritesheet(GameOnePlayer.KEY, player, { frameWidth: 88, frameHeight: 96 })
+    scene.load.spritesheet(GameOnePlayer.KEY, player, { frameWidth: 110, frameHeight: 128 })
   }
 
   constructor (scene, x, y, scaleHeight, addToScene = true, config = {}) {
@@ -36,25 +37,25 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     const scaleWidth = this.width * scaleHeight / this.height
     this.setDisplaySize(scaleWidth, scaleHeight)
-    this.setSize(scaleWidth - 10, scaleHeight)
+    this.setSize(scaleWidth, scaleHeight)
     this.isRunning = false
     this.isJumping = false
     if (scaleHeight === 32) {
       this.gravityY = 100
-      this.velocityY = 370
-      this.velocityX = 100
+      this.velocityY = 400
+      this.velocityX = 120
     } else if (scaleHeight === 64) {
       this.gravityY = 200
       this.velocityY = 570
-      this.velocityX = 200
+      this.velocityX = 240
     } else if (scaleHeight === 96) {
       this.gravityY = 300
       this.velocityY = 780
-      this.velocityX = 300
+      this.velocityX = 360
     } else {
       this.gravityY = 400
-      this.velocityY = 1000
-      this.velocityX = 400
+      this.velocityY = 900
+      this.velocityX = 480
     }
 
     if (scene.anims.get(GameOnePlayer.IDLE_KEY) === undefined) {
@@ -68,7 +69,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     if (scene.anims.get(GameOnePlayer.RUN_KEY) === undefined) {
       scene.anims.create({
         key: GameOnePlayer.RUN_KEY,
-        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 60, end: 79 }),
+        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 46, end: 65 }),
         frameRate: 30,
         repeat: -1
       })
@@ -76,7 +77,7 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     if (scene.anims.get(GameOnePlayer.JUMP_KEY) === undefined) {
       scene.anims.create({
         key: GameOnePlayer.JUMP_KEY,
-        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 30, end: 59 }),
+        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 16, end: 45 }),
         frameRate: 30,
         repeat: -1
       })
@@ -121,6 +122,8 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
   }
 
   jump () {
+    this.scene.sound.play(JumpAudio.KEY, { volume: 0.1 })
+
     if (!this.isJumping) {
       this.isJumping = true
       this.play(GameOnePlayer.JUMP_KEY)

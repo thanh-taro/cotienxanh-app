@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import SoundManager from '../components/SoundManager'
 import LogoImage from '../components/LogoImage'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
 import GameOneBloonImage from '../components/GameOneBloonImage'
@@ -17,7 +16,14 @@ import HomeScene from './HomeScene'
 import LogoAudio from '../components/LogoAudio'
 import BackgroundAudio from '../components/BackgroundAudio'
 import WelcomeAudio from '../components/WelcomeAudio'
+import GameOneBackgroundAudio from '../components/GameOneBackgroundAudio'
+import CollectCoinAudio from '../components/CollectCoinAudio'
+import JumpAudio from '../components/JumpAudio'
+import HitQuestSound from '../components/HitQuestSound'
+import Setting from '../components/Setting'
 import { destroyObject } from '../helpers'
+import CoinBadge from '../components/CoinBadge'
+import UserAvatar from '../components/UserAvatar'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -31,8 +37,16 @@ class BootScene extends Phaser.Scene {
   }
 
   preload () {
+    UserAvatar.preload(this)
     LogoImage.preload(this)
-    SoundManager.preload(this)
+    LogoAudio.preload(this)
+    WelcomeAudio.preload(this)
+    BackgroundAudio.preload(this)
+    GameOneBackgroundAudio.preload(this)
+    CollectCoinAudio.preload(this)
+    JumpAudio.preload(this)
+    HitQuestSound.preload(this)
+    CoinBadge.preload(this)
     HomeBackgroundImage.preload(this)
     GameOneBloonImage.preload(this)
     GameTwoBloonImage.preload(this)
@@ -48,8 +62,10 @@ class BootScene extends Phaser.Scene {
   }
 
   create () {
+    if (!Setting.MUSIC_ENABLED) this.sound.setMute(true)
+
     this.things.logoImage = this.makeLogoImage()
-    SoundManager.play(this, LogoAudio.KEY, { playOnce: true })
+    this.sound.play(LogoAudio.KEY)
   }
 
   update () {
@@ -65,8 +81,7 @@ class BootScene extends Phaser.Scene {
 
     this.input.addPointer(3)
 
-    SoundManager.play(this, BackgroundAudio.KEY, { loop: true, volume: 0.3 })
-    SoundManager.play(this, WelcomeAudio.KEY, { playOnce: true })
+    this.sound.play(WelcomeAudio.KEY)
 
     this.scene.start(HomeScene.KEY)
   }

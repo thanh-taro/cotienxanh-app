@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import BackgroundAudio from '../components/BackgroundAudio'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
 import GameOneBloonImage from '../components/GameOneBloonImage'
 import GameTwoBloonImage from '../components/GameTwoBloonImage'
@@ -6,6 +7,8 @@ import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
 import MusicButton from '../components/MusicButton'
 import { destroyObject } from '../helpers'
+import CoinBadge from '../components/CoinBadge'
+import UserAvatar from '../components/UserAvatar'
 
 class HomeScene extends Phaser.Scene {
   static get KEY () {
@@ -19,10 +22,12 @@ class HomeScene extends Phaser.Scene {
   }
 
   create () {
-    this.things.loadTimes = this.things.loadTimes === undefined ? 1 : this.things.loadTimes + 1
+    this.sound.play(BackgroundAudio.KEY, { loop: true, volume: 0.3 })
 
     this.createBackgroundImage()
     this.createGameBloons()
+    this.createUserAvatar()
+    this.createCoinBadge()
     this.createMusicButton()
   }
 
@@ -46,6 +51,19 @@ class HomeScene extends Phaser.Scene {
     this.things.gameTwoBloonImage = new GameTwoBloonImage(this)
     this.things.gameThreeBloonImage = new GameThreeBloonImage(this)
     this.things.gameFourBloonImage = new GameFourBloonImage(this)
+  }
+
+  createUserAvatar () {
+    destroyObject(this.things.coinBadge)
+
+    this.things.userAvatar = new UserAvatar(this)
+  }
+
+  createCoinBadge () {
+    destroyObject(this.things.coinBadge)
+
+    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
+    this.things.coinBadge = new CoinBadge(this, x)
   }
 
   createMusicButton () {
