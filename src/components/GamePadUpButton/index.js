@@ -14,8 +14,8 @@ class GamePadUpButton extends Phaser.GameObjects.Sprite {
 
   constructor (scene, onDown, onRelease, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
-    const x = scene.cameras.main.width - 16
-    const y = scene.cameras.main.height - 16
+    const x = scene.cameras.main.width - 8
+    const y = scene.cameras.main.height - 8
 
     super(scene, x, y, GamePadUpButton.KEY, 0)
     this.onDown = onDown

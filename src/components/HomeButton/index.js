@@ -13,15 +13,13 @@ class HomeButton extends Phaser.GameObjects.Sprite {
     scene.load.spritesheet(HomeButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
   }
 
-  constructor (scene, addToScene = true, config = {}) {
+  constructor (scene, x, y, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
-    const x = 16
-    const y = 16
 
     super(scene, x, y, HomeButton.KEY, 0)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
-    this.setOrigin(0)
+    this.setOrigin(0, 0)
     this.setScale(scale)
     this.setScrollFactor(0)
 
@@ -37,6 +35,7 @@ class HomeButton extends Phaser.GameObjects.Sprite {
   }
 
   onPointerDown () {
+    this.scene.sound.stopAll()
     this.setFrame(2)
     this.scene.scene.start(HomeScene.KEY)
   }

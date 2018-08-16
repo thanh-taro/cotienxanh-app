@@ -18,7 +18,6 @@ export const loadAsset = (scene, assetSpec) => {
 
 export const destroyObject = (object) => {
   if (object === undefined) return
-
-  object.destroy()
+  if (object.destroy) object.destroy()
   object = null
 }
