@@ -1,10 +1,12 @@
+import button from './button.png'
+
 const assetSpec = {
-  asset: null,
+  asset: button,
   assetScaleBy: 'height',
   assetScale: 6,
   assetScaleBase: 320,
-  assetWidth: 256,
-  assetHeight: 256
+  assetWidth: 192,
+  assetHeight: 192
 }
 
 export default assetSpec

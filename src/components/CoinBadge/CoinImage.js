@@ -12,9 +12,10 @@ class CoinImage extends Phaser.GameObjects.Image {
     scene.load.image(CoinImage.KEY, asset)
   }
 
-  constructor (scene, x, addToScene = true, config = {}) {
+  constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
 
+    const x = 8
     const y = 8
 
     super(scene, x, y, CoinImage.KEY)

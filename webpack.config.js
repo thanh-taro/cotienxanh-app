@@ -52,7 +52,7 @@ module.exports = {
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]
     }, {
       test: /\.(png|jpg|svg)$/,
-      use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }, 'image-webpack-loader']
+      use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]' } }]
     }]
   }
 }

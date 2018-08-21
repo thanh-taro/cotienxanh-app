@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import WelcomeAudio from '../components/WelcomeAudio'
 import BackgroundAudio from '../components/BackgroundAudio'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
 import GameOneBloonImage from '../components/GameOneBloonImage'
@@ -6,9 +7,8 @@ import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
 import MusicButton from '../components/MusicButton'
-import { destroyObject } from '../helpers'
 import CoinBadge from '../components/CoinBadge'
-import UserAvatar from '../components/UserAvatar'
+import { destroyObject } from '../helpers'
 
 class HomeScene extends Phaser.Scene {
   static get KEY () {
@@ -21,12 +21,23 @@ class HomeScene extends Phaser.Scene {
     this.things = {}
   }
 
-  create () {
-    this.sound.play(BackgroundAudio.KEY, { loop: true, volume: 0.3 })
+  preload () {
+    CoinBadge.preload(this)
+    HomeBackgroundImage.preload(this)
+    GameOneBloonImage.preload(this)
+    GameTwoBloonImage.preload(this)
+    GameThreeBloonImage.preload(this)
+    GameFourBloonImage.preload(this)
+    MusicButton.preload(this)
+    BackgroundAudio.preload(this)
+    WelcomeAudio.preload(this)
+  }
 
+  create () {
+    this.playWelcomeAudio()
+    this.playBackgroundMusic()
     this.createBackgroundImage()
     this.createGameBloons()
-    this.createUserAvatar()
     this.createCoinBadge()
     this.createMusicButton()
   }
@@ -53,23 +64,27 @@ class HomeScene extends Phaser.Scene {
     this.things.gameFourBloonImage = new GameFourBloonImage(this)
   }
 
-  createUserAvatar () {
-    destroyObject(this.things.coinBadge)
-
-    this.things.userAvatar = new UserAvatar(this)
-  }
-
   createCoinBadge () {
     destroyObject(this.things.coinBadge)
 
-    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
-    this.things.coinBadge = new CoinBadge(this, x)
+    this.things.coinBadge = new CoinBadge(this)
   }
 
   createMusicButton () {
     destroyObject(this.things.musicButton)
 
     this.things.musicButton = new MusicButton(this)
+  }
+
+  playWelcomeAudio () {
+    if (this.things.isWelcomeAudioPlayed === undefined) {
+      this.things.isWelcomeAudioPlayed = true
+      this.sound.play(WelcomeAudio.KEY)
+    }
+  }
+
+  playBackgroundMusic () {
+    this.sound.play(BackgroundAudio.KEY, { loop: true, volume: 0.3 })
   }
 }
 

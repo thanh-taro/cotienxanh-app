@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import GameOneWelcomeAudio from '../components/GameOneWelcomeAudio'
 import GameOneBackgroundAudio from '../components/GameOneBackgroundAudio'
 import GameOneTilemap from '../components/GameOneTilemap'
 import GameOnePlayer from '../components/GameOnePlayer'
@@ -9,9 +10,11 @@ import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
-import { destroyObject } from '../helpers'
+import JumpAudio from '../components/JumpAudio'
+import BackButton from '../components/BackButton'
+import { isTouchableDevice, destroyObject } from '../helpers'
 import CoinBadge from '../components/CoinBadge'
-import UserAvatar from '../components/UserAvatar'
+import FindPairScene from './FindPairScene'
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -24,121 +27,153 @@ class GameOneScene extends Phaser.Scene {
     this.things = {}
   }
 
-  create () {
-    this.sound.stopAll()
-    this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 0.8 })
+  preload () {
+    GameOneWelcomeAudio.preload(this)
+    GameOneBackgroundAudio.preload(this)
+    GameOneTilemap.preload(this)
+    GamePadLeftButton.preload(this)
+    GamePadRightButton.preload(this)
+    GamePadUpButton.preload(this)
+    GameOnePlayer.preload(this)
+    CollectCoinAudio.preload(this)
+    JumpAudio.preload(this)
+    HitQuestSound.preload(this)
+    HomeButton.preload(this)
+    BackButton.preload(this)
+  }
 
+  create (data) {
+    if (data) {
+      const { forceRestart } = data
+      if (forceRestart) this.forceRestart()
+      delete this.scene.settings.data
+    }
+
+    this.playWelcomeAudio()
+    this.playBackgroundMusic()
     this.createTilemap()
     this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.tileHeight)
     this.createPlayerInteractiveWithMap()
     this.createGameTouchPads()
     this.createGameKeyboardKeys()
-    this.createUserAvatar()
     this.createCoinBadge()
     this.createBackToHomeButton()
     this.createMusicButton()
+
+    this.things.isMovingLeft = false
+    this.things.isMovingRight = false
+    this.things.isJumping = false
+    this.things.touching = false
   }
 
   update (time, delta) {
+    const { isMovingLeft, isMovingRight, isJumping, touching, keyLeft, keyRight, keySpace, player } = this.things
+
     for (let index in this.things) if (this.things[index].update) this.things[index].update()
 
-    if (this.things.keyLeft.isDown) this.onKeyLeftDown()
-    else if (this.things.keyLeft.isUp && !this.touching) this.onKeyLeftUp()
-    if (this.things.keyRight.isDown) this.onKeyRightDown()
-    else if (this.things.keyRight.isUp && !this.touching) this.onKeyRightUp()
-    if (this.things.keySpace.isDown) this.onKeySpaceDown()
-    else if (this.things.keySpace.isUp && !this.touching) this.onKeySpaceUp()
+    if (keyLeft && keyLeft.isDown) this.onKeyLeftDown()
+    else if (keyLeft && keyLeft.isUp && !touching) this.onKeyLeftUp()
+    if (keyRight && keyRight.isDown) this.onKeyRightDown()
+    else if (keyRight && keyRight.isUp && !touching) this.onKeyRightUp()
+    if (keySpace && keySpace.isDown) this.onKeySpaceDown()
+    else if (keySpace && keySpace.isUp && !touching) this.onKeySpaceUp()
 
     const onFloor = this.things.player.body.onFloor()
 
-    if (this.things.player.isJumping && onFloor) this.things.player.stopActions()
+    if (player.isJumping && onFloor) player.stopActions()
 
-    if (this.isJumping && onFloor) this.things.player.jump()
-    if (this.isMovingLeft) this.things.player.run(GameOnePlayer.DIRECTION_LEFT)
-    if (this.isMovingRight) this.things.player.run(GameOnePlayer.DIRECTION_RIGHT)
+    if (isJumping && onFloor) player.jump()
+    if (isMovingLeft) player.run(GameOnePlayer.DIRECTION_LEFT)
+    if (isMovingRight) player.run(GameOnePlayer.DIRECTION_RIGHT)
 
-    if (!this.isMovingLeft && !this.isMovingRight && !this.isJumping && !this.things.player.isJumping) this.things.player.stopActions()
+    if (!isMovingLeft && !isMovingRight && !isJumping && !player.isJumping) player.stopActions()
   }
 
-  createUserAvatar () {
-    destroyObject(this.things.coinBadge)
-
-    this.things.userAvatar = new UserAvatar(this)
+  forceRestart () {
+    for (let index in this.things) {
+      destroyObject(this.things[index])
+      delete this.things[index]
+    }
   }
 
   createCoinBadge () {
-    destroyObject(this.things.coinBadge)
-
-    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
-    this.things.coinBadge = new CoinBadge(this, x)
+    if (this.things.coinBadge === undefined) this.things.coinBadge = new CoinBadge(this)
   }
 
   createBackToHomeButton () {
-    destroyObject(this.things.homeButton)
-
-    const x = this.things.userAvatar.x + this.things.userAvatar.displayWidth + 8
-    const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
-    this.things.homeButton = new HomeButton(this, x, y)
+    if (this.things.homeButton === undefined) {
+      const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
+      this.things.homeButton = new HomeButton(this, y)
+    }
   }
 
   createMusicButton () {
-    destroyObject(this.things.musicButton)
-
-    this.things.musicButton = new MusicButton(this)
+    if (this.things.musicButton === undefined) this.things.musicButton = new MusicButton(this)
   }
 
   createTilemap () {
-    destroyObject(this.things.tilemap)
-
-    this.things.tilemap = new GameOneTilemap(this)
+    if (this.things.tilemap === undefined) this.things.tilemap = new GameOneTilemap(this)
   }
 
   createPlayer (playerStartX, playerStartY, scaleHeight) {
-    destroyObject(this.things.player)
-
-    this.things.player = new GameOnePlayer(this, playerStartX, playerStartY, scaleHeight)
+    if (this.things.player === undefined) this.things.player = new GameOnePlayer(this, playerStartX, playerStartY, scaleHeight)
   }
 
   createPlayerInteractiveWithMap () {
     if (this.things.tilemap === undefined || this.things.tilemap === null || this.things.player === undefined || this.things.player === null) return
 
-    this.physics.add.collider(this.things.tilemap.platformLayer, this.things.player)
-    this.physics.add.overlap(this.things.tilemap.coinLayer, this.things.player)
-    this.physics.add.overlap(this.things.tilemap.questLayer, this.things.player)
-    this.things.tilemap.coinLayer.setTileIndexCallback(18, this.onHitCoin, this)
-    this.things.tilemap.questLayer.setTileIndexCallback(27, this.onHitQuest, this)
+    if (this.things.alreadyPlayInteractive === undefined) {
+      this.physics.add.collider(this.things.tilemap.platformLayer, this.things.player)
+      this.physics.add.overlap(this.things.tilemap.coinLayer, this.things.player)
+      this.physics.add.overlap(this.things.tilemap.questLayer, this.things.player)
+      this.things.tilemap.coinLayer.setTileIndexCallback(18, this.onHitCoin, this)
+      this.things.tilemap.questLayer.setTileIndexCallback(27, this.onHitQuest, this)
+      this.things.alreadyPlayInteractive = true
+    }
   }
 
   createGameTouchPads () {
-    if (this.things.gamePadLeftButton !== undefined) {
-      this.things.gamePadLeftButton.destroy()
-      this.things.gamePadLeftButton = null
-    }
-    if (this.things.gamePadRightButton !== undefined) {
-      this.things.gamePadRightButton.destroy()
-      this.things.gamePadRightButton = null
-    }
-    if (this.things.gamePadUpButton !== undefined) {
-      this.things.gamePadUpButton.destroy()
-      this.things.gamePadUpButton = null
-    }
+    if (!isTouchableDevice()) return
 
-    this.things.gamePadLeftButton = new GamePadLeftButton(this)
-    this.things.gamePadRightButton = new GamePadRightButton(this)
-    this.things.gamePadUpButton = new GamePadUpButton(this)
-
-    this.things.gamePadLeftButton.on('down', this.onGamePadLeftDown.bind(this))
-    this.things.gamePadLeftButton.on('release', this.onGamePadLeftRelease.bind(this))
-    this.things.gamePadRightButton.on('down', this.onGamePadRightDown.bind(this))
-    this.things.gamePadRightButton.on('release', this.onGamePadRightRelease.bind(this))
-    this.things.gamePadUpButton.on('down', this.onGamePadUpDown.bind(this))
-    this.things.gamePadUpButton.on('release', this.onGamePadUpRelease.bind(this))
+    if (this.things.gamePadLeftButton === undefined) {
+      this.things.gamePadLeftButton = new GamePadLeftButton(this)
+      this.things.gamePadLeftButton.on('down', this.onGamePadLeftDown.bind(this))
+      this.things.gamePadLeftButton.on('release', this.onGamePadLeftRelease.bind(this))
+    }
+    if (this.things.gamePadRightButton === undefined) {
+      this.things.gamePadRightButton = new GamePadRightButton(this)
+      this.things.gamePadRightButton.on('down', this.onGamePadRightDown.bind(this))
+      this.things.gamePadRightButton.on('release', this.onGamePadRightRelease.bind(this))
+    }
+    if (this.things.gamePadUpButton === undefined) {
+      this.things.gamePadUpButton = new GamePadUpButton(this)
+      this.things.gamePadUpButton.on('down', this.onGamePadUpDown.bind(this))
+      this.things.gamePadUpButton.on('release', this.onGamePadUpRelease.bind(this))
+    }
   }
 
   createGameKeyboardKeys () {
     if (this.things.keyLeft === undefined) this.things.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
     if (this.things.keyRight === undefined) this.things.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
     if (this.things.keySpace === undefined) this.things.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+    this.things.keyLeft.reset()
+    this.things.keyRight.reset()
+    this.things.keySpace.reset()
+  }
+
+  playWelcomeAudio () {
+    this.sound.play(GameOneWelcomeAudio.KEY)
+    this.sound.on('endedEvent', () => {
+      console.log(1)
+    })
+  }
+
+  playBackgroundMusic () {
+    if (this.things.isBackgroundMusicPlayed === undefined) {
+      this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 1 })
+      this.things.isBackgroundMusicPlayed = true
+    }
   }
 
   onHitCoin (sprite, tile) {
@@ -150,63 +185,77 @@ class GameOneScene extends Phaser.Scene {
   onHitQuest (sprite, tile) {
     this.sound.play(HitQuestSound.KEY)
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
+    this.playFindPair()
   }
 
   onGamePadLeftDown () {
-    this.touching = true
-    this.isMovingLeft = true
+    this.things.touching = true
+    this.things.isMovingLeft = true
   }
 
   onGamePadLeftRelease () {
-    this.isMovingLeft = false
+    this.things.isMovingLeft = false
   }
 
   onGamePadRightDown () {
-    this.touching = true
-    this.isMovingRight = true
+    this.things.touching = true
+    this.things.isMovingRight = true
   }
 
   onGamePadRightRelease () {
-    this.isMovingRight = false
+    this.things.isMovingRight = false
   }
 
   onGamePadUpDown () {
-    this.touching = true
-    this.isJumping = true
+    this.things.touching = true
+    this.things.isJumping = true
   }
 
   onGamePadUpRelease () {
-    this.isJumping = false
+    this.things.isJumping = false
   }
 
   onKeyLeftDown () {
-    this.touching = false
-    this.isMovingLeft = true
+    this.things.touching = false
+    this.things.isMovingLeft = true
   }
 
   onKeyLeftUp () {
-    this.touching = false
-    this.isMovingLeft = false
+    this.things.touching = false
+    this.things.isMovingLeft = false
   }
 
   onKeyRightDown () {
-    this.touching = false
-    this.isMovingRight = true
+    this.things.touching = false
+    this.things.isMovingRight = true
   }
 
   onKeyRightUp () {
-    this.touching = false
-    this.isMovingRight = false
+    this.things.touching = false
+    this.things.isMovingRight = false
   }
 
   onKeySpaceDown () {
-    this.touching = false
-    this.isJumping = true
+    this.things.touching = false
+    this.things.isJumping = true
   }
 
   onKeySpaceUp () {
-    this.touching = false
-    this.isJumping = false
+    this.things.touching = false
+    this.things.isJumping = false
+  }
+
+  playFindPair () {
+    this.things.keyLeft.reset()
+    this.things.keyRight.reset()
+    this.things.keySpace.reset()
+    this.things.isMovingLeft = false
+    this.things.isMovingRight = false
+    this.things.isJumping = false
+    this.things.touching = false
+
+    this.scene.pause()
+    this.scene.run(FindPairScene.KEY)
   }
 }
 

@@ -1,29 +1,31 @@
 import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
-import HomeScene from '../../scenes/HomeScene'
 
-class HomeButton extends Phaser.GameObjects.Sprite {
+class BackButton extends Phaser.GameObjects.Sprite {
   static get KEY () {
-    return 'HomeButton'
+    return 'BackButton'
   }
 
   static preload (scene) {
     const { asset, assetWidth, assetHeight } = loadAsset(scene, assetSpec)
-    scene.load.spritesheet(HomeButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
+    scene.load.spritesheet(BackButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
   }
 
-  constructor (scene, y, addToScene = true, config = {}) {
+  constructor (scene, parentScene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
-
     const x = 8
+    const y = 8
 
-    super(scene, x, y, HomeButton.KEY, 0)
+    super(scene, x, y, BackButton.KEY, 0)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     this.setOrigin(0, 0)
     this.setScale(scale)
     this.setScrollFactor(0)
+    this.setInteractive()
+    this.on('pointerdown', this.onPointerDown, this)
+    this.parentScene = parentScene
 
     if (addToScene) this.addToScene(scene)
   }
@@ -32,15 +34,12 @@ class HomeButton extends Phaser.GameObjects.Sprite {
     this.setFrame(0)
 
     scene.add.existing(this)
-    this.setInteractive()
-    this.on('pointerdown', this.onPointerDown, this)
   }
 
   onPointerDown () {
-    this.setFrame(2)
-    this.scene.sound.stopAll()
-    this.scene.scene.start(HomeScene.KEY)
+    this.scene.scene.stop()
+    this.scene.scene.resume(this.parentScene)
   }
 }
 
-export default HomeButton
+export default BackButton
