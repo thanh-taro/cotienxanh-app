@@ -63,7 +63,7 @@ module.exports = {
       use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]', outputPath: 'assets' } }]
     }, {
       test: /\.(png|jpg|svg)$/,
-      use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]', outputPath: 'assets' } }, 'image-webpack-loader']
+      use: [{ loader: 'file-loader', options: { name: '[name].[hash].[ext]', outputPath: 'assets' } }]
     }]
   }
 }

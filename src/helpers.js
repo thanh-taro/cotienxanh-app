@@ -21,3 +21,7 @@ export const destroyObject = (object) => {
   if (object.destroy) object.destroy()
   object = null
 }
+
+export const isTouchableDevice = () => {
+  return 'ontouchstart' in document.documentElement
+}

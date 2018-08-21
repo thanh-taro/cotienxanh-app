@@ -2,12 +2,13 @@ import Phaser from 'phaser'
 import BootScene from './scenes/BootScene'
 import HomeScene from './scenes/HomeScene'
 import GameOneScene from './scenes/GameOneScene'
+import FindPairScene from './scenes/FindPairScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
 export const parent = 'game-panel'
 export const type = Phaser.AUTO
-export const resolution = 1 // window.devicePixelRatio || 1
+export const resolution = window.devicePixelRatio || 1
 export const width = document.documentElement.clientWidth
 export const height = document.documentElement.clientHeight
 export const zoom = 1
@@ -20,4 +21,4 @@ export const physics = {
     debug: false
   }
 }
-export const scene = [ BootScene, HomeScene, GameOneScene ]
+export const scene = [ BootScene, HomeScene, GameOneScene, FindPairScene ]

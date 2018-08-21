@@ -38,49 +38,25 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     const scaleWidth = this.width * scaleHeight / this.height
     this.setDisplaySize(scaleWidth, scaleHeight)
     this.setSize(scaleWidth, scaleHeight)
+    this.createAnimations()
     this.isRunning = false
     this.isJumping = false
     if (scaleHeight === 32) {
       this.gravityY = 100
       this.velocityY = 400
-      this.velocityX = 120
+      this.velocityX = 100
     } else if (scaleHeight === 64) {
       this.gravityY = 200
       this.velocityY = 570
-      this.velocityX = 240
+      this.velocityX = 200
     } else if (scaleHeight === 96) {
       this.gravityY = 300
       this.velocityY = 780
-      this.velocityX = 360
+      this.velocityX = 300
     } else {
       this.gravityY = 400
       this.velocityY = 900
-      this.velocityX = 480
-    }
-
-    if (scene.anims.get(GameOnePlayer.IDLE_KEY) === undefined) {
-      scene.anims.create({
-        key: GameOnePlayer.IDLE_KEY,
-        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 0, end: 15 }),
-        frameRate: 30,
-        repeat: -1
-      })
-    }
-    if (scene.anims.get(GameOnePlayer.RUN_KEY) === undefined) {
-      scene.anims.create({
-        key: GameOnePlayer.RUN_KEY,
-        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 46, end: 65 }),
-        frameRate: 30,
-        repeat: -1
-      })
-    }
-    if (scene.anims.get(GameOnePlayer.JUMP_KEY) === undefined) {
-      scene.anims.create({
-        key: GameOnePlayer.JUMP_KEY,
-        frames: scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 16, end: 45 }),
-        frameRate: 30,
-        repeat: -1
-      })
+      this.velocityX = 400
     }
 
     if (addToScene) this.addToScene(scene)
@@ -141,6 +117,33 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
 
   reset () {
     this.body.setVelocityX(0)
+  }
+
+  createAnimations () {
+    if (this.scene.anims.get(GameOnePlayer.IDLE_KEY) === undefined) {
+      this.scene.anims.create({
+        key: GameOnePlayer.IDLE_KEY,
+        frames: this.scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 0, end: 15 }),
+        frameRate: 30,
+        repeat: -1
+      })
+    }
+    if (this.scene.anims.get(GameOnePlayer.RUN_KEY) === undefined) {
+      this.scene.anims.create({
+        key: GameOnePlayer.RUN_KEY,
+        frames: this.scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 46, end: 65 }),
+        frameRate: 30,
+        repeat: -1
+      })
+    }
+    if (this.scene.anims.get(GameOnePlayer.JUMP_KEY) === undefined) {
+      this.scene.anims.create({
+        key: GameOnePlayer.JUMP_KEY,
+        frames: this.scene.anims.generateFrameNumbers(GameOnePlayer.KEY, { start: 16, end: 45 }),
+        frameRate: 30,
+        repeat: -1
+      })
+    }
   }
 }
 
