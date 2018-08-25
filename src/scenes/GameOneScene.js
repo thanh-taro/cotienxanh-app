@@ -10,11 +10,9 @@ import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
-import JumpAudio from '../components/JumpAudio'
-import BackButton from '../components/BackButton'
-import { isTouchableDevice, destroyObject } from '../helpers'
 import CoinBadge from '../components/CoinBadge'
-import FindPairScene from './FindPairScene'
+import FindPairScene from '../scenes/FindPairScene'
+import { isTouchableDevice, destroyObject } from '../helpers'
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -25,21 +23,6 @@ class GameOneScene extends Phaser.Scene {
     super({ key: GameOneScene.KEY })
 
     this.things = {}
-  }
-
-  preload () {
-    GameOneWelcomeAudio.preload(this)
-    GameOneBackgroundAudio.preload(this)
-    GameOneTilemap.preload(this)
-    GamePadLeftButton.preload(this)
-    GamePadRightButton.preload(this)
-    GamePadUpButton.preload(this)
-    GameOnePlayer.preload(this)
-    CollectCoinAudio.preload(this)
-    JumpAudio.preload(this)
-    HitQuestSound.preload(this)
-    HomeButton.preload(this)
-    BackButton.preload(this)
   }
 
   create (data) {
@@ -164,16 +147,10 @@ class GameOneScene extends Phaser.Scene {
 
   playWelcomeAudio () {
     this.sound.play(GameOneWelcomeAudio.KEY)
-    this.sound.on('endedEvent', () => {
-      console.log(1)
-    })
   }
 
   playBackgroundMusic () {
-    if (this.things.isBackgroundMusicPlayed === undefined) {
-      this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 1 })
-      this.things.isBackgroundMusicPlayed = true
-    }
+    this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 1 })
   }
 
   onHitCoin (sprite, tile) {
@@ -185,12 +162,13 @@ class GameOneScene extends Phaser.Scene {
   onHitQuest (sprite, tile) {
     this.sound.play(HitQuestSound.KEY)
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
-    this.playFindPair()
+    // this.playFindPair()
   }
 
   onGamePadLeftDown () {
     this.things.touching = true
     this.things.isMovingLeft = true
+    this.things.isMovingRight = false
   }
 
   onGamePadLeftRelease () {
@@ -200,6 +178,7 @@ class GameOneScene extends Phaser.Scene {
   onGamePadRightDown () {
     this.things.touching = true
     this.things.isMovingRight = true
+    this.things.isMovingLeft = false
   }
 
   onGamePadRightRelease () {
@@ -218,6 +197,7 @@ class GameOneScene extends Phaser.Scene {
   onKeyLeftDown () {
     this.things.touching = false
     this.things.isMovingLeft = true
+    this.things.isMovingRight = false
   }
 
   onKeyLeftUp () {
@@ -228,6 +208,7 @@ class GameOneScene extends Phaser.Scene {
   onKeyRightDown () {
     this.things.touching = false
     this.things.isMovingRight = true
+    this.things.isMovingLeft = false
   }
 
   onKeyRightUp () {
