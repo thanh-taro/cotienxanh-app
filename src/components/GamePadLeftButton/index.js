@@ -14,7 +14,7 @@ class GamePadLeftButton extends Phaser.GameObjects.Sprite {
 
   constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
-    const x = 8
+    const x = 24
     const y = scene.cameras.main.height - 8
 
     super(scene, x, y, GamePadLeftButton.KEY, 0)
@@ -24,7 +24,6 @@ class GamePadLeftButton extends Phaser.GameObjects.Sprite {
     this.setScale(scale)
     this.setScrollFactor(0)
     this.setInteractive()
-    this.setFrame(2)
     this.on('pointerdown', this.onPointerDown, this)
     this.on('pointerup', this.onPointerRelease, this)
     this.on('pointerout', this.onPointerRelease, this)
@@ -44,7 +43,7 @@ class GamePadLeftButton extends Phaser.GameObjects.Sprite {
   }
 
   onPointerRelease () {
-    this.setFrame(2)
+    this.setFrame(0)
     this.setAlpha(0.2)
 
     this.emit('release')

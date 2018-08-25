@@ -43,19 +43,19 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     this.isJumping = false
     if (scaleHeight === 32) {
       this.gravityY = 100
-      this.velocityY = 400
+      this.velocityY = 300
       this.velocityX = 100
     } else if (scaleHeight === 64) {
       this.gravityY = 200
-      this.velocityY = 570
+      this.velocityY = 420
       this.velocityX = 200
     } else if (scaleHeight === 96) {
       this.gravityY = 300
-      this.velocityY = 780
+      this.velocityY = 600
       this.velocityX = 300
     } else {
       this.gravityY = 400
-      this.velocityY = 900
+      this.velocityY = 800
       this.velocityX = 400
     }
 

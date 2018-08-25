@@ -13,7 +13,7 @@ class CoinText extends Phaser.GameObjects.Text {
     this.setOrigin(0, 0.5)
     this.setScrollFactor(0)
     this.setAlign('left')
-    this.setFontFamily('monospace')
+    this.setFontFamily('Quicksand, monospace')
     this.setFontStyle('bold')
     this.setColor('#FFEB3B')
     this.setShadow(1, 1, '#000000')

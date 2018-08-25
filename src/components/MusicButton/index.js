@@ -32,7 +32,7 @@ class MusicButton extends Phaser.GameObjects.Sprite {
 
   addToScene (scene) {
     if (Setting.MUSIC_ENABLED === true) this.setFrame(0)
-    else this.setFrame(3)
+    else this.setFrame(1)
 
     scene.add.existing(this)
   }
@@ -47,14 +47,12 @@ class MusicButton extends Phaser.GameObjects.Sprite {
   }
 
   disableSounds () {
-    this.setFrame(3)
-
+    this.setFrame(1)
     this.scene.sound.setMute(true)
   }
 
   enableSounds () {
     this.setFrame(0)
-
     this.scene.sound.setMute(false)
   }
 }

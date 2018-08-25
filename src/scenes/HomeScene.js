@@ -21,18 +21,6 @@ class HomeScene extends Phaser.Scene {
     this.things = {}
   }
 
-  preload () {
-    CoinBadge.preload(this)
-    HomeBackgroundImage.preload(this)
-    GameOneBloonImage.preload(this)
-    GameTwoBloonImage.preload(this)
-    GameThreeBloonImage.preload(this)
-    GameFourBloonImage.preload(this)
-    MusicButton.preload(this)
-    BackgroundAudio.preload(this)
-    WelcomeAudio.preload(this)
-  }
-
   create () {
     this.playWelcomeAudio()
     this.playBackgroundMusic()
