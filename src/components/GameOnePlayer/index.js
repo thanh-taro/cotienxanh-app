@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import JumpAudio from '../JumpAudio'
 import player from './player.png'
 
 class GameOnePlayer extends Phaser.GameObjects.Sprite {
@@ -35,44 +34,46 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
     super(scene, x, y, GameOnePlayer.KEY)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
-    const scaleWidth = this.width * scaleHeight / this.height
-    this.setDisplaySize(scaleWidth, scaleHeight)
-    this.setSize(scaleWidth, scaleHeight)
+
+    const scale = scaleHeight / this.height
+    this.setScale(scale)
+    this.setSize(this.displayWidth, this.displayHeight)
+
     this.createAnimations()
     this.isRunning = false
     this.isJumping = false
-    if (scaleHeight === 32) {
+
+    if (scaleHeight <= 32) {
       this.gravityY = 100
       this.velocityY = 300
       this.velocityX = 100
-    } else if (scaleHeight === 64) {
+    } else if (scaleHeight <= 64) {
       this.gravityY = 200
       this.velocityY = 420
       this.velocityX = 200
-    } else if (scaleHeight === 96) {
+    } else if (scaleHeight <= 96) {
       this.gravityY = 300
       this.velocityY = 600
-      this.velocityX = 300
+      this.velocityX = 270
     } else {
       this.gravityY = 400
-      this.velocityY = 800
-      this.velocityX = 400
+      this.velocityY = 700
+      this.velocityX = 350
     }
 
     if (addToScene) this.addToScene(scene)
   }
 
-  update () {
-    this.reset()
-  }
-
   addToScene (scene) {
     scene.physics.add.existing(this)
     scene.cameras.main.startFollow(this)
+
     this.body.setCollideWorldBounds(true)
     this.body.setGravityY(this.gravityY)
 
     this.play(GameOnePlayer.IDLE_KEY)
+
+    scene.children.bringToTop(this)
   }
 
   changeDirection (direction) {
@@ -98,8 +99,6 @@ class GameOnePlayer extends Phaser.GameObjects.Sprite {
   }
 
   jump () {
-    this.scene.sound.play(JumpAudio.KEY, { volume: 0.1 })
-
     if (!this.isJumping) {
       this.isJumping = true
       this.play(GameOnePlayer.JUMP_KEY)

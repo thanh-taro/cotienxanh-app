@@ -1,5 +1,6 @@
 import './css/fonts.css'
 import './css/index.css'
+import '../../node_modules/tingle.js/dist/tingle.css'
 import Game from '../Game'
 
 const startGame = function () {
@@ -10,11 +11,19 @@ if (window.cordova) {
   let app = {
     initialize: function () {
       document.addEventListener('deviceready', this.onDeviceReady.bind(this), false)
+      document.addEventListener('pause', this.onPause.bind(this), false)
+      document.addEventListener('resume', this.onResume.bind(this), false)
     },
-    // deviceready Event Handler
     onDeviceReady: function () {
       // When the device is ready, start Phaser Boot state.
+      window.plugins.insomnia.keepAwake()
       startGame()
+    },
+    onPause: function () {
+      window.game.sound.pauseAll()
+    },
+    onResume: function () {
+      window.game.sound.resumeAll()
     }
   }
 

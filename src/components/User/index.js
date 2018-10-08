@@ -1,16 +1,27 @@
 import store from 'store'
-import avatar from './girl.png'
+import axios from 'axios'
 
 class User {
-  static currentUser () {
-    let coin = store.get('user.coin')
-    if (coin === undefined) coin = 200
-    return { avatar, coin }
+  static storeUser (user) {
+    user.coin = parseInt(user.coin)
+    store.set('user', user)
   }
 
-  static setCoin (value) {
-    // TODO: CALL API endpoint to set coin
-    store.set('user.coin', value)
+  static currentUser () {
+    let user = store.get('user')
+
+    if (undefined !== user && undefined === user.coin) user.coin = 200
+
+    return user
+  }
+
+  static setCoin (coin) {
+    let user = store.get('user')
+    const id = user.id
+
+    user.coin = coin
+    store.set('user', user)
+    axios.post('http://cotienxanh.edu.vn/api/set-coin', { id, coin })
   }
 }
 

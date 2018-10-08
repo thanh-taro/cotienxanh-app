@@ -51,6 +51,7 @@ class GameFourBloonImage extends Phaser.GameObjects.Image {
 
   addToScene (scene) {
     scene.add.existing(this)
+    // scene.updates.add(this)
   }
 }
 

@@ -37,7 +37,9 @@ class MusicButton extends Phaser.GameObjects.Sprite {
     scene.add.existing(this)
   }
 
-  onPointerDown () {
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+
     const enabled = !Setting.MUSIC_ENABLED
 
     Setting.MUSIC_ENABLED = enabled

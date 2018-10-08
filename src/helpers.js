@@ -25,3 +25,31 @@ export const destroyObject = (object) => {
 export const isTouchableDevice = () => {
   return 'ontouchstart' in document.documentElement
 }
+
+export const randItem = (items) => {
+  const index = Math.floor(Math.random() * items.length)
+  return items[index]
+}
+
+export const randSplice = (items) => {
+  const index = Math.floor(Math.random() * items.length)
+  const item = items.splice(index, 1)
+
+  return item[0]
+}
+
+export const shuffle = (items) => {
+  let ctr = items.length
+  let temp
+  let index
+
+  while (ctr > 0) {
+    index = Math.floor(Math.random() * ctr)
+    ctr--
+    temp = items[ctr]
+    items[ctr] = items[index]
+    items[index] = temp
+  }
+
+  return items
+}

@@ -13,6 +13,7 @@ import HitQuestSound from '../components/HitQuestSound'
 import CoinBadge from '../components/CoinBadge'
 import FindPairScene from '../scenes/FindPairScene'
 import { isTouchableDevice, destroyObject } from '../helpers'
+import CeremonySound from '../components/CeremonySound'
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -33,11 +34,11 @@ class GameOneScene extends Phaser.Scene {
     }
 
     this.playWelcomeAudio()
-    this.playBackgroundMusic()
+    // this.playBackgroundMusic()
     this.createTilemap()
-    this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.tileHeight)
+    this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.playerHeight)
     this.createPlayerInteractiveWithMap()
-    this.createGameTouchPads()
+    if (isTouchableDevice()) this.createGameTouchPads()
     this.createGameKeyboardKeys()
     this.createCoinBadge()
     this.createBackToHomeButton()
@@ -47,12 +48,14 @@ class GameOneScene extends Phaser.Scene {
     this.things.isMovingRight = false
     this.things.isJumping = false
     this.things.touching = false
+
+    this.events.on('resume', this.onResume.bind(this))
   }
 
-  update (time, delta) {
+  update (time, delta, data) {
     const { isMovingLeft, isMovingRight, isJumping, touching, keyLeft, keyRight, keySpace, player } = this.things
 
-    for (let index in this.things) if (this.things[index].update) this.things[index].update()
+    player.reset()
 
     if (keyLeft && keyLeft.isDown) this.onKeyLeftDown()
     else if (keyLeft && keyLeft.isUp && !touching) this.onKeyLeftUp()
@@ -64,12 +67,20 @@ class GameOneScene extends Phaser.Scene {
     const onFloor = this.things.player.body.onFloor()
 
     if (player.isJumping && onFloor) player.stopActions()
-
     if (isJumping && onFloor) player.jump()
     if (isMovingLeft) player.run(GameOnePlayer.DIRECTION_LEFT)
     if (isMovingRight) player.run(GameOnePlayer.DIRECTION_RIGHT)
 
     if (!isMovingLeft && !isMovingRight && !isJumping && !player.isJumping) player.stopActions()
+  }
+
+  onResume (scene, data) {
+    if (undefined !== data && undefined !== data.from) {
+      this.resetPlayer()
+
+      this.playCeremonyAudio()
+      this.things.coinBadge.addCoin(data.coin, true)
+    }
   }
 
   forceRestart () {
@@ -87,6 +98,11 @@ class GameOneScene extends Phaser.Scene {
     if (this.things.homeButton === undefined) {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
+
+      // force to update coin to server
+      this.things.homeButton.setCallback(() => {
+        this.things.coinBadge.addCoin(0, true)
+      })
     }
   }
 
@@ -116,8 +132,6 @@ class GameOneScene extends Phaser.Scene {
   }
 
   createGameTouchPads () {
-    if (!isTouchableDevice()) return
-
     if (this.things.gamePadLeftButton === undefined) {
       this.things.gamePadLeftButton = new GamePadLeftButton(this)
       this.things.gamePadLeftButton.on('down', this.onGamePadLeftDown.bind(this))
@@ -146,23 +160,45 @@ class GameOneScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
-    this.sound.play(GameOneWelcomeAudio.KEY)
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameOneWelcomeAudio.KEY)
+    this.things.welcomeAudio.play()
   }
 
   playBackgroundMusic () {
     this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 1 })
   }
 
+  stopWelcomeAudio () {
+    this.things.welcomeAudio.stop()
+  }
+
+  playHitCoinAudio () {
+    if (this.things.hitCoinAudio === undefined) this.things.hitCoinAudio = this.sound.add(CollectCoinAudio.KEY)
+    this.things.hitCoinAudio.play({ volume: 0.1 })
+  }
+
+  playHitQuestAudio () {
+    if (this.things.hitQuestAudio === undefined) this.things.hitQuestAudio = this.sound.add(HitQuestSound.KEY)
+    this.things.hitQuestAudio.play({ volume: 0.4 })
+  }
+
+  playCeremonyAudio () {
+    if (this.things.ceremonyAudio === undefined) this.things.ceremonyAudio = this.sound.add(CeremonySound.KEY)
+    this.things.ceremonyAudio.play({ volume: 0.4 })
+  }
+
   onHitCoin (sprite, tile) {
+    this.playHitCoinAudio()
+
     this.things.coinBadge.addCoin(1)
-    this.sound.play(CollectCoinAudio.KEY, { volume: 0.1 })
     this.things.tilemap.coinLayer.removeTileAt(tile.x, tile.y)
   }
 
   onHitQuest (sprite, tile) {
-    this.sound.play(HitQuestSound.KEY)
+    this.playHitQuestAudio()
+
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
-    // this.playFindPair()
+    this.playFindPair()
   }
 
   onGamePadLeftDown () {
@@ -226,17 +262,31 @@ class GameOneScene extends Phaser.Scene {
     this.things.isJumping = false
   }
 
-  playFindPair () {
+  resetPlayer () {
     this.things.keyLeft.reset()
     this.things.keyRight.reset()
     this.things.keySpace.reset()
+
+    if (this.things.gamePadLeftButton !== undefined) this.things.gamePadLeftButton.reset()
+    if (this.things.gamePadRightButton !== undefined) this.things.gamePadRightButton.reset()
+    if (this.things.gamePadUpButton !== undefined) this.things.gamePadUpButton.reset()
+
     this.things.isMovingLeft = false
     this.things.isMovingRight = false
     this.things.isJumping = false
     this.things.touching = false
 
+    this.things.player.reset()
+  }
+
+  playFindPair () {
+    if (this.things.playFindPairTimes === undefined) this.things.playFindPairTimes = 1
+    else this.things.playFindPairTimes++
+
+    this.resetPlayer()
+    this.stopWelcomeAudio()
     this.scene.pause()
-    this.scene.run(FindPairScene.KEY)
+    this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1 })
   }
 }
 

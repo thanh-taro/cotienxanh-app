@@ -1,8 +1,10 @@
 import Phaser from 'phaser'
 import BootScene from './scenes/BootScene'
+import CheckUserScene from './scenes/CheckUserScene'
 import HomeScene from './scenes/HomeScene'
 import GameOneScene from './scenes/GameOneScene'
 import FindPairScene from './scenes/FindPairScene'
+import UpdatePlugin from 'phaser-plugin-update'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -21,4 +23,7 @@ export const physics = {
     debug: false
   }
 }
-export const scene = [ BootScene, HomeScene, GameOneScene, FindPairScene ]
+export const plugins = {
+  scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
+}
+export const scene = [ BootScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene ]

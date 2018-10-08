@@ -12,7 +12,7 @@ class BackButton extends Phaser.GameObjects.Sprite {
     scene.load.spritesheet(BackButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
   }
 
-  constructor (scene, parentScene, addToScene = true, config = {}) {
+  constructor (scene, parentScene, cb, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
     const x = 8
     const y = 8
@@ -23,9 +23,8 @@ class BackButton extends Phaser.GameObjects.Sprite {
     this.setOrigin(0, 0)
     this.setScale(scale)
     this.setScrollFactor(0)
-    this.setInteractive()
-    this.on('pointerdown', this.onPointerDown, this)
     this.parentScene = parentScene
+    this.cb = cb
 
     if (addToScene) this.addToScene(scene)
   }
@@ -34,11 +33,27 @@ class BackButton extends Phaser.GameObjects.Sprite {
     this.setFrame(0)
 
     scene.add.existing(this)
+    scene.updates.add(this)
+
+    this.setInteractive()
+    this.on('pointerdown', this.onPointerDown, this)
+    this.escKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
   }
 
-  onPointerDown () {
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+
+    this.cb()
     this.scene.scene.stop()
     this.scene.scene.resume(this.parentScene)
+  }
+
+  update () {
+    if (this.escKey.isDown) {
+      this.scene.scene.stop()
+      this.scene.scene.resume(this.parentScene)
+      this.escKey.reset()
+    }
   }
 }
 
