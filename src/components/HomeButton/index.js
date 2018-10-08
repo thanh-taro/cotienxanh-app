@@ -28,13 +28,20 @@ class HomeButton extends Phaser.GameObjects.Sprite {
     if (addToScene) this.addToScene(scene)
   }
 
+  setCallback (cb) {
+    this.cb = cb
+  }
+
   addToScene (scene) {
     scene.add.existing(this)
     this.setInteractive()
     this.on('pointerdown', this.onPointerDown, this)
   }
 
-  onPointerDown () {
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+    this.cb()
+
     this.scene.sound.stopAll()
     this.scene.scene.start(HomeScene.KEY)
   }

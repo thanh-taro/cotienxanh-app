@@ -23,15 +23,11 @@ class HomeScene extends Phaser.Scene {
 
   create () {
     this.playWelcomeAudio()
-    this.playBackgroundMusic()
+    // this.playBackgroundMusic()
     this.createBackgroundImage()
     this.createGameBloons()
     this.createCoinBadge()
     this.createMusicButton()
-  }
-
-  update (time, delta) {
-    for (let index in this.things) if (this.things[index].update) this.things[index].update()
   }
 
   createBackgroundImage () {
@@ -65,14 +61,16 @@ class HomeScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(WelcomeAudio.KEY)
     if (this.things.isWelcomeAudioPlayed === undefined) {
       this.things.isWelcomeAudioPlayed = true
-      this.sound.play(WelcomeAudio.KEY)
+      this.things.welcomeAudio.play({ volume: 0.7 })
     }
   }
 
   playBackgroundMusic () {
-    this.sound.play(BackgroundAudio.KEY, { loop: true, volume: 0.3 })
+    if (this.things.backgroundMusic === undefined) this.things.backgroundMusic = this.sound.add(BackgroundAudio.KEY)
+    this.things.backgroundMusic.play({ loop: true, volume: 0.3 })
   }
 }
 

@@ -35,18 +35,27 @@ class GamePadLeftButton extends Phaser.GameObjects.Sprite {
     scene.add.existing(this)
   }
 
-  onPointerDown () {
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+
     this.setFrame(1)
     this.setAlpha(1)
 
     this.emit('down')
   }
 
-  onPointerRelease () {
+  onPointerRelease (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+
     this.setFrame(0)
     this.setAlpha(0.2)
 
     this.emit('release')
+  }
+
+  reset () {
+    this.setFrame(0)
+    this.setAlpha(0.2)
   }
 }
 

@@ -71,23 +71,23 @@
     },
     "renderorder": "right-down",
     "tiledversion": "1.1.6",
-    "tileheight": 32,
+    "tileheight": 96,
     "tilesets": [
       {
         "columns": 9,
         "firstgid": 1,
-        "image": "tileset.png",
-        "imageheight": 272,
-        "imagewidth": 306,
+        "image": "tileset3x.png",
+        "imageheight": 784,
+        "imagewidth": 882,
         "margin": 1,
         "name": "tileset",
         "spacing": 2,
         "tilecount": 72,
-        "tileheight": 32,
-        "tilewidth": 32
+        "tileheight": 96,
+        "tilewidth": 96
       }
     ],
-    "tilewidth": 32,
+    "tilewidth": 96,
     "type": "map",
     "version": 1,
     "width": 180

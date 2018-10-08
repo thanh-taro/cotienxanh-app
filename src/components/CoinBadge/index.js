@@ -15,10 +15,18 @@ class CoinBadge {
     this.coinText.setFontSize(this.coinImage.displayHeight)
   }
 
-  addCoin (coin = 1) {
-    this.coinText.coin += coin
+  addCoin (coin = 1, force = false) {
+    if (undefined === this.oldCoin) {
+      this.oldCoin = parseInt(this.coinText.coin)
+    }
+
+    this.coinText.coin += parseInt(coin)
     this.coinText.updateCoin()
-    User.setCoin(this.coinText.coin)
+
+    if (force || this.oldCoin + 10 <= this.coinText.coin) {
+      this.oldCoin = this.coinText.coin
+      User.setCoin(this.coinText.coin)
+    }
   }
 }
 

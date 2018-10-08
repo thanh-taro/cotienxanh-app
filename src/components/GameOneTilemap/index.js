@@ -8,12 +8,14 @@ class GameOneTilemap extends Phaser.Tilemaps.Tilemap {
   }
 
   static preload (scene) {
-    const { scaledAsset, scaledAssetWidth, scaledAssetHeight } = loadAsset(scene, assetSpec)
-    scene.load.tilemapTiledJSON(GameOneTilemap.KEY, scaledAsset.tilemap)
-    scene.load.spritesheet(GameOneTilemap.KEY + '.tileset', scaledAsset.tileset, { frameWidth: scaledAssetWidth, frameHeight: scaledAssetHeight, margin: 1, spacing: 2 })
+    const { asset } = loadAsset(scene, assetSpec)
+
+    scene.load.tilemapTiledJSON(GameOneTilemap.KEY, asset.tilemap)
+    scene.load.spritesheet(GameOneTilemap.KEY + '.tileset', asset.tileset, { frameWidth: 96, frameHeight: 96, margin: 1, spacing: 2 })
   }
 
   constructor (scene, addImmediately = true, attributes = {}) {
+    const { scale } = loadAsset(scene, assetSpec)
     const rawMapData = scene.cache.tilemap.get(GameOneTilemap.KEY)
     const mapData = Phaser.Tilemaps.Parsers.Parse(GameOneTilemap.KEY, rawMapData.format, rawMapData.data)
     const { backgroundColor, playerStartX, playerStartY } = mapData.properties
@@ -29,8 +31,15 @@ class GameOneTilemap extends Phaser.Tilemaps.Tilemap {
     this.coinLayer = this.createDynamicLayer('coin-layer', tileset, 0, 0)
     this.questLayer = this.createDynamicLayer('quest-layer', tileset, 0, 0)
     this.backgroundColor = backgroundColor
-    this.playerStartX = playerStartX * this.tileWidth
-    this.playerStartY = playerStartY * this.tileHeight
+    this.playerStartX = playerStartX * this.tileWidth * scale
+    this.playerStartY = playerStartY * this.tileHeight * scale
+    this.playerHeight = this.tileHeight * scale
+
+    this.backgroundLayer.setScale(scale)
+    this.platformLayer.setScale(scale)
+    this.objectLayer.setScale(scale)
+    this.coinLayer.setScale(scale)
+    this.questLayer.setScale(scale)
 
     this.setLayer(this.platformLayer)
     this.setCollision([9, 61, 62, 68, 69, 70, 71])
@@ -40,8 +49,8 @@ class GameOneTilemap extends Phaser.Tilemaps.Tilemap {
 
   addToGame (scene) {
     scene.add.existing(this)
-    scene.physics.world.setBounds(0, 0, this.widthInPixels, this.heightInPixels)
-    scene.cameras.main.setBounds(0, 0, this.widthInPixels, this.heightInPixels)
+    scene.physics.world.setBounds(0, 0, this.backgroundLayer.displayWidth, this.backgroundLayer.displayHeight)
+    scene.cameras.main.setBounds(0, 0, this.backgroundLayer.displayWidth, this.backgroundLayer.displayHeight)
     scene.cameras.main.setBackgroundColor(this.backgroundColor)
   }
 }

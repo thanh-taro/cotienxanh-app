@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import LogoImage from '../components/LogoImage'
-import LogoAudio from '../components/LogoAudio'
 import Setting from '../components/Setting'
 import GameOneWelcomeAudio from '../components/GameOneWelcomeAudio'
 import GameOneBackgroundAudio from '../components/GameOneBackgroundAudio'
@@ -13,7 +12,6 @@ import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
-import JumpAudio from '../components/JumpAudio'
 import BackButton from '../components/BackButton'
 import CoinBadge from '../components/CoinBadge'
 import WelcomeAudio from '../components/WelcomeAudio'
@@ -23,8 +21,14 @@ import GameOneBloonImage from '../components/GameOneBloonImage'
 import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
-import HomeScene from './HomeScene'
+import CheckUserScene from './CheckUserScene'
+import Cards from '../components/Cards'
+import QuicksandWebfont from '../components/QuicksandWebfont'
 import { destroyObject } from '../helpers'
+import RightSound from '../components/RightSound'
+import WrongSound from '../components/WrongSound'
+import CeremonySound from '../components/CeremonySound'
+import FindPairGuideSound from '../components/FindPairGuideSound'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -37,11 +41,15 @@ class BootScene extends Phaser.Scene {
     this.things = {}
   }
 
+  init () {
+    this.sound.pauseOnBlur = false
+    if (!Setting.MUSIC_ENABLED) this.sound.setMute(true)
+  }
+
   preload () {
     this.makeLoadBar()
 
     LogoImage.preload(this)
-    LogoAudio.preload(this)
     GameOneWelcomeAudio.preload(this)
     GameOneBackgroundAudio.preload(this)
     GameOneTilemap.preload(this)
@@ -50,7 +58,6 @@ class BootScene extends Phaser.Scene {
     GamePadUpButton.preload(this)
     GameOnePlayer.preload(this)
     CollectCoinAudio.preload(this)
-    JumpAudio.preload(this)
     HitQuestSound.preload(this)
     HomeButton.preload(this)
     BackButton.preload(this)
@@ -63,41 +70,98 @@ class BootScene extends Phaser.Scene {
     MusicButton.preload(this)
     BackgroundAudio.preload(this)
     WelcomeAudio.preload(this)
+    Cards.preload(this)
+    QuicksandWebfont.preload(this)
+    RightSound.preload(this)
+    WrongSound.preload(this)
+    CeremonySound.preload(this)
+    FindPairGuideSound.preload(this)
   }
 
   create () {
-    if (!Setting.MUSIC_ENABLED) this.sound.setMute(true)
-
     this.things.logoImage = this.makeLogoImage()
-    this.sound.play(LogoAudio.KEY)
   }
 
   update () {
-    if (this.things.logoImage.finished === 1) this.moveToHome()
+    if (this.things.logoImage.finished === 1) this.moveToNextScene()
   }
 
   makeLoadBar () {
-    this.things.progress = this.add.graphics()
+    const loadingWidth = Math.min(this.cameras.main.width * 0.8, 500)
+    const loadingHeight = 50
+    const centerX = this.cameras.main.centerX
+    const centerY = this.cameras.main.centerY
+
+    let progressBar = this.add.graphics()
+    let progressBox = this.add.graphics()
+    progressBox.fillStyle(0x222222, 0.8)
+    progressBox.fillRect(centerX - loadingWidth / 2, centerY - loadingHeight / 2, loadingWidth, loadingHeight)
+
+    let loadingText = this.make.text({
+      x: centerX,
+      y: centerY - loadingHeight / 2 - 18,
+      text: 'Đang tải trò chơi ...',
+      style: {
+        font: '18px monospace',
+        fill: '#ffffff'
+      }
+    })
+    loadingText.setOrigin(0.5, 0.5)
+
+    let percentText = this.make.text({
+      x: centerX,
+      y: centerY,
+      text: '0%',
+      style: {
+        font: '16px monospace',
+        fill: '#ffffff'
+      }
+    })
+    percentText.setOrigin(0.5, 0.5)
+
+    let assetText = this.make.text({
+      x: centerX,
+      y: centerY + loadingHeight / 2 + 14,
+      text: '',
+      style: {
+        font: '14px monospace',
+        fill: '#ffffff'
+      }
+    })
+    assetText.setOrigin(0.5, 0.5)
+
     this.load.on('progress', (value) => {
-      this.things.progress.clear()
-      this.things.progress.fillStyle(0x66bb6a, 1)
-      this.things.progress.fillRect(0, this.cameras.main.centerY, this.cameras.main.width * value, 10)
+      percentText.setText(parseInt(value * 100) + '%')
+      progressBar.clear()
+      progressBar.fillStyle(0x66bb6a, 1)
+      progressBar.fillRect(centerX - loadingWidth / 2 + 10, centerY - loadingHeight / 2 + 10, (loadingWidth - 20) * value, loadingHeight - 20)
     })
+
+    this.load.on('fileprogress', (file) => {
+      assetText.setText('Đang tải tập tin: ' + file.key)
+    })
+
     this.load.on('complete', () => {
-      this.things.progress.destroy()
+      progressBar.destroy()
+      progressBox.destroy()
+      loadingText.destroy()
+      percentText.destroy()
+      assetText.destroy()
     })
+
+    assetText.setText('Đang tải font chữ: Quicksand')
   }
 
   makeLogoImage () {
     return new LogoImage(this, this.physics.world.bounds.centerX, this.physics.world.bounds.centerY)
   }
 
-  moveToHome () {
+  moveToNextScene () {
     destroyObject(this.things.logoImage)
 
     this.input.addPointer(3)
 
-    this.scene.start(HomeScene.KEY)
+    this.scene.start(CheckUserScene.KEY)
   }
 }
 
