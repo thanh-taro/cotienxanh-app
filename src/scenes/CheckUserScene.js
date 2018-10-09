@@ -4,7 +4,7 @@ import axios from 'axios'
 import User from '../components/User'
 import HomeScene from './HomeScene'
 
-const registerFormHTML = '<h2 class="form-header">Đăng ký thông tin</h2><span class="hint">(vui lòng điền đầy đủ thông tin)</span><h4 class="input-label">Tên bé</h4><div><input type="text" name="name" class="input"></div><h4 class="input-label">Tuổi</h4><input type="radio" name="age" value="3" class="radio no-margin-left age-input"><span class="radio-value">3</span><input type="radio" name="age" value="4" class="radio age-input"><span class="radio-value">4</span><input type="radio" name="age" value="5" class="radio age-input"><span class="radio-value">5</span><input type="radio" name="age" value="6" class="radio age-input"><span class="radio-value">6</span><input type="radio" name="age" value="7" class="radio age-input">7<h4 class="input-label">Giới tính</h4><input type="radio" name="gender" value="male" class="radio no-margin-left gender-input"><span class="radio-value">Bé Trai</span><input type="radio" name="gender" value="female" class="radio gender-input"><span class="radio-value">Bé Gái</span>'
+const registerFormHTML = '<h2 class="form-header">Đăng ký thông tin</h2><span class="hint">(vui lòng điền đầy đủ thông tin)</span><h4 class="input-label">Tên bé</h4><div><input id="textbox-name" type="text" name="name" class="input"></div><h4 class="input-label">Tuổi</h4><input type="radio" name="age" value="3" class="radio no-margin-left age-input"><span class="radio-value">3</span><input type="radio" name="age" value="4" class="radio age-input"><span class="radio-value">4</span><input type="radio" name="age" value="5" class="radio age-input"><span class="radio-value">5</span><input type="radio" name="age" value="6" class="radio age-input"><span class="radio-value">6</span><input type="radio" name="age" value="7" class="radio age-input">7<h4 class="input-label">Giới tính</h4><input type="radio" name="gender" value="male" class="radio no-margin-left gender-input"><span class="radio-value">Bé Trai</span><input type="radio" name="gender" value="female" class="radio gender-input"><span class="radio-value">Bé Gái</span>'
 
 class CheckUserScene extends Phaser.Scene {
   static get KEY () {
@@ -23,7 +23,7 @@ class CheckUserScene extends Phaser.Scene {
   }
 
   createLoginUI () {
-    if (window.cordova) window.screen.orientation.lock('portrait-primary')
+    if (window.cordova) window.screen.orientation.lock('portrait')
 
     const Modal = Tingle.modal
 
@@ -39,6 +39,10 @@ class CheckUserScene extends Phaser.Scene {
     })
 
     this.things.loginModal.open()
+
+    document.addEventListener('keyup', function (e) {
+      if (e.target && e.target.id === 'textbox-name' && e.keyCode === 13) e.target.blur()
+    })
   }
 
   register () {

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.tarossolution.cotienxanh" version="0.0.1">
-    <name>Cô Tiên Xanh</name>
+    <name short="CôTiênXanh">Cô Tiên Xanh</name>
     <description>
       Vui học cùng Cô Tiên Xanh
     </description>
@@ -9,15 +9,34 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
     <preference name="Fullscreen" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackgroundColor" value="0x000000" />
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
     <preference name="Orientation" value="landscape" />
     <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="iosPersistentFileLocation" value="Library" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="BackupWebStorage" value="local" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
     <plugin name="cordova-plugin-screen-orientation" spec="~3.0.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
     <engine name="android" spec="^7.1.1" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>

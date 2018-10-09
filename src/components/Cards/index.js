@@ -83,7 +83,7 @@ class Cards extends Phaser.GameObjects.Sprite {
 
   flipIn () {
     this.open = false
-    this.scene.time.delayedCall(1000, () => {
+    this.scene.time.delayedCall(2000, () => {
       this.setFrame(0)
     })
   }
@@ -91,6 +91,7 @@ class Cards extends Phaser.GameObjects.Sprite {
   flipOut () {
     this.setFrame(1)
     this.open = true
+    this.sound.play()
   }
 }
 

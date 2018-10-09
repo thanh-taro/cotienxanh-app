@@ -106,12 +106,13 @@ class FindPairScene extends Phaser.Scene {
   }
 
   onCardOpen (card) {
+    this.stopGuideSound()
+
     if (!this.things.openCards) this.things.openCards = []
 
     if (this.things.openCards.length < 2) this.things.openCards.push(card)
 
-    if (this.things.openCards.length === 1) card.sound.play()
-    else if (this.things.openCards.length === 2) this.checkOpenCards()
+    if (this.things.openCards.length === 2) this.checkOpenCards()
   }
 
   checkOpenCards () {
@@ -131,7 +132,7 @@ class FindPairScene extends Phaser.Scene {
       let deleteIndexes = []
       for (let index in this.things.cards) if (this.things.cards[index].indexKey === cardOne.indexKey || this.things.cards[index].indexKey === cardTwo.indexKey) deleteIndexes.push(index)
 
-      this.time.delayedCall(1000, () => {
+      this.time.delayedCall(2000, () => {
         for (let index in deleteIndexes) {
           let deleteIndex = deleteIndexes[index] - index * 1
           destroyObject(this.things.cards[deleteIndex])
@@ -143,7 +144,7 @@ class FindPairScene extends Phaser.Scene {
     }
 
     this.things.openCards = []
-    this.time.delayedCall(1000, () => {
+    this.time.delayedCall(2000, () => {
       for (let index in this.things.cards) this.things.cards[index].allowClick = true
     })
   }
@@ -158,19 +159,15 @@ class FindPairScene extends Phaser.Scene {
   }
 
   playRightSound () {
-    this.stopGuideSound()
-
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
-    this.things.rightSound.play()
+    this.things.rightSound.play({ delay: 1.2 })
   }
 
   playWrongSound () {
-    this.stopGuideSound()
-
     if (this.things.wrongSound === undefined) this.things.wrongSound = this.sound.add(WrongSound.KEY)
     this.things.wrongSound.stop()
-    this.things.wrongSound.play()
+    this.things.wrongSound.play({ delay: 1.2 })
   }
 
   won () {
