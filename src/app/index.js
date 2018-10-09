@@ -16,7 +16,13 @@ if (window.cordova) {
     },
     onDeviceReady: function () {
       // When the device is ready, start Phaser Boot state.
+      window.StatusBar.hide()
       window.plugins.insomnia.keepAwake()
+      window.AndroidFullScreen.isSupported(function () {
+        window.AndroidFullScreen.isImmersiveModeSupported(function () {
+          window.AndroidFullScreen.immersiveMode()
+        })
+      })
       startGame()
     },
     onPause: function () {
