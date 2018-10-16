@@ -23,7 +23,7 @@ class HomeScene extends Phaser.Scene {
 
   create () {
     this.playWelcomeAudio()
-    // this.playBackgroundMusic()
+    this.playBackgroundMusic()
     this.createBackgroundImage()
     this.createGameBloons()
     this.createCoinBadge()

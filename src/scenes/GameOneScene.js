@@ -34,7 +34,7 @@ class GameOneScene extends Phaser.Scene {
     }
 
     this.playWelcomeAudio()
-    // this.playBackgroundMusic()
+    this.playBackgroundMusic()
     this.createTilemap()
     this.createPlayer(this.things.tilemap.playerStartX, this.things.tilemap.playerStartY, this.things.tilemap.playerHeight)
     this.createPlayerInteractiveWithMap()
@@ -165,7 +165,7 @@ class GameOneScene extends Phaser.Scene {
   }
 
   playBackgroundMusic () {
-    this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 1 })
+    this.sound.play(GameOneBackgroundAudio.KEY, { loop: true, volume: 0.5, delay: 1 })
   }
 
   stopWelcomeAudio () {
@@ -263,9 +263,7 @@ class GameOneScene extends Phaser.Scene {
   }
 
   resetPlayer () {
-    this.things.keyLeft.reset()
-    this.things.keyRight.reset()
-    this.things.keySpace.reset()
+    this.input.keyboard.resetKeys()
 
     if (this.things.gamePadLeftButton !== undefined) this.things.gamePadLeftButton.reset()
     if (this.things.gamePadRightButton !== undefined) this.things.gamePadRightButton.reset()
