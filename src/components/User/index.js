@@ -21,7 +21,7 @@ class User {
 
     user.coin = coin
     store.set('user', user)
-    axios.post('http://cotienxanh.edu.vn/api/set-coin', { id, coin })
+    axios.post('http://api.cotienxanh.edu.vn/set-coin', { id, coin })
   }
 }
 
