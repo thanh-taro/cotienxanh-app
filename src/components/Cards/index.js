@@ -25,7 +25,6 @@ class Cards extends Phaser.GameObjects.Sprite {
 
   constructor (scene, key, number, total, cb, addToScene = true, config = {}) {
     const { assetWidth, assetHeight } = loadAsset(scene, assetSpec)
-
     const padding = parseInt(scene.cameras.main.width * 0.01)
     const startX = 50
     const startY = 50
@@ -38,20 +37,12 @@ class Cards extends Phaser.GameObjects.Sprite {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-
-    let x, y
-    if (number <= column) {
-      x = parseInt((startX + padding / 2 + (number - 1) * width) + width / 2)
-      y = parseInt(startY + height / 2)
-    } else {
-      x = parseInt((startX + padding / 2 + (number - column - 1) * width) + width / 2)
-      y = parseInt(endY - height / 2)
-    }
+    const x = number <= column ? parseInt((startX + padding / 2 + (number - 1) * width) + width / 2) : parseInt((startX + padding / 2 + (number - column - 1) * width) + width / 2)
+    const y = number <= column ? parseInt(startY + height / 2) : parseInt(endY - height / 2)
 
     super(scene, x, y, Cards.KEY + '-' + key, 0)
 
     const cardKey = key.substring(0, 1)
-
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb

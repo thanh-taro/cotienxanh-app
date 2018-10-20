@@ -71,7 +71,7 @@ class CheckUserScene extends Phaser.Scene {
     }
 
     if (name.length > 0 && undefined !== age && undefined !== gender) {
-      axios.post('http://cotienxanh.edu.vn/api/register', { name, age, gender }).then((response) => {
+      axios.post('http://api.cotienxanh.edu.vn/register', { name, age, gender }).then((response) => {
         const user = response.data
         User.storeUser(user)
         this.things.loginModal.destroy()

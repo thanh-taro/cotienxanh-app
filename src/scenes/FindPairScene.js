@@ -27,6 +27,7 @@ class FindPairScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#000000')
 
     if (!data.noGuide) this.playGuideSound()
+    this.things.level = data.level
 
     this.createMusicButton()
     this.createBackButton()
@@ -35,46 +36,111 @@ class FindPairScene extends Phaser.Scene {
   }
 
   generate () {
-    const level = randItem(['super-easy', 'easy', 'normal', 'hard', 'super-hard', 'hardest'])
     let lowercaseList = ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y']
-
     let keys = []
-    if (level === 'super-easy') {
-      for (let i = 0; i < 2; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item)
-      }
-    } else if (level === 'easy') {
-      for (let i = 0; i < 3; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item)
-      }
-    } else if (level === 'normal') {
-      for (let i = 0; i < 4; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item)
-      }
-    } else if (level === 'hard') {
-      for (let i = 0; i < 2; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item.toUpperCase())
-      }
-    } else if (level === 'super-hard') {
-      for (let i = 0; i < 4; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item.toUpperCase())
-      }
-    } else if (level === 'hardest') {
-      for (let i = 0; i < 4; i++) {
-        let item = randSplice(lowercaseList)
-        keys.push(item)
-        keys.push(item + 'H')
-      }
+
+    const level = this.things.level
+    const sublevel = randItem([
+      'only-lower', 'only-upper', 'only-handwriting',
+      'mix-lower-upper', 'mix-lower-handwriting', 'mix-upper-handwriting'
+    ])
+
+    switch (level + '.' + sublevel) {
+      case 'easy.only-lower':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item)
+        }
+        break
+
+      case 'easy.only-upper':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item.toUpperCase())
+          keys.push(item.toUpperCase())
+        }
+        break
+
+      case 'easy.only-handwriting':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item + 'H')
+          keys.push(item + 'H')
+        }
+        break
+
+      case 'easy.mix-lower-upper':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item.toUpperCase())
+        }
+        break
+
+      case 'easy.mix-lower-handwriting':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item + 'H')
+        }
+        break
+
+      case 'easy.mix-upper-handwriting':
+        for (let i = 0; i < 2; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item.toUpperCase())
+          keys.push(item + 'H')
+        }
+        break
+
+      case 'normal.only-lower':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item)
+        }
+        break
+
+      case 'normal.only-upper':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item.toUpperCase())
+          keys.push(item.toUpperCase())
+        }
+        break
+
+      case 'normal.only-handwriting':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item + 'H')
+          keys.push(item + 'H')
+        }
+        break
+
+      case 'normal.mix-lower-upper':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item.toUpperCase())
+        }
+        break
+
+      case 'normal.mix-lower-handwriting':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item)
+          keys.push(item + 'H')
+        }
+        break
+
+      case 'normal.mix-upper-handwriting':
+        for (let i = 0; i < 4; i++) {
+          let item = randSplice(lowercaseList)
+          keys.push(item.toUpperCase())
+          keys.push(item + 'H')
+        }
+        break
     }
 
     keys = shuffle(keys)
@@ -106,13 +172,16 @@ class FindPairScene extends Phaser.Scene {
   }
 
   onCardOpen (card) {
+    card.allowClick = false
     this.stopGuideSound()
 
     if (!this.things.openCards) this.things.openCards = []
 
-    if (this.things.openCards.length < 2) this.things.openCards.push(card)
-
-    if (this.things.openCards.length === 2) this.checkOpenCards()
+    if (this.things.openCards.length === 0) this.things.openCards.push(card)
+    else if (this.things.openCards.length === 1 && this.things.openCards[0].indexKey !== card.indexKey) {
+      this.things.openCards.push(card)
+      this.checkOpenCards()
+    }
   }
 
   checkOpenCards () {

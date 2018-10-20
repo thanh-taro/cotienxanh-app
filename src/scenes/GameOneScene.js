@@ -196,9 +196,14 @@ class GameOneScene extends Phaser.Scene {
 
   onHitQuest (sprite, tile) {
     this.playHitQuestAudio()
-
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
-    this.playFindPair()
+
+    let level = 'easy'
+    if (tile.x < 30) level = 'easy'
+    else if (tile.x < 60) level = 'normal'
+    else if (tile.x < 90) level = 'hard'
+    else level = 'hardest'
+    this.playFindPair(level)
   }
 
   onGamePadLeftDown () {
@@ -274,17 +279,19 @@ class GameOneScene extends Phaser.Scene {
     this.things.isJumping = false
     this.things.touching = false
 
-    this.things.player.reset()
+    this.things.player.body.setVelocityX(0)
+    this.things.player.body.setVelocityY(0)
   }
 
-  playFindPair () {
+  playFindPair (level) {
     if (this.things.playFindPairTimes === undefined) this.things.playFindPairTimes = 1
     else this.things.playFindPairTimes++
 
-    this.resetPlayer()
     this.stopWelcomeAudio()
+    this.resetPlayer()
+
     this.scene.pause()
-    this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1 })
+    this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1, level })
   }
 }
 
