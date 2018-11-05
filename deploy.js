@@ -2,7 +2,7 @@ const path = require('path')
 const FtpDeploy = require('ftp-deploy')
 const config = {
   user: 'thanhnt@cotienxanh.edu.vn',
-  password: 'LL{YM}J^1ZIl',
+  password: '######',
   host: 'cotienxanh.edu.vn',
   port: 21,
   localRoot: path.join(__dirname, 'build'),
