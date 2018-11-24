@@ -85,6 +85,12 @@ import ưH from './h_ư.png'
 import vH from './h_v.png'
 import xH from './h_x.png'
 import yH from './h_y.png'
+import meoW from './w_heo.png'
+import choW from './w_meo.png'
+import heoW from './w_cho.png'
+import meoI from './i_heo.png'
+import choI from './i_meo.png'
+import heoI from './i_cho.png'
 import aSound from './a.mp3'
 import ăSound from './ă.mp3'
 import âSound from './â.mp3'
@@ -208,7 +214,13 @@ const assetSpec = {
     { key: 'ưH', asset: ưH },
     { key: 'vH', asset: vH },
     { key: 'xH', asset: xH },
-    { key: 'yH', asset: yH }
+    { key: 'yH', asset: yH },
+    { key: 'meoI', asset: meoI },
+    { key: 'choI', asset: choI },
+    { key: 'heoI', asset: heoI },
+    { key: 'meoW', asset: meoW },
+    { key: 'choW', asset: choW },
+    { key: 'heoW', asset: heoW }
   ],
   soundCollection: [
     { key: 'a', asset: aSound },
@@ -239,7 +251,10 @@ const assetSpec = {
     { key: 'ư', asset: ưSound },
     { key: 'v', asset: vSound },
     { key: 'x', asset: xSound },
-    { key: 'y', asset: ySound }
+    { key: 'y', asset: ySound },
+    { key: 'meo', asset: vSound },
+    { key: 'cho', asset: xSound },
+    { key: 'heo', asset: ySound }
   ]
 }
 

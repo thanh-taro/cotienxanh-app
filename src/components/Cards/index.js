@@ -42,7 +42,7 @@ class Cards extends Phaser.GameObjects.Sprite {
 
     super(scene, x, y, Cards.KEY + '-' + key, 0)
 
-    const cardKey = key.substring(0, 1)
+    const cardKey = key.length == 1 ? key : key.substring(0, key.length-1)
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb

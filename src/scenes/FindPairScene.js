@@ -37,6 +37,7 @@ class FindPairScene extends Phaser.Scene {
 
   generate () {
     let lowercaseList = ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y']
+    let wordlist = ['meo', 'cho', 'heo']
     let keys = []
 
     const level = this.things.level
@@ -141,6 +142,60 @@ class FindPairScene extends Phaser.Scene {
           keys.push(item + 'H')
         }
         break
+        case 'hard.only-lower':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item)
+          }
+          break
+
+        case 'hard.only-upper':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item.toUpperCase())
+            keys.push(item.toUpperCase())
+          }
+          break
+
+        case 'hard.only-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item + 'H')
+            keys.push(item + 'H')
+          }
+          break
+
+        case 'hard.mix-lower-upper':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item.toUpperCase())
+          }
+          break
+
+        case 'hard.mix-lower-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item + 'H')
+          }
+          break
+
+        case 'hard.mix-upper-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item.toUpperCase())
+            keys.push(item + 'H')
+          }
+          break
+        default:
+          for (let i=0; i< 3; i++) {
+            let item = randSplice(wordlist);
+            keys.push(item + 'W')
+            keys.push(item + 'I')
+          }
+          break
     }
 
     keys = shuffle(keys)
