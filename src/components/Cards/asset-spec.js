@@ -85,12 +85,14 @@ import ưH from './h_ư.png'
 import vH from './h_v.png'
 import xH from './h_x.png'
 import yH from './h_y.png'
-import meoW from './w_heo.png'
-import choW from './w_meo.png'
-import heoW from './w_cho.png'
-import meoI from './i_heo.png'
-import choI from './i_meo.png'
-import heoI from './i_cho.png'
+import meoW from './w_meo.png'
+import choW from './w_cho.png'
+import heoW from './w_heo.png'
+import boW from './w_bo.png'
+import meoI from './i_meo.png'
+import choI from './i_cho.png'
+import heoI from './i_heo.png'
+import boI from './i_bo.png'
 import aSound from './a.mp3'
 import ăSound from './ă.mp3'
 import âSound from './â.mp3'
@@ -218,9 +220,11 @@ const assetSpec = {
     { key: 'meoI', asset: meoI },
     { key: 'choI', asset: choI },
     { key: 'heoI', asset: heoI },
+    { key: 'boI', asset: boI },
     { key: 'meoW', asset: meoW },
     { key: 'choW', asset: choW },
-    { key: 'heoW', asset: heoW }
+    { key: 'heoW', asset: heoW },
+    { key: 'boW', asset: boW }
   ],
   soundCollection: [
     { key: 'a', asset: aSound },
@@ -254,7 +258,8 @@ const assetSpec = {
     { key: 'y', asset: ySound },
     { key: 'meo', asset: vSound },
     { key: 'cho', asset: xSound },
-    { key: 'heo', asset: ySound }
+    { key: 'heo', asset: ySound },
+    { key: 'bo', asset: uSound }
   ]
 }
 

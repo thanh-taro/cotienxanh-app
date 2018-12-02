@@ -12,7 +12,8 @@ import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
 import CoinBadge from '../components/CoinBadge'
 import FindPairScene from '../scenes/FindPairScene'
-import { isTouchableDevice, destroyObject } from '../helpers'
+import FantasticRotationScene from '../scenes/FantasticRotationScene'
+import { isTouchableDevice, destroyObject, randItem } from '../helpers'
 import CeremonySound from '../components/CeremonySound'
 
 class GameOneScene extends Phaser.Scene {
@@ -203,7 +204,19 @@ class GameOneScene extends Phaser.Scene {
     else if (tile.x < 60) level = 'normal'
     else if (tile.x < 90) level = 'hard'
     else level = 'hardest'
-    this.playFindPair(level)
+
+    let miniGame = ['fantasticRotation', 'findPair']
+    this.runMiniGame(randItem(miniGame), level)
+  }
+
+  runMiniGame(game, level) {
+    switch (game) {
+      case 'fantasticRotation':
+        this.playFantasticRotation(level)
+        break;
+      default:
+        this.playFindPair(level)
+    }
   }
 
   onGamePadLeftDown () {
@@ -292,6 +305,13 @@ class GameOneScene extends Phaser.Scene {
 
     this.scene.pause()
     this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1, level })
+  }
+
+  playFantasticRotation (level) {
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+    this.scene.pause()
+    this.scene.run(FantasticRotationScene.KEY, { noGuide: true, level })
   }
 }
 

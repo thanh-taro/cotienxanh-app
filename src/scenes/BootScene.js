@@ -23,12 +23,14 @@ import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
 import CheckUserScene from './CheckUserScene'
 import Cards from '../components/Cards'
+import HorizontalCards from '../components/HorizontalCards'
 import QuicksandWebfont from '../components/QuicksandWebfont'
 import { destroyObject } from '../helpers'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import CeremonySound from '../components/CeremonySound'
 import FindPairGuideSound from '../components/FindPairGuideSound'
+import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -71,11 +73,13 @@ class BootScene extends Phaser.Scene {
     BackgroundAudio.preload(this)
     WelcomeAudio.preload(this)
     Cards.preload(this)
+    HorizontalCards.preload(this)
     QuicksandWebfont.preload(this)
     RightSound.preload(this)
     WrongSound.preload(this)
     CeremonySound.preload(this)
     FindPairGuideSound.preload(this)
+    FantasticRotationGuideSound.preload(this)
   }
 
   create () {
