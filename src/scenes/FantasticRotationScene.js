@@ -89,10 +89,12 @@ class FantasticRotationScene extends Phaser.Scene {
       }
     }
     questions = shuffle(questions)
+
     for (let index in questions) {
       let key = questions[index]
       let number = parseInt(index) + 1
-      let card = new HorizontalCards(this, key, number, questions.length, 'question', false, this.onCardChoose.bind(this), false)
+      let configs = this.configTheQuestionCard(number)
+      let card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 0.2, false, this.onCardChoose.bind(this), false)
       this.things.rotation.add(card)
     }
   }
@@ -152,8 +154,56 @@ class FantasticRotationScene extends Phaser.Scene {
     for (let index in answers) {
       let key = answers[index]
       let number = parseInt(index) + 1
+      let configs = this.configTheAnswerCard(answers.length, number)
       let allowClick = true
-      this.things.answers.push(new HorizontalCards(this, key, number, answers.length, 'answers', allowClick, this.onCardChoose.bind(this)))
+      this.things.answers.push(new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 1, allowClick, this.onCardChoose.bind(this)))
+    }
+  }
+
+  configTheQuestionCard (number) {
+    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+
+    const column = 3
+    const padding = parseInt(this.cameras.main.width * 0.01)
+    const startX = 50
+    const endX = this.cameras.main.width - 50
+    const width = this.cameras.main.width / column
+    const height = this.cameras.main.height / 5
+    const scaleX = (width - padding) / assetWidth
+    const scaleY = (height - padding) / assetHeight
+
+    const scale = Math.min(scaleX, scaleY)
+
+    const y = this.cameras.main.height / 3
+    const x = assetWidth * scale * (number - 1) + assetWidth * scale / 2
+
+    return {
+      x: x,
+      y: y,
+      scale: scale
+    }
+  }
+
+  configTheAnswerCard (column, number) {
+    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+
+    const padding = parseInt(this.cameras.main.width * 0.01)
+    const startX = 50
+    const endX = this.cameras.main.width - 50
+    const width = (endX - startX) / column
+    const height = this.cameras.main.height / 5
+    const scaleX = (width - padding) / assetWidth
+    const scaleY = (height - padding) / assetHeight
+
+    var scale = Math.min(scaleX, scaleY)
+
+    var y = this.cameras.main.height / 3 * 2
+    var x = startX + (number - 1) * width + width / 2
+
+    return {
+      x: x,
+      y: y,
+      scale: scale
     }
   }
 
