@@ -27,7 +27,7 @@ class Cards extends Phaser.GameObjects.Sprite {
     }
   }
 
-  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCB) {
+  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCallBack) {
     let x = data.x
     let y = data.y
     let scale = data.scale
@@ -37,13 +37,16 @@ class Cards extends Phaser.GameObjects.Sprite {
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb
-    this.allowClick = true
-    this.sound = scene.sound.add(Cards.KEY + '-' + cardKey.toLowerCase() + '-sound')
+    this.allowClick = data.allowClick !== 'undefined' ? data.allowClick : true
+    let hasSound = typeof data.hasSound !== 'undefined' ? data.hasSound : true
+    if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + cardKey.toLowerCase() + '-sound')
+    if (data.isOpen) this.flipOut(false)
+
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     this.setScrollFactor(0)
     this.setInteractive()
     this.setScale(scale)
-    this.on('pointerdown', clickCB, this)
+    this.on('pointerdown', clickCallBack, this)
 
     if (addToScene) this.addToScene(scene)
   }
@@ -59,10 +62,10 @@ class Cards extends Phaser.GameObjects.Sprite {
     })
   }
 
-  flipOut () {
+  flipOut (playSound = true) {
     this.setFrame(1)
     this.open = true
-    this.sound.play()
+    if (playSound) this.sound.play()
   }
 }
 

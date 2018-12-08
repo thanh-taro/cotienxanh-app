@@ -93,6 +93,7 @@ import meoI from './i_meo.png'
 import choI from './i_cho.png'
 import heoI from './i_heo.png'
 import boI from './i_bo.png'
+import speakerI from './i_speaker.png'
 import aSound from './a.mp3'
 import ăSound from './ă.mp3'
 import âSound from './â.mp3'
@@ -224,7 +225,8 @@ const assetSpec = {
     { key: 'meoW', asset: meoW },
     { key: 'choW', asset: choW },
     { key: 'heoW', asset: heoW },
-    { key: 'boW', asset: boW }
+    { key: 'boW', asset: boW },
+    { key: 'speakerI', asset: speakerI }
   ],
   soundCollection: [
     { key: 'a', asset: aSound },
