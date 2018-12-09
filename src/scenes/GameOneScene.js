@@ -14,6 +14,7 @@ import CoinBadge from '../components/CoinBadge'
 import FindPairScene from '../scenes/FindPairScene'
 import FantasticRotationScene from '../scenes/FantasticRotationScene'
 import SortingCharactersScene from '../scenes/SortingCharactersScene'
+import FindCharactersScene from '../scenes/FindCharactersScene'
 import { isTouchableDevice, destroyObject, randItem } from '../helpers'
 import CeremonySound from '../components/CeremonySound'
 
@@ -206,9 +207,8 @@ class GameOneScene extends Phaser.Scene {
     else if (tile.x < 90) level = 'hard'
     else level = 'hardest'
 
-    let miniGame = ['fantasticRotation', 'findPair', 'sortingCharactersScene']
+    let miniGame = ['fantasticRotation', 'findPair', 'sortingCharacters', 'findCharacters']
     this.runMiniGame(randItem(miniGame), level)
-
   }
 
   runMiniGame(game, level) {
@@ -216,8 +216,11 @@ class GameOneScene extends Phaser.Scene {
       case 'fantasticRotation':
         this.playFantasticRotation(level)
         break;
-      case 'sortingCharactersScene':
+      case 'sortingCharacters':
         this.playSortingCharacters(level)
+        break;
+      case 'findCharacters':
+        this.playFindCharacters(level)
         break;
       default:
         this.playFindPair(level)
@@ -328,6 +331,15 @@ class GameOneScene extends Phaser.Scene {
     this.resetPlayer()
     this.scene.pause()
     this.scene.run(SortingCharactersScene.KEY, { noGuide: this.things.playSortingCharactersTimes > 1, level })
+  }
+
+  playFindCharacters (level) {
+    if (this.things.playFindCharactersTimes === undefined) this.things.playFindCharactersTimes = 1
+    else this.things.playFindCharactersTimes++
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+    this.scene.pause()
+    this.scene.run(FindCharactersScene.KEY, { noGuide: this.things.playFindCharactersTimes > 1, level })
   }
 }
 

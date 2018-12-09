@@ -27,7 +27,7 @@ class FantasticRotationScene extends Phaser.Scene {
       speed: 10,
       acceleration: 0.05,
       hasAnswers: false,
-      wordlist: ['meo', 'cho', 'heo', 'bo', 'meo1', 'cho1','heo1', 'bo1'],
+      wordlist: ['con_meo', 'cho', 'heo', 'bo', 'meo1', 'cho1','heo1', 'bo1'],
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#000000')

@@ -32,6 +32,7 @@ import CeremonySound from '../components/CeremonySound'
 import FindPairGuideSound from '../components/FindPairGuideSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
+import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -82,6 +83,7 @@ class BootScene extends Phaser.Scene {
     FindPairGuideSound.preload(this)
     FantasticRotationGuideSound.preload(this)
     SortingCharactersGuideSound.preload(this)
+    FindCharactersGuideSound.preload(this)
   }
 
   create () {

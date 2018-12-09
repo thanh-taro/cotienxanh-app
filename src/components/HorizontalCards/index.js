@@ -22,7 +22,7 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
 
     for (let index in soundCollection) {
       let { asset, key } = soundCollection[index]
-      scene.load.audio(HorizontalCards.KEY + '-' + key + '-sound', asset)
+      scene.load.audio(HorizontalCards.KEY + '-' + key.toLowerCase() + '-sound', asset)
     }
   }
 
@@ -52,7 +52,7 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
   onPointerDown () {
     if (this.allowClick === false) return
     this.sound.play()
-    this.cb(this)
+    if (this.cb) this.cb(this)
   }
 }
 

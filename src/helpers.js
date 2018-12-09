@@ -53,3 +53,7 @@ export const shuffle = (items) => {
 
   return items
 }
+
+export const onlyUnique = (value, index, self) => {
+  return self.indexOf(value) === index;
+}

@@ -6,6 +6,7 @@ import GameOneScene from './scenes/GameOneScene'
 import FindPairScene from './scenes/FindPairScene'
 import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
+import FindCharactersScene from './scenes/FindCharactersScene'
 import UpdatePlugin from 'phaser-plugin-update'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
@@ -28,4 +29,4 @@ export const physics = {
 export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
-export const scene = [ BootScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene, FantasticRotationScene, SortingCharactersScene]
+export const scene = [ BootScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene]
