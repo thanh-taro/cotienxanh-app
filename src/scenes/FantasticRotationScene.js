@@ -30,7 +30,7 @@ class FantasticRotationScene extends Phaser.Scene {
       speed: 19,
       acceleration: 0.05,
       hasAnswers: false,
-      wordlist: ['Hoa_Phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
+      wordlist: ['Hoa_Phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#000000')
@@ -61,7 +61,7 @@ class FantasticRotationScene extends Phaser.Scene {
           this.things.speed = this.things.speed - this.things.acceleration
           let firstcard = this.things.rotation.getChildren()[0]
           var width = firstcard.width * firstcard.scaleX
-          var max_width = width * (this.things.rotation.children.entries.length - 1)
+          var max_width = width * (this.things.rotation.children.entries.length)
           var cameraCenterX = this.cameras.main.centerX
           var questionCard
           Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
@@ -267,6 +267,7 @@ class FantasticRotationScene extends Phaser.Scene {
   playGuideSound () {
     this.things.guideSound = this.sound.add(FantasticRotationGuideSound.KEY)
     this.things.guideSound.play({ delay: 1.5 })
+    this.things.delay = (this.things.guideSound.duration + 1.5) * 1000
   }
 
   stopGuideSound () {

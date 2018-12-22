@@ -30,6 +30,7 @@ class SortingCharactersScene extends Phaser.Scene {
       currentQuestionCardIndex: 0,
       rightSound: this.sound.add(RightSound.KEY),
       wrongSound: this.sound.add(WrongSound.KEY),
+      beStopped: false,
     }
     this.cameras.main.setBackgroundColor('#000000')
     if (!data.noGuide) this.playGuideSound()
@@ -91,9 +92,9 @@ class SortingCharactersScene extends Phaser.Scene {
     this.createAnswers(question)
     if (level != 'hardest') {
       this.createSpeaker(question)
-      var delay = noGuide ? 1500 : 17000
+      var delay = noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
       this.time.delayedCall(delay, () => {
-        this.onClickSpeaker()
+        if (!this.things.beStopped) this.onClickSpeaker()
       })
     }
   }
@@ -242,6 +243,7 @@ class SortingCharactersScene extends Phaser.Scene {
 
   stopGuideSound () {
     if (this.things.guideSound) this.things.guideSound.stop()
+    this.things.beStopped = true
   }
 
   playRightSound () {

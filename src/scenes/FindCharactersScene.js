@@ -34,6 +34,8 @@ class FindCharactersScene extends Phaser.Scene {
       currentQuestionCardIndex: 0,
       rightSound: this.sound.add(RightSound.KEY),
       wrongSound: this.sound.add(WrongSound.KEY),
+      noGuide: data.noGuide,
+      beStopped: false,
     }
     this.cameras.main.setBackgroundColor('#000000')
     if (!data.noGuide) this.playGuideSound()
@@ -112,7 +114,11 @@ class FindCharactersScene extends Phaser.Scene {
     // create question image
     let question = this.things.question
     let questionData = this.calculateQuestionCard(questionCharacters.length)
-    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true)
+    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {}, true)
+    var delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
+    this.time.delayedCall(delay, () => {
+      if (!this.things.beStopped) questionCard.sound.play()
+    })
 
     // create question characters
     for (let index in questionCharacters) {
@@ -125,8 +131,8 @@ class FindCharactersScene extends Phaser.Scene {
         card.flipOut(false)
       } else {
         card.makeWhite(false)
+        this.things.questionCharacterCards.push(card)
       }
-      this.things.questionCharacterCards.push(card)
     }
   }
 
@@ -135,7 +141,8 @@ class FindCharactersScene extends Phaser.Scene {
     var alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
 
     for (let index in answers) {
-      let indexOfAnswer = alphabetList.indexOf(removeTimbre(answers[index]))
+      answers[index] = removeTimbre(answers[index])
+      let indexOfAnswer = alphabetList.indexOf(answers[index])
       if (indexOfAnswer >= 0) alphabetList.splice(indexOfAnswer, 1)
     }
 
@@ -150,7 +157,7 @@ class FindCharactersScene extends Phaser.Scene {
       let number = parseInt(index)
       let data = this.calculateAnswerCard(number, answers.length)
       data.isOpen = true
-      let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown, true)
+      let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
       this.things.answerCards.push(card)
     }
   }
@@ -248,18 +255,15 @@ class FindCharactersScene extends Phaser.Scene {
     this.stopGuideSound()
     var questionCharacterCards = this.things.questionCharacterCards
     var answerCards = this.things.answerCards
-    let questionCardIndex = this.things.hideList.sort()
-    let currentQuestionCardIndex = this.things.currentQuestionCardIndex
-    let currentQuestionCard = questionCharacterCards[questionCardIndex[currentQuestionCardIndex]]
-
-    if (card.cardKey === currentQuestionCard.cardKey) {
+    let currentQuestionCard = questionCharacterCards[0]
+    if (card.cardKey === removeTimbre(currentQuestionCard.cardKey)) {
       currentQuestionCard.flipOut(false)
-      this.things.currentQuestionCardIndex++
+      questionCharacterCards.splice(0,1)
       this.playRightSound()
     } else {
       this.playWrongSound()
     }
-    if (this.things.currentQuestionCardIndex > this.things.hideList.length - 1) {
+    if (questionCharacterCards.length == 0) {
       for (let index in answerCards) {
         answerCards[index].allowClick = false
       }
@@ -276,6 +280,7 @@ class FindCharactersScene extends Phaser.Scene {
 
   stopGuideSound () {
     if (this.things.guideSound) this.things.guideSound.stop()
+    this.things.beStopped = true
   }
 
   playRightSound () {

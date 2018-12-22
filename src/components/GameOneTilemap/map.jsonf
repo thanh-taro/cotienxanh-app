@@ -61,7 +61,7 @@
     "orientation": "orthogonal",
     "properties": {
       "backgroundColor": "#ddf8fe",
-      "playerStartX": 30,
+      "playerStartX": 0,
       "playerStartY": 18
     },
     "propertytypes": {

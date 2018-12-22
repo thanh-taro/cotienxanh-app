@@ -27,20 +27,18 @@ class Cards extends Phaser.GameObjects.Sprite {
     }
   }
 
-  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCallBack, isRemoveTimbre = false) {
+  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCallBack) {
     let x = data.x
     let y = data.y
     let scale = data.scale
-    let keyAfter = isRemoveTimbre ? removeTimbre(key) : key
-    super(scene, x, y, Cards.KEY + '-' + keyAfter, 0)
+    super(scene, x, y, Cards.KEY + '-' + key, 0)
     const cardKey = key.length == 1 ? key : key.substring(0, key.length-1)
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb
     this.allowClick = data.allowClick !== 'undefined' ? data.allowClick : true
     let hasSound = typeof data.hasSound !== 'undefined' ? data.hasSound : true
-    let cardKeyAfter = removeTimbre(cardKey.toLowerCase())
-    if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + cardKeyAfter + '-sound')
+    if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + removeTimbre(cardKey.toLowerCase()) + '-sound')
     if (data.isOpen) this.flipOut(false)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
