@@ -38,10 +38,10 @@ class SortingCharactersScene extends Phaser.Scene {
 
     this.createMusicButton()
     this.createBackButton()
-    this.generate()
+    this.generate(data.noGuide)
   }
 
-  generate () {
+  generate (noGuide) {
     var question = []
     var alphabetListDefault = JSON.parse(JSON.stringify(this.things.alphabetList))
     var alphabetList = this.things.alphabetList
@@ -86,9 +86,16 @@ class SortingCharactersScene extends Phaser.Scene {
         }
         break
     }
-    this.createSpeaker(question)
+
     this.createQuestion(question)
     this.createAnswers(question)
+    if (level != 'hardest') {
+      this.createSpeaker(question)
+      var delay = noGuide ? 1500 : 17000
+      this.time.delayedCall(delay, () => {
+        this.onClickSpeaker()
+      })
+    }
   }
 
   createSpeaker (question) {
@@ -104,16 +111,17 @@ class SortingCharactersScene extends Phaser.Scene {
       let data = this.calculateQuestionCard(number, question.length)
       data.allowClick = false
       let card = new Cards(this, key, number, data, false, true, {}, this.onPointerDown)
+      card.makeWhite(false)
       this.things.questionCards.push(card)
     }
   }
 
   createAnswers (question) {
     var answers = question
-    for (let i=0; i<4; i++) {
-      let item = randSplice(this.things.alphabetList)
-      answers.push(item)
-    }
+    // for (let i=0; i<4; i++) {
+    //   let item = randSplice(this.things.alphabetList)
+    //   answers.push(item)
+    // }
     answers = shuffle(answers)
     for (let index in answers) {
       let key = answers[index]

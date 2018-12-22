@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { loadAsset } from '../../helpers'
+import { loadAsset, removeTimbre } from '../../helpers'
 import assetSpec from './asset-spec'
 
 class Cards extends Phaser.GameObjects.Sprite {
@@ -27,19 +27,20 @@ class Cards extends Phaser.GameObjects.Sprite {
     }
   }
 
-  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCallBack) {
+  constructor (scene, key, number, data, cb, addToScene = true, config = {}, clickCallBack, isRemoveTimbre = false) {
     let x = data.x
     let y = data.y
     let scale = data.scale
-    super(scene, x, y, Cards.KEY + '-' + key, 0)
-
+    let keyAfter = isRemoveTimbre ? removeTimbre(key) : key
+    super(scene, x, y, Cards.KEY + '-' + keyAfter, 0)
     const cardKey = key.length == 1 ? key : key.substring(0, key.length-1)
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb
     this.allowClick = data.allowClick !== 'undefined' ? data.allowClick : true
     let hasSound = typeof data.hasSound !== 'undefined' ? data.hasSound : true
-    if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + cardKey.toLowerCase() + '-sound')
+    let cardKeyAfter = removeTimbre(cardKey.toLowerCase())
+    if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + cardKeyAfter + '-sound')
     if (data.isOpen) this.flipOut(false)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
@@ -65,6 +66,11 @@ class Cards extends Phaser.GameObjects.Sprite {
   flipOut (playSound = true) {
     this.setFrame(1)
     this.open = true
+    if (playSound) this.sound.play()
+  }
+
+  makeWhite (playSound = true) {
+    this.setFrame(2)
     if (playSound) this.sound.play()
   }
 }

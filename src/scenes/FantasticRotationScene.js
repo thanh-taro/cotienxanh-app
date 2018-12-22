@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
+import Arrow from '../components/Arrow'
 import GameOneScene from './GameOneScene'
 import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
 import HorizontalCards from '../components/HorizontalCards'
@@ -24,10 +25,12 @@ class FantasticRotationScene extends Phaser.Scene {
 
   create (data) {
     this.things = {
-      speed: 10,
+      play: false,
+      delay: 1000,
+      speed: 19,
       acceleration: 0.05,
       hasAnswers: false,
-      wordlist: ['con_meo', 'cho', 'heo', 'bo', 'meo1', 'cho1','heo1', 'bo1'],
+      wordlist: ['Hoa_Phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#000000')
@@ -38,35 +41,44 @@ class FantasticRotationScene extends Phaser.Scene {
     this.createMusicButton()
     this.createBackButton()
     this.generate()
+    this.createArrow()
   }
 
   update () {
+    if (this.things.delay) {
+      this.time.delayedCall(this.things.delay, () => {
+        this.things.play = true
+      })
+      this.things.delay = false
+    }
     if (this.things.rotation) {
       if (this.things.speed > 0) {
-        var speed = this.things.speed
-        Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
-          card.x -= speed
-        })
-        this.things.speed = this.things.speed - this.things.acceleration
-        let firstcard = this.things.rotation.getChildren()[0]
-        var width = firstcard.width * firstcard.scaleX
-        var max_width = width * (this.things.rotation.children.entries.length - 1)
-        var cameraCenterX = this.cameras.main.centerX
-        var questionCard
-        Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
-          let x_max = card.x + width / 2
-          let x_min = card.x - width / 2
-          if (x_max < 0) {
-            card.x = card.x + max_width
-          }
-          if (cameraCenterX > x_min && cameraCenterX < x_max) {
-            questionCard = card
-            card.alpha = 1
-          } else {
-            card.alpha = 0.15
-          }
-        })
-        this.things.questionCard = questionCard
+        if (this.things.play) {
+          var speed = this.things.speed
+          Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
+            card.x -= speed
+          })
+          this.things.speed = this.things.speed - this.things.acceleration
+          let firstcard = this.things.rotation.getChildren()[0]
+          var width = firstcard.width * firstcard.scaleX
+          var max_width = width * (this.things.rotation.children.entries.length - 1)
+          var cameraCenterX = this.cameras.main.centerX
+          var questionCard
+          Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
+            let x_max = card.x + width / 2
+            let x_min = card.x - width / 2
+            if (x_max < 0) {
+              card.x = card.x + max_width
+            }
+            if (cameraCenterX > x_min && cameraCenterX < x_max) {
+              questionCard = card
+              card.alpha = 1
+            } else {
+              card.alpha = 0.15
+            }
+          })
+          this.things.questionCard = questionCard
+        }
       } else {
         if (!this.things.hasAnswers) {
           this.things.questionCard.sound.play()
@@ -219,6 +231,16 @@ class FantasticRotationScene extends Phaser.Scene {
     this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
       this.stopGuideSound()
     })
+  }
+
+  createArrow () {
+    destroyObject(this.things.arrow)
+
+    let card = this.things.rotation.children.entries[0]
+    const x = this.cameras.main.centerX
+    const y = this.cameras.main.height / 3 - card.height * card.scaleY / 2
+    this.things.arrow = new Arrow(this, x, y)
+    this.things.arrow.setOrigin(0.5, 1)
   }
 
   onCardChoose (card) {

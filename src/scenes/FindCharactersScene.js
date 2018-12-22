@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
 import GameOneScene from './GameOneScene'
-import { destroyObject, randItem, randSplice, shuffle, onlyUnique } from '../helpers'
+import { destroyObject, randItem, randSplice, shuffle, onlyUnique, removeTimbre } from '../helpers'
 import Cards from '../components/Cards'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
@@ -14,8 +14,8 @@ class FindCharactersScene extends Phaser.Scene {
     return 'FindCharactersScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -26,8 +26,8 @@ class FindCharactersScene extends Phaser.Scene {
   create (data) {
     this.things = {
       alphabetList: ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y'],
-      wordlist: ['con_meo', 'cho', 'heo', 'bo'],
-      individualNouns: ['Nha_Trang', 'Chua_Mot_Cot'],
+      wordlist: ['Hoa_Phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
+      individualNouns: ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột'],
       questionCards: [],
       questionCharacterCards: [],
       answerCards: [],
@@ -121,7 +121,11 @@ class FindCharactersScene extends Phaser.Scene {
       let data = this.calculateQuestionCharacterCard(number, questionCharacters.length)
       data.allowClick = false
       let card = new Cards(this, key, number, data, false, true, {}, false)
-      if (hideList.indexOf(parseInt(index)) < 0) card.flipOut(false)
+      if (hideList.indexOf(parseInt(index)) < 0) {
+        card.flipOut(false)
+      } else {
+        card.makeWhite(false)
+      }
       this.things.questionCharacterCards.push(card)
     }
   }
@@ -131,7 +135,7 @@ class FindCharactersScene extends Phaser.Scene {
     var alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
 
     for (let index in answers) {
-      let indexOfAnswer = alphabetList.indexOf(answers[index])
+      let indexOfAnswer = alphabetList.indexOf(removeTimbre(answers[index]))
       if (indexOfAnswer >= 0) alphabetList.splice(indexOfAnswer, 1)
     }
 
@@ -146,7 +150,7 @@ class FindCharactersScene extends Phaser.Scene {
       let number = parseInt(index)
       let data = this.calculateAnswerCard(number, answers.length)
       data.isOpen = true
-      let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
+      let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown, true)
       this.things.answerCards.push(card)
     }
   }
@@ -291,7 +295,7 @@ class FindCharactersScene extends Phaser.Scene {
   won () {
     this.stopGuideSound()
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindCharactersScene.KEY, coin: FindCharactersScene.WIN_COIN })
+    this.scene.resume(GameOneScene.KEY, { from: FindCharactersScene.KEY, diamond: FindCharactersScene.WIN_DIAMOND })
   }
 }
 

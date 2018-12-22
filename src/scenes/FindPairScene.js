@@ -13,8 +13,8 @@ class FindPairScene extends Phaser.Scene {
     return 'FindPairScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -333,7 +333,7 @@ class FindPairScene extends Phaser.Scene {
     this.stopGuideSound()
 
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindPairScene.KEY, coin: FindPairScene.WIN_COIN })
+    this.scene.resume(GameOneScene.KEY, { from: FindPairScene.KEY, diamond: FindPairScene.WIN_DIAMOND })
   }
 }
 

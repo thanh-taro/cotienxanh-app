@@ -12,8 +12,10 @@ import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
+import Arrow from '../components/Arrow'
 import BackButton from '../components/BackButton'
 import CoinBadge from '../components/CoinBadge'
+import DiamondBadge from '../components/DiamondBadge'
 import WelcomeAudio from '../components/WelcomeAudio'
 import BackgroundAudio from '../components/BackgroundAudio'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
@@ -64,8 +66,10 @@ class BootScene extends Phaser.Scene {
     CollectCoinAudio.preload(this)
     HitQuestSound.preload(this)
     HomeButton.preload(this)
+    Arrow.preload(this)
     BackButton.preload(this)
     CoinBadge.preload(this)
+    DiamondBadge.preload(this)
     HomeBackgroundImage.preload(this)
     GameOneBloonImage.preload(this)
     GameTwoBloonImage.preload(this)

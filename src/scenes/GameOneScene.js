@@ -11,6 +11,7 @@ import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
 import CoinBadge from '../components/CoinBadge'
+import DiamondBadge from '../components/DiamondBadge'
 import FindPairScene from '../scenes/FindPairScene'
 import FantasticRotationScene from '../scenes/FantasticRotationScene'
 import SortingCharactersScene from '../scenes/SortingCharactersScene'
@@ -44,6 +45,7 @@ class GameOneScene extends Phaser.Scene {
     if (isTouchableDevice()) this.createGameTouchPads()
     this.createGameKeyboardKeys()
     this.createCoinBadge()
+    this.createDiamondBadge()
     this.createBackToHomeButton()
     this.createMusicButton()
 
@@ -82,7 +84,7 @@ class GameOneScene extends Phaser.Scene {
       this.resetPlayer()
 
       this.playCeremonyAudio()
-      this.things.coinBadge.addCoin(data.coin, true)
+      this.things.diamondBadge.addDiamond(data.diamond, true)
     }
   }
 
@@ -95,6 +97,10 @@ class GameOneScene extends Phaser.Scene {
 
   createCoinBadge () {
     if (this.things.coinBadge === undefined) this.things.coinBadge = new CoinBadge(this)
+  }
+
+  createDiamondBadge () {
+    if (this.things.diamondBadge === undefined) this.things.diamondBadge = new DiamondBadge(this)
   }
 
   createBackToHomeButton () {
