@@ -16,6 +16,7 @@ import Arrow from '../components/Arrow'
 import BackButton from '../components/BackButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
+import ClockBadge from '../components/ClockBadge'
 import WelcomeAudio from '../components/WelcomeAudio'
 import BackgroundAudio from '../components/BackgroundAudio'
 import HomeBackgroundImage from '../components/HomeBackgroundImage'
@@ -23,7 +24,6 @@ import GameOneBloonImage from '../components/GameOneBloonImage'
 import GameTwoBloonImage from '../components/GameTwoBloonImage'
 import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
-import CheckUserScene from './CheckUserScene'
 import Cards from '../components/Cards'
 import HorizontalCards from '../components/HorizontalCards'
 import QuicksandWebfont from '../components/QuicksandWebfont'
@@ -35,6 +35,7 @@ import FindPairGuideSound from '../components/FindPairGuideSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
 import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
+import { checkPlayTime } from '../helpers'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -70,6 +71,7 @@ class BootScene extends Phaser.Scene {
     BackButton.preload(this)
     CoinBadge.preload(this)
     DiamondBadge.preload(this)
+    ClockBadge.preload(this)
     HomeBackgroundImage.preload(this)
     GameOneBloonImage.preload(this)
     GameTwoBloonImage.preload(this)
@@ -170,10 +172,9 @@ class BootScene extends Phaser.Scene {
 
   moveToNextScene () {
     destroyObject(this.things.logoImage)
-
     this.input.addPointer(3)
 
-    this.scene.start(CheckUserScene.KEY)
+    checkPlayTime(this.scene, false)
   }
 }
 

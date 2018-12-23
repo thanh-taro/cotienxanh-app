@@ -1,3 +1,8 @@
+import WaitScene from './scenes/WaitScene'
+import CheckUserScene from './scenes/CheckUserScene'
+import store from 'store'
+import { allowedTime, waitTime } from './config'
+
 export const loadAsset = (scene, assetSpec) => {
   const { assetScaleBy, assetScale, assetScaleBase, assets, assetWidth, assetHeight } = assetSpec
   const gameSize = assetScaleBy === 'height' ? scene.sys.game.config.height : scene.sys.game.config.width
@@ -54,9 +59,7 @@ export const shuffle = (items) => {
   return items
 }
 
-export const onlyUnique = (value, index, self) => {
-  return self.indexOf(value) === index;
-}
+export const onlyUnique = (value, index, self) => self.indexOf(value) === index
 
 export const removeTimbre = (index) => {
   var array = {
@@ -121,5 +124,20 @@ export const removeTimbre = (index) => {
     'ỹ': 'y',
     'ỵ': 'y'
   }
-  return array[index] ? array[index] : index;
+  return array[index] ? array[index] : index
+}
+
+export const checkPlayTime = (scene, stay = true) => {
+  let startTime = window.startTime
+  const now = Date.now()
+  const duration = Math.abs(now - startTime) / 1000
+
+  if (duration > allowedTime && duration < allowedTime + waitTime) scene.start(WaitScene.KEY, { startTime, waitTime, allowedTime })
+  else if (!stay) {
+    startTime = Date.now()
+    window.startTime = startTime
+    store.set('startTime', startTime)
+
+    scene.start(CheckUserScene.KEY)
+  }
 }

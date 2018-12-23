@@ -12,7 +12,7 @@ class DiamondBadge {
     this.diamondText = new DiamondText(scene, addToScene, config)
     this.diamondText.x = this.diamondImage.x + this.diamondImage.displayWidth + 8
     this.diamondText.y = this.diamondImage.y
-    this.diamondText.setFontSize(this.diamondImage.displayHeight)
+    this.diamondText.setFontSize(this.diamondImage.displayHeight / 1.3)
   }
 
   addDiamond (diamond = 1, force = false) {

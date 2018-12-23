@@ -12,7 +12,7 @@ class CoinBadge {
     this.coinText = new CoinText(scene, addToScene, config)
     this.coinText.x = this.coinImage.x + this.coinImage.displayWidth + 8
     this.coinText.y = this.coinImage.y
-    this.coinText.setFontSize(this.coinImage.displayHeight)
+    this.coinText.setFontSize(this.coinImage.displayHeight / 1.3)
   }
 
   addCoin (coin = 1, force = false) {

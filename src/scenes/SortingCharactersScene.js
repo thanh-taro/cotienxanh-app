@@ -46,8 +46,9 @@ class SortingCharactersScene extends Phaser.Scene {
     var question = []
     var alphabetListDefault = JSON.parse(JSON.stringify(this.things.alphabetList))
     var alphabetList = this.things.alphabetList
-    const easyGroup = ['sdu', 'qde', 'rxc']
-    const level = this.things.level
+    const easyGroup = ['aăâ', 'oôơ', 'lmn', 'cdđ', 'uưv']
+    const level = 'normal'
+    let index
 
     switch (level) {
       case 'easy':
@@ -59,21 +60,19 @@ class SortingCharactersScene extends Phaser.Scene {
         break
 
       case 'normal':
-        for (let i = 0; i < 3; i++) {
-          let item = randSplice(alphabetList)
-          let index = alphabetListDefault.indexOf(item)
-          question[index] = item
-          question = question.filter((el) => {
-            return el !== 'empty'
-          })
-        }
+        index = Math.floor(Math.random() * 25)
+        question.push(alphabetList[index])
+        question.push(alphabetList[index + 1])
+        question.push(alphabetList[index + 2])
         break
 
       case 'hard':
-        for (let i = 0; i < 3; i++) {
-          let item = randSplice(alphabetList)
-          question.push(item)
-        }
+        index = Math.floor(Math.random() * 23)
+        question.push(alphabetList[index])
+        question.push(alphabetList[index + 1])
+        question.push(alphabetList[index + 2])
+        question.push(alphabetList[index + 3])
+        question.push(alphabetList[index + 4])
         break
 
       case 'hardest':
@@ -90,18 +89,17 @@ class SortingCharactersScene extends Phaser.Scene {
 
     this.createQuestion(question)
     this.createAnswers(question)
-    if (level !== 'hardest') {
-      this.createSpeaker(question)
-      var delay = noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
-      this.time.delayedCall(delay, () => {
-        if (!this.things.beStopped) this.onClickSpeaker()
-      })
-    }
+    this.createSpeaker(question)
+    var delay = noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
+    this.time.delayedCall(delay, () => {
+      if (!this.things.beStopped) this.onClickSpeaker()
+    })
   }
 
   createSpeaker (question) {
     let data = this.calculateQuestionCard(0, question.length)
     data.hasSound = false
+    // eslint-disable-next-line no-unused-vars
     const card = new Cards(this, 'speakerI', 0, data, false, true, {}, this.onClickSpeaker.bind(this))
   }
 
@@ -119,18 +117,14 @@ class SortingCharactersScene extends Phaser.Scene {
 
   createAnswers (question) {
     var answers = question
-    // for (let i=0; i<4; i++) {
-    //   let item = randSplice(this.things.alphabetList)
-    //   answers.push(item)
-    // }
     answers = shuffle(answers)
     for (let index in answers) {
       let key = answers[index]
       let number = parseInt(index)
       let data = this.calculateAnswerCard(number, answers.length)
       data.isOpen = true
+      data.origin = { x: 0.5, y: 1 }
       let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
-      card.setScale(0.5)
       this.things.answerCards.push(card)
     }
   }
@@ -172,7 +166,7 @@ class SortingCharactersScene extends Phaser.Scene {
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
     const x = parseInt(startX + padding / 2 + number * width + width / 2)
-    const y = parseInt(this.cameras.main.height / row * 2) + 50
+    const y = this.cameras.main.height - padding * 2
 
     return {
       x: x,
@@ -217,6 +211,9 @@ class SortingCharactersScene extends Phaser.Scene {
 
   checkAnswer (card) {
     this.stopGuideSound()
+    this.things.rightSound.stop()
+    this.things.wrongSound.stop()
+
     var questionCards = this.things.questionCards
     var answerCards = this.things.answerCards
     let currentQuestionCard = questionCards[this.things.currentQuestionCardIndex]

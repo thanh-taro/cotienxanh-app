@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import BootScene from './scenes/BootScene'
+import WaitScene from './scenes/WaitScene'
 import CheckUserScene from './scenes/CheckUserScene'
 import HomeScene from './scenes/HomeScene'
 import GameOneScene from './scenes/GameOneScene'
@@ -29,4 +30,6 @@ export const physics = {
 export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
-export const scene = [ BootScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene]
+export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene ]
+export const allowedTime = 1800
+export const waitTime = 3600

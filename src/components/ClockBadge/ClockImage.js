@@ -2,23 +2,23 @@ import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
 
-class DiamondImage extends Phaser.GameObjects.Image {
+class ClockImage extends Phaser.GameObjects.Image {
   static get KEY () {
-    return 'DiamondImage'
+    return 'ClockImage'
   }
 
   static preload (scene) {
     const { asset } = loadAsset(scene, assetSpec)
-    scene.load.image(DiamondImage.KEY, asset)
+    scene.load.image(ClockImage.KEY, asset)
   }
 
   constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
 
-    const x = scene.cameras.main.width / 2.7
+    const x = scene.cameras.main.width / 3.2 * 2
     const y = 8
 
-    super(scene, x, y, DiamondImage.KEY)
+    super(scene, x, y, ClockImage.KEY)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     this.setOrigin(0, 0.5)
@@ -34,4 +34,4 @@ class DiamondImage extends Phaser.GameObjects.Image {
   }
 }
 
-export default DiamondImage
+export default ClockImage

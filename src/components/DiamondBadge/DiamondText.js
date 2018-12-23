@@ -15,7 +15,7 @@ class DiamondText extends Phaser.GameObjects.Text {
     this.setAlign('left')
     this.setFontFamily('Quicksand, monospace')
     this.setFontStyle('bold')
-    this.setColor('#FFEB3B')
+    this.setColor('#4FC3F7')
     this.setShadow(1, 1, '#000000')
     this.diamond = diamond
 
