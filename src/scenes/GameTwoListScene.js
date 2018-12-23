@@ -4,20 +4,18 @@ import MusicButton from '../components/MusicButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
-import GameFourWelcomeAudio from '../components/GameFourWelcomeAudio'
-import LevelEasyButton from '../components/LevelEasyButton'
-import LevelNormalButton from '../components/LevelNormalButton'
-import LevelHardButton from '../components/LevelHardButton'
-import LevelHardestButton from '../components/LevelHardestButton'
+import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
 import { destroyObject } from '../helpers'
+import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
+import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 
-class GameFourScene extends Phaser.Scene {
+class GameTwoListScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameFourScene'
+    return 'GameTwoListScene'
   }
 
   constructor () {
-    super({ key: GameFourScene.KEY })
+    super({ key: GameTwoListScene.KEY })
 
     this.things = {}
   }
@@ -32,7 +30,7 @@ class GameFourScene extends Phaser.Scene {
     this.createClockBadge()
     this.createBackToHomeButton()
     this.createMusicButton()
-    this.createLevelButtons()
+    this.createSubGameButtons()
   }
 
   forceRestart () {
@@ -43,15 +41,15 @@ class GameFourScene extends Phaser.Scene {
   }
 
   setBackground () {
-    this.cameras.main.setBackgroundColor('#FCE4EC')
+    this.cameras.main.setBackgroundColor('#DAF7A6')
 
     const centerX = this.cameras.main.centerX
     const centerY = this.cameras.main.height * 0.95
-    const fontSize = Math.floor(this.cameras.main.height * 0.2)
+    const fontSize = Math.floor(this.cameras.main.height * 0.15)
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Thần đồng nhí',
+      text: 'Vui kể chuyện',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'
@@ -61,7 +59,7 @@ class GameFourScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
-    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameFourWelcomeAudio.KEY)
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameTwoWelcomeAudio.KEY)
     this.things.welcomeAudio.play()
   }
 
@@ -86,7 +84,9 @@ class GameFourScene extends Phaser.Scene {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
 
+      // force to update coin to server
       this.things.homeButton.setCallback(() => {
+        this.things.coinBadge.addCoin(0, true)
         this.things.welcomeAudio.stop()
       })
     }
@@ -96,12 +96,10 @@ class GameFourScene extends Phaser.Scene {
     if (this.things.musicButton === undefined) this.things.musicButton = new MusicButton(this)
   }
 
-  createLevelButtons () {
-    if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
-    if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
-    if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
-    if (this.things.levelHardestButton === undefined) this.things.levelHardestButton = new LevelHardestButton(this)
+  createSubGameButtons () {
+    if (this.things.subGameOneButton === undefined) this.things.subGameOneButton = new GameTwoSubOneButton(this)
+    if (this.things.subGameTwoButton === undefined) this.things.subGameTwoButton = new GameTwoSubTwoButton(this)
   }
 }
 
-export default GameFourScene
+export default GameTwoListScene

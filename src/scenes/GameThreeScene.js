@@ -4,20 +4,20 @@ import MusicButton from '../components/MusicButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
-import GameFourWelcomeAudio from '../components/GameFourWelcomeAudio'
+import GameThreeWelcomeAudio from '../components/GameThreeWelcomeAudio'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
 import { destroyObject } from '../helpers'
 
-class GameFourScene extends Phaser.Scene {
+class GameThreeScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameFourScene'
+    return 'GameThreeScene'
   }
 
   constructor () {
-    super({ key: GameFourScene.KEY })
+    super({ key: GameThreeScene.KEY })
 
     this.things = {}
   }
@@ -51,7 +51,7 @@ class GameFourScene extends Phaser.Scene {
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Thần đồng nhí',
+      text: 'Thi ai tinh',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'
@@ -61,7 +61,7 @@ class GameFourScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
-    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameFourWelcomeAudio.KEY)
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameThreeWelcomeAudio.KEY)
     this.things.welcomeAudio.play()
   }
 
@@ -104,4 +104,4 @@ class GameFourScene extends Phaser.Scene {
   }
 }
 
-export default GameFourScene
+export default GameThreeScene

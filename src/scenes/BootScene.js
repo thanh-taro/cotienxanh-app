@@ -39,6 +39,10 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
+import GameThreeWelcomeAudio from '../components/GameThreeWelcomeAudio'
+import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
+import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
+import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -61,6 +65,10 @@ class BootScene extends Phaser.Scene {
 
     LogoImage.preload(this)
     GameOneWelcomeAudio.preload(this)
+    GameTwoWelcomeAudio.preload(this)
+    GameTwoSubOneButton.preload(this)
+    GameTwoSubTwoButton.preload(this)
+    GameThreeWelcomeAudio.preload(this)
     GameFourWelcomeAudio.preload(this)
     GameOneTilemap.preload(this)
     GamePadLeftButton.preload(this)

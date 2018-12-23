@@ -4,20 +4,18 @@ import MusicButton from '../components/MusicButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
-import GameFourWelcomeAudio from '../components/GameFourWelcomeAudio'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
-import LevelHardestButton from '../components/LevelHardestButton'
 import { destroyObject } from '../helpers'
 
-class GameFourScene extends Phaser.Scene {
+class GameTwoSubOneScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameFourScene'
+    return 'GameTwoSubOneScene'
   }
 
   constructor () {
-    super({ key: GameFourScene.KEY })
+    super({ key: GameTwoSubOneScene.KEY })
 
     this.things = {}
   }
@@ -26,7 +24,6 @@ class GameFourScene extends Phaser.Scene {
     this.forceRestart()
     this.setBackground()
 
-    this.playWelcomeAudio()
     this.createCoinBadge()
     this.createDiamondBadge()
     this.createClockBadge()
@@ -47,22 +44,17 @@ class GameFourScene extends Phaser.Scene {
 
     const centerX = this.cameras.main.centerX
     const centerY = this.cameras.main.height * 0.95
-    const fontSize = Math.floor(this.cameras.main.height * 0.2)
+    const fontSize = Math.floor(this.cameras.main.height * 0.15)
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Thần đồng nhí',
+      text: 'Kể chuyện sáng tạo',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'
       }
     })
     this.things.backgroundText.setOrigin(0.5, 1)
-  }
-
-  playWelcomeAudio () {
-    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameFourWelcomeAudio.KEY)
-    this.things.welcomeAudio.play()
   }
 
   stopWelcomeAudio () {
@@ -85,10 +77,6 @@ class GameFourScene extends Phaser.Scene {
     if (this.things.homeButton === undefined) {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
-
-      this.things.homeButton.setCallback(() => {
-        this.things.welcomeAudio.stop()
-      })
     }
   }
 
@@ -100,8 +88,7 @@ class GameFourScene extends Phaser.Scene {
     if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
     if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
     if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
-    if (this.things.levelHardestButton === undefined) this.things.levelHardestButton = new LevelHardestButton(this)
   }
 }
 
-export default GameFourScene
+export default GameTwoSubOneScene

@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
+import GameTwoListScene from '../../scenes/GameTwoListScene'
 
 class GameTwoBloonImage extends Phaser.GameObjects.Image {
   static get KEY () {
@@ -51,7 +52,16 @@ class GameTwoBloonImage extends Phaser.GameObjects.Image {
 
   addToScene (scene) {
     scene.add.existing(this)
-    // scene.updates.add(this)
+    scene.updates.add(this)
+
+    this.setInteractive()
+    this.on('pointerdown', this.onPointerDown, this)
+  }
+
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+    this.scene.things.welcomeAudio.stop()
+    this.scene.scene.start(GameTwoListScene.KEY)
   }
 }
 

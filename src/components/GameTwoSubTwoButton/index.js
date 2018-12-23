@@ -1,35 +1,32 @@
 import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
-import HomeScene from '../../scenes/HomeScene'
+import GameTwoSubTwoScene from '../../scenes/GameTwoSubTwoScene'
 
-class HomeButton extends Phaser.GameObjects.Sprite {
+class GameTwoSubTwoButton extends Phaser.GameObjects.Sprite {
   static get KEY () {
-    return 'HomeButton'
+    return 'GameTwoSubTwoButton'
   }
 
   static preload (scene) {
     const { asset, assetWidth, assetHeight } = loadAsset(scene, assetSpec)
-    scene.load.spritesheet(HomeButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
+    scene.load.spritesheet(GameTwoSubTwoButton.KEY, asset, { frameWidth: assetWidth, frameHeight: assetHeight })
   }
 
-  constructor (scene, y, addToScene = true, config = {}) {
+  constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
 
-    const x = 8
+    const x = scene.cameras.main.width / 3 * 2
+    const y = scene.cameras.main.height / 2
 
-    super(scene, x, y, HomeButton.KEY, 0)
+    super(scene, x, y, GameTwoSubTwoButton.KEY, 0)
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
-    this.setOrigin(0, 0)
+    this.setOrigin(0.5, 0.5)
     this.setScale(scale)
     this.setScrollFactor(0)
 
     if (addToScene) this.addToScene(scene)
-  }
-
-  setCallback (cb) {
-    this.cb = cb
   }
 
   addToScene (scene) {
@@ -40,10 +37,8 @@ class HomeButton extends Phaser.GameObjects.Sprite {
 
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
-    if (this.cb) this.cb()
-
-    this.scene.scene.start(HomeScene.KEY)
+    this.scene.scene.start(GameTwoSubTwoScene.KEY)
   }
 }
 
-export default HomeButton
+export default GameTwoSubTwoButton
