@@ -26,15 +26,15 @@ class FindCharactersScene extends Phaser.Scene {
   create (data) {
     this.things = {
       alphabetList: ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y'],
-      wordlist: ['Hoa_Phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
-      individualNouns: ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột'],
+      wordlist: ['Hoa_phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_cẩm_chướng', 'Hoa_bồ_công_anh'],
+      individualNouns: ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Nhà_thờ_Đức_Bà', 'Cầu_Rồng_Đà_Nẵng', 'Chùa_Một_Cột', 'Hoàng_thành_Huế'],
       questionCharacterCards: [],
       answerCards: [],
       currentQuestionCardIndex: 0,
       rightSound: this.sound.add(RightSound.KEY),
       wrongSound: this.sound.add(WrongSound.KEY),
       noGuide: data.noGuide,
-      beStopped: false,
+      beStopped: false
     }
     this.cameras.main.setBackgroundColor('#000000')
     if (!data.noGuide) this.playGuideSound()
@@ -47,23 +47,26 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   generate () {
-    var question = randItem(this.things.wordlist)
+    let question = randItem(this.things.wordlist)
     this.things.question = question
-    var questionCharacters = question.split('')
-    for (var i = questionCharacters.length - 1; i >= 0; i--) {
-      if(questionCharacters[i] === '_') {
-         questionCharacters.splice(i, 1);
+    let questionCharacters = question.split('')
+    for (let i = questionCharacters.length - 1; i >= 0; i--) {
+      if (questionCharacters[i] === '_') {
+        questionCharacters.splice(i, 1)
       }
     }
-    var hideList = []
+    let hideList = []
     const level = this.things.level
+    let length
+    let more
+    let arrayIndex
 
     switch (level) {
       case 'easy':
-        var length = questionCharacters.length
-        var more = length < 4 ? length - 1 : 3
-        var arrayIndex = Array.apply(null, {length: length}).map(Number.call, Number)
-        for (let i=0; i< more; i++) {
+        length = questionCharacters.length
+        more = length < 4 ? length - 1 : 3
+        arrayIndex = Array.apply(null, { length }).map(Number.call, Number)
+        for (let i = 0; i < more; i++) {
           hideList.push(randSplice(arrayIndex))
         }
         break
@@ -72,36 +75,36 @@ class FindCharactersScene extends Phaser.Scene {
         question = randItem(this.things.individualNouns)
         this.things.question = question
         questionCharacters = question.split('')
-        for (var i = questionCharacters.length - 1; i >= 0; i--) {
-          if(questionCharacters[i] === '_') {
-             questionCharacters.splice(i, 1);
+        for (let i = questionCharacters.length - 1; i >= 0; i--) {
+          if (questionCharacters[i] === '_') {
+            questionCharacters.splice(i, 1)
           }
         }
-        var length = questionCharacters.length
-        var more = length < 4 ? length - 1 : 3
-        var arrayIndex = Array.apply(null, {length: length}).map(Number.call, Number)
-        for (let i=0; i< more; i++) {
+        length = questionCharacters.length
+        more = length < 4 ? length - 1 : 3
+        arrayIndex = Array.apply(null, { length }).map(Number.call, Number)
+        for (let i = 0; i < more; i++) {
           hideList.push(randSplice(arrayIndex))
         }
         break
 
       case 'hard':
-        var showList = [0]
-        var count = 0
+        let showList = [0]
+        let count = 0
         for (let index in question) {
           if (question[index] === '_') {
             showList.push(parseInt(index) - count)
             count++
           }
         }
-        var length = questionCharacters.length
-        var arrayIndex = Array.apply(null, {length: length}).map(Number.call, Number)
+        length = questionCharacters.length
+        arrayIndex = Array.apply(null, { length }).map(Number.call, Number)
         hideList = arrayIndex.filter((el) => !showList.includes(el))
         break
 
       case 'hardest':
-        var length = questionCharacters.length
-        hideList = Array.apply(null, {length: length}).map(Number.call, Number)
+        length = questionCharacters.length
+        hideList = Array.apply(null, { length }).map(Number.call, Number)
         break
     }
     this.things.hideList = hideList
@@ -115,7 +118,7 @@ class FindCharactersScene extends Phaser.Scene {
     let questionData = this.calculateQuestionCard(questionCharacters.length)
     let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {}, true)
     this.things.questionCard = questionCard
-    var delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
+    let delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
       if (!this.things.beStopped) questionCard.sound.play()
     })
@@ -137,8 +140,8 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   createAnswers (questionCharacters) {
-    var answers =  questionCharacters.filter(onlyUnique)
-    var alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
+    let answers = questionCharacters.filter(onlyUnique)
+    let alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
 
     for (let index in answers) {
       answers[index] = removeTimbre(answers[index])
@@ -146,7 +149,7 @@ class FindCharactersScene extends Phaser.Scene {
       if (indexOfAnswer >= 0) alphabetList.splice(indexOfAnswer, 1)
     }
 
-    for (let i=0; i<3; i++) {
+    for (let i = 0; i < 3; i++) {
       let item = randSplice(alphabetList)
       answers.push(item)
     }
@@ -157,6 +160,7 @@ class FindCharactersScene extends Phaser.Scene {
       let number = parseInt(index)
       let data = this.calculateAnswerCard(number, answers.length)
       data.isOpen = true
+      data.origin = { x: 0.5, y: 1 }
       let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
       this.things.answerCards.push(card)
     }
@@ -235,7 +239,7 @@ class FindCharactersScene extends Phaser.Scene {
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
     const x = parseInt(startX + padding / 2 + number * width + width / 2)
-    const y = parseInt(this.cameras.main.height / row * 2)
+    const y = this.cameras.main.height - padding * 2
 
     return {
       x: x,
@@ -253,29 +257,30 @@ class FindCharactersScene extends Phaser.Scene {
 
   checkAnswer (card) {
     this.stopGuideSound()
-    var questionCharacterCards = this.things.questionCharacterCards
-    var answerCards = this.things.answerCards
+    this.things.questionCard.sound.stop()
+    this.things.rightSound.stop()
+    this.things.wrongSound.stop()
+
+    let questionCharacterCards = this.things.questionCharacterCards
+    let answerCards = this.things.answerCards
     let currentQuestionCard = questionCharacterCards[0]
     if (card.cardKey === removeTimbre(currentQuestionCard.cardKey)) {
       currentQuestionCard.flipOut(false)
-      questionCharacterCards.splice(0,1)
-      var delay = 800
-      if (questionCharacterCards.length == 0) {
-        this.time.delayedCall(delay, () => {
-           this.things.questionCard.sound.play()
-        })
-        delay += this.things.questionCard.sound.duration + 200
-      }
-      this.time.delayedCall(delay, () => {
-         this.playRightSound()
-      })
-      delay += this.things.rightSound.duration + 2000
-      if (questionCharacterCards.length == 0) {
+      questionCharacterCards.splice(0, 1)
+
+      this.playRightSound()
+
+      if (questionCharacterCards.length === 0) {
         for (let index in answerCards) {
           answerCards[index].allowClick = false
         }
-        this.time.delayedCall(delay, () => {
-           this.won()
+
+        this.time.delayedCall(1000, () => {
+          this.things.questionCard.sound.play({ delay: 0.3 })
+        })
+
+        this.time.delayedCall(3500, () => {
+          this.won()
         })
       }
     } else {

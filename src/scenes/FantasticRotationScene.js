@@ -30,7 +30,7 @@ class FantasticRotationScene extends Phaser.Scene {
       speed: 19,
       acceleration: 0.05,
       hasAnswers: false,
-      wordlist: ['Hoa_Phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
+      wordlist: ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#000000')

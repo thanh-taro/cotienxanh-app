@@ -60,8 +60,7 @@ class GameOneBloonImage extends Phaser.GameObjects.Image {
 
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
-
-    this.scene.sound.stopAll()
+    this.scene.things.welcomeAudio.stop()
     this.scene.scene.start(GameOneScene.KEY, { forceRestart: true })
   }
 }

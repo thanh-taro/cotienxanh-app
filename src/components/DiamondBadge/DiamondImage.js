@@ -15,7 +15,7 @@ class DiamondImage extends Phaser.GameObjects.Image {
   constructor (scene, addToScene = true, config = {}) {
     const { scale } = loadAsset(scene, assetSpec)
 
-    const x = 608
+    const x = scene.cameras.main.width / 2.5
     const y = 8
 
     super(scene, x, y, DiamondImage.KEY)

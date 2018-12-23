@@ -45,6 +45,7 @@ class Cards extends Phaser.GameObjects.Sprite {
     this.setScrollFactor(0)
     this.setInteractive()
     this.setScale(scale)
+    if (data.origin) this.setOrigin(data.origin.x, data.origin.y)
     if (clickCallBack) this.on('pointerdown', clickCallBack, this)
 
     if (addToScene) this.addToScene(scene)
