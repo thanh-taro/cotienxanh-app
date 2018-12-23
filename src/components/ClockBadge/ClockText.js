@@ -15,7 +15,7 @@ class ClockText extends Phaser.GameObjects.Text {
     this.setAlign('left')
     this.setFontFamily('Quicksand, monospace')
     this.setFontStyle('bold')
-    this.setColor('#FFFFFF')
+    this.setColor('#FFF9C4')
     this.setShadow(1, 1, '#000000')
     this.setText('00:00')
     this.durationTime = 0
@@ -39,7 +39,7 @@ class ClockText extends Phaser.GameObjects.Text {
       if (second < 10) second = '0' + second
       this.setText('' + minus + ':' + second)
 
-      if (diff < allowedTime / 3) this.setColor('#FFFFFF')
+      if (diff < allowedTime / 3) this.setColor('#FFF9C4')
       else if (diff < allowedTime / 3 * 2) this.setColor('#FFEB3B')
       else this.setColor('#D32F2F')
     }

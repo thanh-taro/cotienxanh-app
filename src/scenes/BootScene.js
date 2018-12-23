@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import LogoImage from '../components/LogoImage'
 import Setting from '../components/Setting'
 import GameOneWelcomeAudio from '../components/GameOneWelcomeAudio'
-import GameOneBackgroundAudio from '../components/GameOneBackgroundAudio'
+import GameFourWelcomeAudio from '../components/GameFourWelcomeAudio'
 import GameOneTilemap from '../components/GameOneTilemap'
 import GameOnePlayer from '../components/GameOnePlayer'
 import GamePadLeftButton from '../components/GamePadLeftButton'
@@ -27,7 +27,7 @@ import GameFourBloonImage from '../components/GameFourBloonImage'
 import Cards from '../components/Cards'
 import HorizontalCards from '../components/HorizontalCards'
 import QuicksandWebfont from '../components/QuicksandWebfont'
-import { destroyObject } from '../helpers'
+import { destroyObject, checkPlayTime } from '../helpers'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import CeremonySound from '../components/CeremonySound'
@@ -35,7 +35,10 @@ import FindPairGuideSound from '../components/FindPairGuideSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
 import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
-import { checkPlayTime } from '../helpers'
+import LevelEasyButton from '../components/LevelEasyButton'
+import LevelNormalButton from '../components/LevelNormalButton'
+import LevelHardButton from '../components/LevelHardButton'
+import LevelHardestButton from '../components/LevelHardestButton'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -58,7 +61,7 @@ class BootScene extends Phaser.Scene {
 
     LogoImage.preload(this)
     GameOneWelcomeAudio.preload(this)
-    GameOneBackgroundAudio.preload(this)
+    GameFourWelcomeAudio.preload(this)
     GameOneTilemap.preload(this)
     GamePadLeftButton.preload(this)
     GamePadRightButton.preload(this)
@@ -90,6 +93,10 @@ class BootScene extends Phaser.Scene {
     FantasticRotationGuideSound.preload(this)
     SortingCharactersGuideSound.preload(this)
     FindCharactersGuideSound.preload(this)
+    LevelEasyButton.preload(this)
+    LevelNormalButton.preload(this)
+    LevelHardButton.preload(this)
+    LevelHardestButton.preload(this)
   }
 
   create () {

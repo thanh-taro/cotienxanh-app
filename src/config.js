@@ -4,6 +4,7 @@ import WaitScene from './scenes/WaitScene'
 import CheckUserScene from './scenes/CheckUserScene'
 import HomeScene from './scenes/HomeScene'
 import GameOneScene from './scenes/GameOneScene'
+import GameFourScene from './scenes/GameFourScene'
 import FindPairScene from './scenes/FindPairScene'
 import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
@@ -30,6 +31,6 @@ export const physics = {
 export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
-export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene ]
+export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene ]
 export const allowedTime = 1800
 export const waitTime = 3600
