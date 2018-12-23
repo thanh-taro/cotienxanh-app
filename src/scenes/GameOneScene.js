@@ -11,8 +11,12 @@ import MusicButton from '../components/MusicButton'
 import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
 import CoinBadge from '../components/CoinBadge'
+import DiamondBadge from '../components/DiamondBadge'
 import FindPairScene from '../scenes/FindPairScene'
-import { isTouchableDevice, destroyObject } from '../helpers'
+import FantasticRotationScene from '../scenes/FantasticRotationScene'
+import SortingCharactersScene from '../scenes/SortingCharactersScene'
+import FindCharactersScene from '../scenes/FindCharactersScene'
+import { isTouchableDevice, destroyObject, randItem } from '../helpers'
 import CeremonySound from '../components/CeremonySound'
 
 class GameOneScene extends Phaser.Scene {
@@ -41,6 +45,7 @@ class GameOneScene extends Phaser.Scene {
     if (isTouchableDevice()) this.createGameTouchPads()
     this.createGameKeyboardKeys()
     this.createCoinBadge()
+    this.createDiamondBadge()
     this.createBackToHomeButton()
     this.createMusicButton()
 
@@ -79,7 +84,7 @@ class GameOneScene extends Phaser.Scene {
       this.resetPlayer()
 
       this.playCeremonyAudio()
-      this.things.coinBadge.addCoin(data.coin, true)
+      this.things.diamondBadge.addDiamond(data.diamond, true)
     }
   }
 
@@ -92,6 +97,10 @@ class GameOneScene extends Phaser.Scene {
 
   createCoinBadge () {
     if (this.things.coinBadge === undefined) this.things.coinBadge = new CoinBadge(this)
+  }
+
+  createDiamondBadge () {
+    if (this.things.diamondBadge === undefined) this.things.diamondBadge = new DiamondBadge(this)
   }
 
   createBackToHomeButton () {
@@ -203,7 +212,25 @@ class GameOneScene extends Phaser.Scene {
     else if (tile.x < 60) level = 'normal'
     else if (tile.x < 90) level = 'hard'
     else level = 'hardest'
-    this.playFindPair(level)
+
+    let miniGame = ['fantasticRotation', 'findPair', 'sortingCharacters', 'findCharacters']
+    this.runMiniGame(randItem(miniGame), level)
+  }
+
+  runMiniGame(game, level) {
+    switch (game) {
+      case 'fantasticRotation':
+        this.playFantasticRotation(level)
+        break;
+      case 'sortingCharacters':
+        this.playSortingCharacters(level)
+        break;
+      case 'findCharacters':
+        this.playFindCharacters(level)
+        break;
+      default:
+        this.playFindPair(level)
+    }
   }
 
   onGamePadLeftDown () {
@@ -292,6 +319,33 @@ class GameOneScene extends Phaser.Scene {
 
     this.scene.pause()
     this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1, level })
+  }
+
+  playFantasticRotation (level) {
+    if (this.things.playFantasticRotationTimes === undefined) this.things.playFantasticRotationTimes = 1
+    else this.things.playFantasticRotationTimes++
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+    this.scene.pause()
+    this.scene.run(FantasticRotationScene.KEY, { noGuide: this.things.playFantasticRotationTimes > 1, level })
+  }
+
+  playSortingCharacters (level) {
+    if (this.things.playSortingCharactersTimes === undefined) this.things.playSortingCharactersTimes = 1
+    else this.things.playSortingCharactersTimes++
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+    this.scene.pause()
+    this.scene.run(SortingCharactersScene.KEY, { noGuide: this.things.playSortingCharactersTimes > 1, level })
+  }
+
+  playFindCharacters (level) {
+    if (this.things.playFindCharactersTimes === undefined) this.things.playFindCharactersTimes = 1
+    else this.things.playFindCharactersTimes++
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+    this.scene.pause()
+    this.scene.run(FindCharactersScene.KEY, { noGuide: this.things.playFindCharactersTimes > 1, level })
   }
 }
 

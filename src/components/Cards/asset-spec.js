@@ -1,32 +1,92 @@
 import a from './l_a.png'
+import á from './l_á.png'
+import à from './l_à.png'
+import ả from './l_ả.png'
+import ã from './l_ã.png'
+import ạ from './l_ạ.png'
 import ă from './l_ă.png'
+import ắ from './l_ắ.png'
+import ằ from './l_ằ.png'
+import ẳ from './l_ẳ.png'
+import ẵ from './l_ẵ.png'
+import ặ from './l_ặ.png'
 import â from './l_â.png'
+import ấ from './l_ấ.png'
+import ầ from './l_ầ.png'
+import ẩ from './l_ẩ.png'
+import ẫ from './l_ẫ.png'
+import ậ from './l_ậ.png'
 import b from './l_b.png'
 import c from './l_c.png'
 import d from './l_d.png'
 import đ from './l_đ.png'
 import e from './l_e.png'
+import é from './l_é.png'
+import è from './l_è.png'
+import ẻ from './l_ẻ.png'
+import ẽ from './l_ẽ.png'
+import ẹ from './l_ẹ.png'
 import ê from './l_ê.png'
+import ế from './l_ế.png'
+import ề from './l_ề.png'
+import ể from './l_ể.png'
+import ễ from './l_ễ.png'
+import ệ from './l_ệ.png'
 import g from './l_g.png'
 import h from './l_h.png'
 import i from './l_i.png'
+import í from './l_í.png'
+import ì from './l_ì.png'
+import ỉ from './l_ỉ.png'
+import ĩ from './l_ĩ.png'
+import ị from './l_ị.png'
 import k from './l_k.png'
 import l from './l_l.png'
 import m from './l_m.png'
 import n from './l_n.png'
 import o from './l_o.png'
+import ó from './l_ó.png'
+import ò from './l_ò.png'
+import ỏ from './l_ỏ.png'
+import õ from './l_õ.png'
+import ọ from './l_ọ.png'
 import ô from './l_ô.png'
+import ố from './l_ố.png'
+import ồ from './l_ồ.png'
+import ổ from './l_ổ.png'
+import ỗ from './l_ỗ.png'
+import ộ from './l_ộ.png'
 import ơ from './l_ơ.png'
+import ớ from './l_ớ.png'
+import ờ from './l_ờ.png'
+import ở from './l_ở.png'
+import ỡ from './l_ỡ.png'
+import ợ from './l_ợ.png'
 import p from './l_p.png'
 import q from './l_q.png'
 import r from './l_r.png'
 import s from './l_s.png'
 import t from './l_t.png'
 import u from './l_u.png'
+import ú from './l_ú.png'
+import ù from './l_ù.png'
+import ủ from './l_ủ.png'
+import ũ from './l_ũ.png'
+import ụ from './l_ụ.png'
 import ư from './l_ư.png'
+import ứ from './l_ứ.png'
+import ừ from './l_ừ.png'
+import ử from './l_ử.png'
+import ữ from './l_ữ.png'
+import ự from './l_ự.png'
 import v from './l_v.png'
 import x from './l_x.png'
 import y from './l_y.png'
+import ý from './l_ý.png'
+import ỳ from './l_ỳ.png'
+import ỷ from './l_ỷ.png'
+import ỹ from './l_ỹ.png'
+import ỵ from './l_ỵ.png'
 import A from './u_a.png'
 import Ă from './u_ă.png'
 import Â from './u_â.png'
@@ -85,6 +145,15 @@ import ưH from './h_ư.png'
 import vH from './h_v.png'
 import xH from './h_x.png'
 import yH from './h_y.png'
+import meoW from './w_meo.png'
+import choW from './w_cho.png'
+import heoW from './w_heo.png'
+import boW from './w_bo.png'
+import meoI from './i_meo.png'
+import choI from './i_cho.png'
+import heoI from './i_heo.png'
+import boI from './i_bo.png'
+import speakerI from './i_speaker.png'
 import aSound from './a.mp3'
 import ăSound from './ă.mp3'
 import âSound from './â.mp3'
@@ -123,34 +192,94 @@ const assetSpec = {
   assetHeight: 512,
   assetCollection: [
     { key: 'a', asset: a },
+    { key: 'á', asset: á },
+    { key: 'à', asset: à },
+    { key: 'ả', asset: ả },
+    { key: 'ã', asset: ã },
+    { key: 'ạ', asset: ạ },
     { key: 'ă', asset: ă },
+    { key: 'ắ', asset: ắ },
+    { key: 'ằ', asset: ằ },
+    { key: 'ẳ', asset: ẳ },
+    { key: 'ẵ', asset: ẵ },
+    { key: 'ặ', asset: ặ },
     { key: 'â', asset: â },
+    { key: 'ấ', asset: ấ },
+    { key: 'ầ', asset: ầ },
+    { key: 'ẩ', asset: ẩ },
+    { key: 'ẫ', asset: ẫ },
+    { key: 'ậ', asset: ậ },
     { key: 'b', asset: b },
     { key: 'c', asset: c },
     { key: 'd', asset: d },
     { key: 'đ', asset: đ },
     { key: 'e', asset: e },
+    { key: 'é', asset: é },
+    { key: 'è', asset: è },
+    { key: 'ẻ', asset: ẻ },
+    { key: 'ẽ', asset: ẽ },
+    { key: 'ẹ', asset: ẹ },
     { key: 'ê', asset: ê },
+    { key: 'ế', asset: ế },
+    { key: 'ề', asset: ề },
+    { key: 'ể', asset: ể },
+    { key: 'ễ', asset: ễ },
+    { key: 'ệ', asset: ệ },
     { key: 'g', asset: g },
     { key: 'h', asset: h },
     { key: 'i', asset: i },
+    { key: 'í', asset: í },
+    { key: 'ì', asset: ì },
+    { key: 'ỉ', asset: ỉ },
+    { key: 'ĩ', asset: ĩ },
+    { key: 'ị', asset: ị },
     { key: 'k', asset: k },
     { key: 'l', asset: l },
     { key: 'm', asset: m },
     { key: 'n', asset: n },
     { key: 'o', asset: o },
+    { key: 'ó', asset: ó },
+    { key: 'ò', asset: ò },
+    { key: 'ỏ', asset: ỏ },
+    { key: 'õ', asset: õ },
+    { key: 'ọ', asset: ọ },
     { key: 'ô', asset: ô },
+    { key: 'ố', asset: ố },
+    { key: 'ồ', asset: ồ },
+    { key: 'ổ', asset: ổ },
+    { key: 'ỗ', asset: ỗ },
+    { key: 'ộ', asset: ộ },
     { key: 'ơ', asset: ơ },
+    { key: 'ớ', asset: ớ },
+    { key: 'ờ', asset: ờ },
+    { key: 'ở', asset: ở },
+    { key: 'ỡ', asset: ỡ },
+    { key: 'ợ', asset: ợ },
     { key: 'p', asset: p },
     { key: 'q', asset: q },
     { key: 'r', asset: r },
     { key: 's', asset: s },
     { key: 't', asset: t },
     { key: 'u', asset: u },
+    { key: 'ú', asset: ú },
+    { key: 'ù', asset: ù },
+    { key: 'ủ', asset: ủ },
+    { key: 'ũ', asset: ũ },
+    { key: 'ụ', asset: ụ },
     { key: 'ư', asset: ư },
+    { key: 'ứ', asset: ứ },
+    { key: 'ừ', asset: ừ },
+    { key: 'ử', asset: ử },
+    { key: 'ữ', asset: ữ },
+    { key: 'ự', asset: ự },
     { key: 'v', asset: v },
     { key: 'x', asset: x },
     { key: 'y', asset: y },
+    { key: 'ý', asset: ý },
+    { key: 'ỳ', asset: ỳ },
+    { key: 'ỷ', asset: ỷ },
+    { key: 'ỹ', asset: ỹ },
+    { key: 'ỵ', asset: ỵ },
     { key: 'A', asset: A },
     { key: 'Ă', asset: Ă },
     { key: 'Â', asset: Â },
@@ -208,7 +337,16 @@ const assetSpec = {
     { key: 'ưH', asset: ưH },
     { key: 'vH', asset: vH },
     { key: 'xH', asset: xH },
-    { key: 'yH', asset: yH }
+    { key: 'yH', asset: yH },
+    { key: 'meoI', asset: meoI },
+    { key: 'choI', asset: choI },
+    { key: 'heoI', asset: heoI },
+    { key: 'boI', asset: boI },
+    { key: 'meoW', asset: meoW },
+    { key: 'choW', asset: choW },
+    { key: 'heoW', asset: heoW },
+    { key: 'boW', asset: boW },
+    { key: 'speakerI', asset: speakerI }
   ],
   soundCollection: [
     { key: 'a', asset: aSound },
@@ -239,7 +377,11 @@ const assetSpec = {
     { key: 'ư', asset: ưSound },
     { key: 'v', asset: vSound },
     { key: 'x', asset: xSound },
-    { key: 'y', asset: ySound }
+    { key: 'y', asset: ySound },
+    { key: 'meo', asset: vSound },
+    { key: 'cho', asset: xSound },
+    { key: 'heo', asset: ySound },
+    { key: 'bo', asset: uSound }
   ]
 }
 

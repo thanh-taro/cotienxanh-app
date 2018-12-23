@@ -8,6 +8,7 @@ import GameThreeBloonImage from '../components/GameThreeBloonImage'
 import GameFourBloonImage from '../components/GameFourBloonImage'
 import MusicButton from '../components/MusicButton'
 import CoinBadge from '../components/CoinBadge'
+import DiamondBadge from '../components/DiamondBadge'
 import { destroyObject } from '../helpers'
 
 class HomeScene extends Phaser.Scene {
@@ -27,6 +28,7 @@ class HomeScene extends Phaser.Scene {
     this.createBackgroundImage()
     this.createGameBloons()
     this.createCoinBadge()
+    this.createDiamondBadge()
     this.createMusicButton()
   }
 
@@ -52,6 +54,12 @@ class HomeScene extends Phaser.Scene {
     destroyObject(this.things.coinBadge)
 
     this.things.coinBadge = new CoinBadge(this)
+  }
+
+  createDiamondBadge () {
+    destroyObject(this.things.diamondBadge)
+
+    this.things.diamondBadge = new DiamondBadge(this)
   }
 
   createMusicButton () {

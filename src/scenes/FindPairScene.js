@@ -13,8 +13,8 @@ class FindPairScene extends Phaser.Scene {
     return 'FindPairScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -37,6 +37,7 @@ class FindPairScene extends Phaser.Scene {
 
   generate () {
     let lowercaseList = ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y']
+    let wordlist = ['meo', 'cho', 'heo']
     let keys = []
 
     const level = this.things.level
@@ -141,6 +142,60 @@ class FindPairScene extends Phaser.Scene {
           keys.push(item + 'H')
         }
         break
+        case 'hard.only-lower':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item)
+          }
+          break
+
+        case 'hard.only-upper':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item.toUpperCase())
+            keys.push(item.toUpperCase())
+          }
+          break
+
+        case 'hard.only-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item + 'H')
+            keys.push(item + 'H')
+          }
+          break
+
+        case 'hard.mix-lower-upper':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item.toUpperCase())
+          }
+          break
+
+        case 'hard.mix-lower-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item)
+            keys.push(item + 'H')
+          }
+          break
+
+        case 'hard.mix-upper-handwriting':
+          for (let i = 0; i < 6; i++) {
+            let item = randSplice(lowercaseList)
+            keys.push(item.toUpperCase())
+            keys.push(item + 'H')
+          }
+          break
+        default:
+          for (let i=0; i< 3; i++) {
+            let item = randSplice(wordlist);
+            keys.push(item + 'W')
+            keys.push(item + 'I')
+          }
+          break
     }
 
     keys = shuffle(keys)
@@ -153,7 +208,31 @@ class FindPairScene extends Phaser.Scene {
       let key = keys[index]
 
       let number = parseInt(index) + 1
-      this.things.cards.push(new Cards(this, key, number, keys.length, this.onCardOpen.bind(this)))
+      let data = this.calculateCard(keys.length, number)
+      this.things.cards.push(new Cards(this, key, number, data, this.onCardOpen.bind(this), true, {}, this.onPointerDown ))
+    }
+  }
+
+  calculateCard (total, number) {
+    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const padding = parseInt(this.cameras.main.width * 0.01)
+    const startX = 50
+    const startY = 50
+    const endX = this.cameras.main.width - startX
+    const endY = this.cameras.main.height - startY
+    const row = total >= 6 ? 2 : 1
+    const column = total / row
+    const width = (endX - startX) / column
+    const height = (endY - startY) / row
+    const scaleX = (width - padding) / assetWidth
+    const scaleY = (height - padding) / assetHeight
+    const scale = Math.min(scaleX, scaleY)
+    const x = number <= column ? parseInt((startX + padding / 2 + (number - 1) * width) + width / 2) : parseInt((startX + padding / 2 + (number - column - 1) * width) + width / 2)
+    const y = number <= column ? parseInt(startY + height / 2) : parseInt(endY - height / 2)
+    return {
+      x: x,
+      y: y,
+      scale: scale
     }
   }
 
@@ -169,6 +248,17 @@ class FindPairScene extends Phaser.Scene {
     this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
       this.stopGuideSound()
     })
+  }
+
+  onPointerDown (pointer, x, y, event) {
+    if (event) event.stopPropagation()
+
+    if (this.allowClick === false) return
+
+    if (undefined === this.open || this.open === false) this.flipOut()
+    else this.flipIn()
+
+    if (this.open) this.cb(this)
   }
 
   onCardOpen (card) {
@@ -243,7 +333,7 @@ class FindPairScene extends Phaser.Scene {
     this.stopGuideSound()
 
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindPairScene.KEY, coin: FindPairScene.WIN_COIN })
+    this.scene.resume(GameOneScene.KEY, { from: FindPairScene.KEY, diamond: FindPairScene.WIN_DIAMOND })
   }
 }
 
