@@ -47,7 +47,7 @@ class SortingCharactersScene extends Phaser.Scene {
     var alphabetListDefault = JSON.parse(JSON.stringify(this.things.alphabetList))
     var alphabetList = this.things.alphabetList
     const easyGroup = ['aăâ', 'oôơ', 'lmn', 'cdđ', 'uưv']
-    const level = 'normal'
+    const level = this.things.level
     let index
 
     switch (level) {
@@ -60,10 +60,11 @@ class SortingCharactersScene extends Phaser.Scene {
         break
 
       case 'normal':
-        index = Math.floor(Math.random() * 25)
+        index = Math.floor(Math.random() * 24)
         question.push(alphabetList[index])
         question.push(alphabetList[index + 1])
         question.push(alphabetList[index + 2])
+        question.push(alphabetList[index + 3])
         break
 
       case 'hard':

@@ -74,7 +74,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "cordova-android": "^7.1.1",
+    "cordova-android": "^7.1.4",
     "cordova-ios": "^4.5.5",
     "cordova-plugin-fullscreen": "^1.2.0",
     "cordova-plugin-screen-orientation": "^3.0.1",
