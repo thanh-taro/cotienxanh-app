@@ -137,7 +137,7 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   createAnswers (questionCharacters) {
-    let answers = questionCharacters.filter(onlyUnique)
+    let answers = questionCharacters
     let alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
 
     for (let index in answers) {

@@ -219,19 +219,20 @@ class GameOneScene extends Phaser.Scene {
   }
 
   runMiniGame (game, level) {
-    switch (game) {
-      case 'fantasticRotation':
-        this.playFantasticRotation(level)
-        break
-      case 'sortingCharacters':
-        this.playSortingCharacters(level)
-        break
-      case 'findCharacters':
-        this.playFindCharacters(level)
-        break
-      default:
-        this.playFindPair(level)
-    }
+    // switch (game) {
+    //   case 'fantasticRotation':
+    //     this.playFantasticRotation(level)
+    //     break
+    //   case 'sortingCharacters':
+    //     this.playSortingCharacters(level)
+    //     break
+    //   case 'findCharacters':
+    //     this.playFindCharacters(level)
+    //     break
+    //   default:
+    //     this.playFindPair(level)
+    // }
+    this.playFantasticRotation(level)
   }
 
   onGamePadLeftDown () {

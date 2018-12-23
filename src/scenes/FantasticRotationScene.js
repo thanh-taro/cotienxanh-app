@@ -81,8 +81,19 @@ class FantasticRotationScene extends Phaser.Scene {
         }
       } else {
         if (!this.things.hasAnswers) {
+          const dx = this.cameras.main.centerX - this.things.questionCard.x
+          Phaser.Actions.Call(this.things.rotation.getChildren(), (card) => {
+            this.tweens.add({
+              targets: card,
+              x: card.x + dx,
+              duration: 200
+            })
+          })
+
           this.things.questionCard.sound.play()
-          this.addAnswers(this.things.questionCard)
+          this.time.delayedCall(this.things.questionCard.sound.duration * 1000, () => {
+            this.addAnswers(this.things.questionCard)
+          })
           this.things.hasAnswers = true
         }
       }
@@ -242,7 +253,9 @@ class FantasticRotationScene extends Phaser.Scene {
   }
 
   onCardChoose (card) {
-    card.allowClick = false
+    Phaser.Actions.Call(this.things.answers, (item) => {
+      item.allowClick = false
+    })
 
     this.stopGuideSound()
     this.stopWrongSound()
@@ -254,11 +267,19 @@ class FantasticRotationScene extends Phaser.Scene {
       delay += this.things.wrongSound.duration * 1000
 
       this.time.delayedCall(delay, () => {
-        card.setAlpha(0.1)
+        destroyObject(card)
       })
     } else {
       Phaser.Actions.Call(this.things.answers, (item) => {
         if (item.cardKey !== card.cardKey) destroyObject(item)
+      })
+
+      this.tweens.add({
+        targets: card,
+        x: this.cameras.main.centerX,
+        scaleX: card.scaleX * 1.5,
+        scaleY: card.scaleY * 1.5,
+        duration: 200
       })
 
       this.playRightSound(delay / 1000)
@@ -268,6 +289,10 @@ class FantasticRotationScene extends Phaser.Scene {
         this.won()
       })
     }
+
+    Phaser.Actions.Call(this.things.answers, (item) => {
+      if (item.cardKey !== card.cardKey) item.allowClick = true
+    })
   }
 
   playGuideSound () {

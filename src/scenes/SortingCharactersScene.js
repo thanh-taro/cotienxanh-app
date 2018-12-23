@@ -96,6 +96,7 @@ class SortingCharactersScene extends Phaser.Scene {
     let delay = noGuide ? 1500 : (2 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
       if (!this.things.beStopped) this.onClickSpeaker()
+      this.enableAnswers()
     })
   }
 
@@ -143,9 +144,16 @@ class SortingCharactersScene extends Phaser.Scene {
       data.isOpen = true
       data.origin = { x: 0.5, y: 1 }
       let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
+      card.allowClick = false
       this.things.answerCards.push(card)
       card.listIndex = this.things.answerCards.length - 1
     }
+  }
+
+  enableAnswers () {
+    Phaser.Actions.Call(this.things.answerCards, function (card) {
+      card.allowClick = true
+    })
   }
 
   calculateQuestionCard (number, total) {
