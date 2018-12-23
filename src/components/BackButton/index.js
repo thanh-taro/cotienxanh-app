@@ -50,6 +50,7 @@ class BackButton extends Phaser.GameObjects.Sprite {
 
   update () {
     if (this.escKey.isDown) {
+      this.cb()
       this.scene.scene.stop()
       this.scene.scene.resume(this.parentScene)
       this.escKey.reset()

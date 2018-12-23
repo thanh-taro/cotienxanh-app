@@ -53,12 +53,9 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
 
   onPointerDown () {
     if (this.allowClick === false) return
+
     this.sound.play()
-    var delay = this.sound.duration * 1000
-    if (this.noDelay) delay = 0
-    setTimeout(() => {
-      if (this.cb) this.cb(this)
-    }, delay)
+    if (this.cb) this.cb(this)
   }
 }
 

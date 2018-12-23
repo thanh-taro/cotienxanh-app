@@ -90,15 +90,12 @@ class SortingCharactersScene extends Phaser.Scene {
     }
 
     this.createQuestion(question)
+    this.createAnswers(question)
+    this.createSpeaker(question)
+
     let delay = noGuide ? 1500 : (2 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
       if (!this.things.beStopped) this.onClickSpeaker()
-    })
-
-    delay += this.things.questionCardsSounds.totalDuration
-    this.time.delayedCall(delay, () => {
-      this.createSpeaker(question)
-      this.createAnswers(question)
     })
   }
 

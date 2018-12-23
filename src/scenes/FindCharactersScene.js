@@ -103,6 +103,7 @@ class FindCharactersScene extends Phaser.Scene {
         hideList = Array.apply(null, { length }).map(Number.call, Number)
         break
     }
+
     this.things.hideList = hideList
     this.createQuestion(questionCharacters, hideList)
     this.createAnswers(questionCharacters)
@@ -254,35 +255,35 @@ class FindCharactersScene extends Phaser.Scene {
 
   checkAnswer (card) {
     this.stopGuideSound()
+
     this.things.questionCard.sound.stop()
     this.things.rightSound.stop()
     this.things.wrongSound.stop()
 
     let questionCharacterCards = this.things.questionCharacterCards
-    let answerCards = this.things.answerCards
     let currentQuestionCard = questionCharacterCards[0]
-    if (card.cardKey === removeTimbre(currentQuestionCard.cardKey)) {
+
+    let delay = card.sound.duration * 1000
+
+    if (card.cardKey !== removeTimbre(currentQuestionCard.cardKey)) this.playWrongSound(delay / 1000)
+    else {
       currentQuestionCard.flipOut(false)
       questionCharacterCards.splice(0, 1)
-
-      this.playRightSound()
       destroyObject(this.things.answerCards[card.listIndex])
+    }
 
-      if (questionCharacterCards.length === 0) {
-        for (let index in answerCards) {
-          answerCards[index].allowClick = false
-        }
+    if (questionCharacterCards.length === 0) {
+      this.time.delayedCall(delay, () => {
+        this.things.questionCard.sound.play()
+      })
+      delay += this.things.questionCard.sound.duration * 1000
 
-        this.time.delayedCall(1000, () => {
-          this.things.questionCard.sound.play({ delay: 0.3 })
-        })
+      this.playRightSound(delay / 1000)
+      delay += this.things.rightSound.duration * 1000
 
-        this.time.delayedCall(3500, () => {
-          this.won()
-        })
-      }
-    } else {
-      this.playWrongSound()
+      this.time.delayedCall(delay, () => {
+        this.won()
+      })
     }
   }
 
@@ -296,14 +297,14 @@ class FindCharactersScene extends Phaser.Scene {
     this.things.beStopped = true
   }
 
-  playRightSound () {
+  playRightSound (delay = 0) {
     this.things.rightSound.stop()
-    this.things.rightSound.play({ delay: 1.2 })
+    this.things.rightSound.play({ delay })
   }
 
-  playWrongSound () {
+  playWrongSound (delay = 0) {
     this.things.wrongSound.stop()
-    this.things.wrongSound.play({ delay: 1.2 })
+    this.things.wrongSound.play({ delay })
   }
 
   stopWrongSound () {

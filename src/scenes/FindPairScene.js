@@ -190,8 +190,8 @@ class FindPairScene extends Phaser.Scene {
         }
         break
       default:
-        for (let i=0; i< 3; i++) {
-          let item = randSplice(wordlist);
+        for (let i = 0; i < 3; i++) {
+          let item = randSplice(wordlist)
           keys.push(item + 'W')
           keys.push(item + 'I')
         }
@@ -279,19 +279,24 @@ class FindPairScene extends Phaser.Scene {
 
     const cardOne = this.things.openCards[0]
     const cardTwo = this.things.openCards[1]
+    let delay = cardTwo.sound.duration * 1000
 
     if (cardOne.cardKey.toLowerCase() !== cardTwo.cardKey.toLowerCase()) {
-      this.playWrongSound()
+      this.playWrongSound(delay / 1000)
+      delay += this.things.wrongSound.duration * 1000
 
-      cardOne.flipIn()
-      cardTwo.flipIn()
+      this.time.delayedCall(delay, () => {
+        cardOne.flipIn()
+        cardTwo.flipIn()
+      })
     } else {
-      this.playRightSound()
+      this.playRightSound(delay / 1000)
+      delay += this.things.rightSound.duration * 1000
 
       let deleteIndexes = []
       for (let index in this.things.cards) if (this.things.cards[index].indexKey === cardOne.indexKey || this.things.cards[index].indexKey === cardTwo.indexKey) deleteIndexes.push(index)
 
-      this.time.delayedCall(2000, () => {
+      this.time.delayedCall(delay, () => {
         for (let index in deleteIndexes) {
           let deleteIndex = deleteIndexes[index] - index * 1
           destroyObject(this.things.cards[deleteIndex])
@@ -303,7 +308,7 @@ class FindPairScene extends Phaser.Scene {
     }
 
     this.things.openCards = []
-    this.time.delayedCall(2000, () => {
+    this.time.delayedCall(delay, () => {
       for (let index in this.things.cards) this.things.cards[index].allowClick = true
     })
   }
@@ -317,16 +322,16 @@ class FindPairScene extends Phaser.Scene {
     if (this.things.guideSound) this.things.guideSound.stop()
   }
 
-  playRightSound () {
+  playRightSound (delay = 0) {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
-    this.things.rightSound.play({ delay: 1.2 })
+    this.things.rightSound.play({ delay })
   }
 
-  playWrongSound () {
+  playWrongSound (delay = 0) {
     if (this.things.wrongSound === undefined) this.things.wrongSound = this.sound.add(WrongSound.KEY)
     this.things.wrongSound.stop()
-    this.things.wrongSound.play({ delay: 1.2 })
+    this.things.wrongSound.play({ delay })
   }
 
   won () {

@@ -115,6 +115,7 @@ class GameOneScene extends Phaser.Scene {
       // force to update coin to server
       this.things.homeButton.setCallback(() => {
         this.things.coinBadge.addCoin(0, true)
+        this.things.welcomeAudio.stop()
       })
     }
   }

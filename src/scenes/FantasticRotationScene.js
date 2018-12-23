@@ -27,10 +27,10 @@ class FantasticRotationScene extends Phaser.Scene {
     this.things = {
       play: false,
       delay: 1000,
-      speed: 19,
+      speed: 22,
       acceleration: 0.05,
       hasAnswers: false,
-      wordlist: ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
+      wordList: ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#000000')
@@ -93,11 +93,11 @@ class FantasticRotationScene extends Phaser.Scene {
     this.things.rotation = {}
     this.things.rotation = this.add.group()
     let questions = []
-    var wordlist = this.things.wordlist
+    var wordList = this.things.wordList
     var head = this.things.head
-    for (let index in wordlist) {
+    for (let index in wordList) {
       for (let headIndex in head) {
-        questions.push(wordlist[index] + head[headIndex])
+        questions.push(wordList[index] + head[headIndex])
       }
     }
     questions = shuffle(questions)
@@ -106,7 +106,7 @@ class FantasticRotationScene extends Phaser.Scene {
       let key = questions[index]
       let number = parseInt(index) + 1
       let configs = this.configTheQuestionCard(number)
-      let card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 0.2, false, this.onCardChoose.bind(this), true)
+      let card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 0.2, false, null, true)
       this.things.rotation.add(card)
     }
   }
@@ -115,10 +115,10 @@ class FantasticRotationScene extends Phaser.Scene {
     let answers = []
     let questionWord = card.cardKey
     let questionHead = card.head
-    let wordlist = this.things.wordlist
+    let wordList = this.things.wordList
     let head = this.things.head
-    let questionWordIndex = this.things.wordlist.indexOf(questionWord)
-    if (questionWordIndex > -1) this.things.wordlist.splice(questionWordIndex, 1)
+    let questionWordIndex = this.things.wordList.indexOf(questionWord)
+    if (questionWordIndex > -1) this.things.wordList.splice(questionWordIndex, 1)
     let questionHeadIndex = this.things.head.indexOf(questionHead)
     if (questionHeadIndex > -1) this.things.head.splice(questionHeadIndex, 1)
 
@@ -129,7 +129,7 @@ class FantasticRotationScene extends Phaser.Scene {
       case 'easy':
         answers.push(questionWord + questionHead)
         for (let i = 0; i < 1; i++) {
-          let item = randSplice(wordlist)
+          let item = randSplice(wordList)
           answers.push(item + questionHead)
         }
         break
@@ -137,7 +137,7 @@ class FantasticRotationScene extends Phaser.Scene {
       case 'normal':
         answers.push(questionWord + answerHead)
         for (let i = 0; i < 1; i++) {
-          let item = randSplice(wordlist)
+          let item = randSplice(wordList)
           answers.push(item + randItem(this.things.head))
         }
         break
@@ -145,7 +145,7 @@ class FantasticRotationScene extends Phaser.Scene {
       case 'hard':
         answers.push(questionWord + answerHead)
         for (let i = 0; i < 2; i++) {
-          let item = randSplice(wordlist)
+          let item = randSplice(wordList)
           answers.push(item + randItem(this.things.head))
         }
         break
@@ -153,7 +153,7 @@ class FantasticRotationScene extends Phaser.Scene {
       case 'hardest':
         answers.push(questionWord + answerHead)
         for (let i = 0; i < 3; i++) {
-          let item = randSplice(wordlist)
+          let item = randSplice(wordList)
           answers.push(item + randItem(this.things.head))
         }
         break
@@ -242,21 +242,29 @@ class FantasticRotationScene extends Phaser.Scene {
   }
 
   onCardChoose (card) {
+    card.allowClick = false
+
     this.stopGuideSound()
     this.stopWrongSound()
-    card.allowClick = false
-    this.time.delayedCall(1000, () => {
-      card.allowClick = true
-    })
-    if (card.cardKey !== this.things.questionCard.cardKey) {
-      this.playWrongSound()
-    } else {
-      this.playRightSound()
 
-      for (let index in this.things.answers) {
-        this.things.answers[index].allowClick = false
-      }
-      this.time.delayedCall(2000, () => {
+    let delay = card.sound.duration * 1000
+
+    if (card.cardKey !== this.things.questionCard.cardKey) {
+      this.playWrongSound(delay / 1000)
+      delay += this.things.wrongSound.duration * 1000
+
+      this.time.delayedCall(delay, () => {
+        card.setAlpha(0.1)
+      })
+    } else {
+      Phaser.Actions.Call(this.things.answers, (item) => {
+        if (item.cardKey !== card.cardKey) destroyObject(item)
+      })
+
+      this.playRightSound(delay / 1000)
+      delay += this.things.rightSound.duration * 1000
+
+      this.time.delayedCall(delay, () => {
         this.won()
       })
     }
@@ -272,16 +280,16 @@ class FantasticRotationScene extends Phaser.Scene {
     if (this.things.guideSound) this.things.guideSound.stop()
   }
 
-  playRightSound () {
+  playRightSound (delay = 0) {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
-    this.things.rightSound.play({ delay: 0.5 })
+    this.things.rightSound.play({ delay })
   }
 
-  playWrongSound () {
+  playWrongSound (delay = 0) {
     if (this.things.wrongSound === undefined) this.things.wrongSound = this.sound.add(WrongSound.KEY)
     this.things.wrongSound.stop()
-    this.things.wrongSound.play({ delay: 0.5 })
+    this.things.wrongSound.play({ delay })
   }
 
   stopWrongSound () {
