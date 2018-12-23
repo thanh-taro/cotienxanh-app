@@ -26,7 +26,7 @@ class FindCharactersScene extends Phaser.Scene {
   create (data) {
     this.things = {
       alphabetList: ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y'],
-      wordlist: ['Hoa_phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_cẩm_chướng', 'Hoa_bồ_công_anh'],
+      wordList: ['Hoa_phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_cẩm_chướng', 'Hoa_bồ_công_anh'],
       individualNouns: ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Nhà_thờ_Đức_Bà', 'Cầu_Rồng_Đà_Nẵng', 'Chùa_Một_Cột', 'Hoàng_thành_Huế'],
       questionCharacterCards: [],
       answerCards: [],
@@ -47,7 +47,7 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   generate () {
-    let question = randItem(this.things.wordlist)
+    let question = randItem(this.things.wordList)
     this.things.question = question
     let questionCharacters = question.split('')
     for (let i = questionCharacters.length - 1; i >= 0; i--) {
@@ -163,6 +163,7 @@ class FindCharactersScene extends Phaser.Scene {
       data.origin = { x: 0.5, y: 1 }
       let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
       this.things.answerCards.push(card)
+      card.listIndex = this.things.answerCards.length - 1
     }
   }
 
@@ -269,6 +270,7 @@ class FindCharactersScene extends Phaser.Scene {
       questionCharacterCards.splice(0, 1)
 
       this.playRightSound()
+      destroyObject(this.things.answerCards[card.listIndex])
 
       if (questionCharacterCards.length === 0) {
         for (let index in answerCards) {

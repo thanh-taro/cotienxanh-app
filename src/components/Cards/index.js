@@ -36,6 +36,7 @@ class Cards extends Phaser.GameObjects.Sprite {
     this.indexKey = number
     this.cardKey = cardKey
     this.cb = cb
+    this.currentFrame = 0
     this.allowClick = data.allowClick !== 'undefined' ? data.allowClick : true
     let hasSound = typeof data.hasSound !== 'undefined' ? data.hasSound : true
     if (hasSound) this.sound = scene.sound.add(Cards.KEY + '-' + removeTimbre(cardKey.toLowerCase()) + '-sound')
@@ -59,17 +60,20 @@ class Cards extends Phaser.GameObjects.Sprite {
     this.open = false
     this.scene.time.delayedCall(2000, () => {
       this.setFrame(0)
+      this.currentFrame = 0
     })
   }
 
   flipOut (playSound = true) {
     this.setFrame(1)
+    this.currentFrame = 1
     this.open = true
     if (playSound) this.sound.play()
   }
 
   makeWhite (playSound = true) {
     this.setFrame(2)
+    this.currentFrame = 2
     if (playSound) this.sound.play()
   }
 }
