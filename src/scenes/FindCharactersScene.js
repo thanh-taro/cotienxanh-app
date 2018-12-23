@@ -50,11 +50,7 @@ class FindCharactersScene extends Phaser.Scene {
     let question = randItem(this.things.wordList)
     this.things.question = question
     let questionCharacters = question.split('')
-    for (let i = questionCharacters.length - 1; i >= 0; i--) {
-      if (questionCharacters[i] === '_') {
-        questionCharacters.splice(i, 1)
-      }
-    }
+    for (let i = questionCharacters.length - 1; i >= 0; i--) if (questionCharacters[i] === '_') questionCharacters.splice(i, 1)
     let hideList = []
     const level = this.things.level
     let length
