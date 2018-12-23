@@ -9,7 +9,8 @@
     "build": "npm run build-web && npm run build-cordova",
     "build-web": "webpack --config webpack.production.config.js",
     "build-cordova": "webpack --config webpack.cordova.config.js && cordova platform rm android ios && cordova platform add android ios && npm run generate-app-icon && cordova build",
-    "deploy-web": "node deploy.js",
+    "build-cordova-android": "webpack --config webpack.cordova.config.js && cordova platform rm android && cordova platform add android && npm run generate-app-icon && cordova build android",
+    "deploy-web": "npm run build-web && node deploy.js",
     "generate-app-icon": "cordova-icon --config=config.xml --icon=icon.png"
   },
   "keywords": [
@@ -84,8 +85,8 @@
   },
   "cordova": {
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ],
     "plugins": {
       "cordova-plugin-whitelist": {},

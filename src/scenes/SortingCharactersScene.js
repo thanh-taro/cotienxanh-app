@@ -150,6 +150,12 @@ class SortingCharactersScene extends Phaser.Scene {
     }
   }
 
+  disableAnswers () {
+    Phaser.Actions.Call(this.things.answerCards, function (card) {
+      card.allowClick = false
+    })
+  }
+
   enableAnswers () {
     Phaser.Actions.Call(this.things.answerCards, function (card) {
       card.allowClick = true
@@ -218,6 +224,8 @@ class SortingCharactersScene extends Phaser.Scene {
 
   onClickSpeaker (pointer, x, y, event) {
     this.stopGuideSound()
+    this.disableAnswers()
+
     if (event) event.stopPropagation()
     if (this.allowClick === false) return
     Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
@@ -225,6 +233,10 @@ class SortingCharactersScene extends Phaser.Scene {
       this.time.delayedCall(delay, () => {
         sound.play()
       })
+    })
+
+    this.time.delayedCall(this.things.questionCardsSounds.totalDuration, () => {
+      this.enableAnswers()
     })
   }
 
