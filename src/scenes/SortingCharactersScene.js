@@ -95,7 +95,16 @@ class SortingCharactersScene extends Phaser.Scene {
 
     let delay = noGuide ? 1500 : (2 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
-      if (!this.things.beStopped) this.onClickSpeaker()
+      Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
+        const { sound, delay } = item
+        this.time.delayedCall(delay, () => {
+          sound.play()
+        })
+      })
+    })
+    delay += this.things.questionCardsSounds.totalDuration
+
+    this.time.delayedCall(delay, () => {
       this.enableAnswers()
     })
   }
@@ -228,6 +237,7 @@ class SortingCharactersScene extends Phaser.Scene {
 
     if (event) event.stopPropagation()
     if (this.allowClick === false) return
+
     Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
       const { sound, delay } = item
       this.time.delayedCall(delay, () => {
@@ -255,21 +265,22 @@ class SortingCharactersScene extends Phaser.Scene {
     var questionCards = this.things.questionCards
     var answerCards = this.things.answerCards
     let currentQuestionCard = questionCards[this.things.currentQuestionCardIndex]
+
+    let delay = card.sound.duration * 1000
+
     if (card.cardKey === currentQuestionCard.cardKey) {
       currentQuestionCard.flipOut(false)
       this.things.currentQuestionCardIndex++
-      this.playRightSound()
       destroyObject(this.things.answerCards[card.listIndex])
     } else {
-      this.playWrongSound()
+      this.playWrongSound(delay / 1000)
     }
     if (this.things.currentQuestionCardIndex > questionCards.length - 1) {
-      for (let index in answerCards) {
-        answerCards[index].allowClick = false
-      }
-      this.time.delayedCall(2000, () => {
-        this.won()
-      })
+      for (let index in answerCards) answerCards[index].allowClick = false
+
+      this.playRightSound(delay / 1000)
+      delay += this.things.rightSound.duration * 1000
+      this.time.delayedCall(delay, () => this.won())
     }
   }
 
@@ -283,14 +294,14 @@ class SortingCharactersScene extends Phaser.Scene {
     this.things.beStopped = true
   }
 
-  playRightSound () {
+  playRightSound (delay = 0) {
     this.things.rightSound.stop()
-    this.things.rightSound.play({ delay: 1.2 })
+    this.things.rightSound.play({ delay })
   }
 
-  playWrongSound () {
+  playWrongSound (delay = 0) {
     this.things.wrongSound.stop()
-    this.things.wrongSound.play({ delay: 1.2 })
+    this.things.wrongSound.play({ delay })
   }
 
   stopWrongSound () {
