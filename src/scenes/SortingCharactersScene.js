@@ -171,8 +171,8 @@ class SortingCharactersScene extends Phaser.Scene {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2) + 50
-    const y = parseInt(this.cameras.main.height / row * 2)
+    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const y = parseInt(this.cameras.main.height / row * 2) + 50
 
     return {
       x: x,
@@ -204,7 +204,7 @@ class SortingCharactersScene extends Phaser.Scene {
       setTimeout(() => {
         card.sound.play()
       }, delay)
-      delay += 100
+      delay += 800
     })
   }
 

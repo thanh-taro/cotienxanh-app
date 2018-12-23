@@ -28,7 +28,6 @@ class FindCharactersScene extends Phaser.Scene {
       alphabetList: ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y'],
       wordlist: ['Hoa_Phượng', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       individualNouns: ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột'],
-      questionCards: [],
       questionCharacterCards: [],
       answerCards: [],
       currentQuestionCardIndex: 0,
@@ -115,6 +114,7 @@ class FindCharactersScene extends Phaser.Scene {
     let question = this.things.question
     let questionData = this.calculateQuestionCard(questionCharacters.length)
     let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {}, true)
+    this.things.questionCard = questionCard
     var delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
       if (!this.things.beStopped) questionCard.sound.play()
@@ -259,17 +259,27 @@ class FindCharactersScene extends Phaser.Scene {
     if (card.cardKey === removeTimbre(currentQuestionCard.cardKey)) {
       currentQuestionCard.flipOut(false)
       questionCharacterCards.splice(0,1)
-      this.playRightSound()
+      var delay = 800
+      if (questionCharacterCards.length == 0) {
+        this.time.delayedCall(delay, () => {
+           this.things.questionCard.sound.play()
+        })
+        delay += this.things.questionCard.sound.duration + 200
+      }
+      this.time.delayedCall(delay, () => {
+         this.playRightSound()
+      })
+      delay += this.things.rightSound.duration + 2000
+      if (questionCharacterCards.length == 0) {
+        for (let index in answerCards) {
+          answerCards[index].allowClick = false
+        }
+        this.time.delayedCall(delay, () => {
+           this.won()
+        })
+      }
     } else {
       this.playWrongSound()
-    }
-    if (questionCharacterCards.length == 0) {
-      for (let index in answerCards) {
-        answerCards[index].allowClick = false
-      }
-      this.time.delayedCall(2000, () => {
-         this.won()
-      })
     }
   }
 
