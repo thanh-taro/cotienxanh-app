@@ -23,7 +23,7 @@ class DiamondBadge {
     this.diamondText.diamond += parseInt(diamond)
     this.diamondText.updateDiamond()
 
-    if (force || this.oldDiamond + 10 <= this.diamondText.diamond) {
+    if (force || this.oldDiamond + 1 <= this.diamondText.diamond) {
       this.oldDiamond = this.diamondText.diamond
       User.setDiamond(this.diamondText.diamond)
     }

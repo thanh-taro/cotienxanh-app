@@ -12,7 +12,7 @@ class User {
     let user = store.get('user')
 
     if (undefined !== user && undefined === user.coin) user.coin = 200
-    if (undefined !== user && undefined === user.diamond) user.diamond = 1
+    if (undefined !== user && (undefined === user.diamond || user.diamond === null)) user.diamond = 0
 
     return user
   }

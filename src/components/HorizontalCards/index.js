@@ -6,6 +6,7 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
   static get KEY () {
     return 'HorizontalCards'
   }
+
   static get ASSETSPEC () {
     return assetSpec
   }
@@ -29,9 +30,9 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
   constructor (scene, key, x, y, scale, alpha, allowClick, cb, addToScene = true, config = {}, noDelay = false) {
     super(scene, x, y, HorizontalCards.KEY + '-' + key, 0)
 
-    const cardKey = key.substring(0, key.length-1)
+    const cardKey = key.substring(0, key.length - 1)
     this.cardKey = cardKey
-    this.head = key[key.length -1];
+    this.head = key[key.length - 1]
     this.cb = cb
     this.allowClick = allowClick
     this.noDelay = noDelay

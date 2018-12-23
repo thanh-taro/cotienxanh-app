@@ -55,22 +55,22 @@ class FantasticRotationScene extends Phaser.Scene {
       if (this.things.speed > 0) {
         if (this.things.play) {
           var speed = this.things.speed
-          Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
+          Phaser.Actions.Call(this.things.rotation.getChildren(), function (card) {
             card.x -= speed
           })
           this.things.speed = this.things.speed - this.things.acceleration
-          let firstcard = this.things.rotation.getChildren()[0]
-          var width = firstcard.width * firstcard.scaleX
-          var max_width = width * (this.things.rotation.children.entries.length)
+          let firstCard = this.things.rotation.getChildren()[0]
+          var width = firstCard.width * firstCard.scaleX
+          var maxWidth = width * (this.things.rotation.children.entries.length)
           var cameraCenterX = this.cameras.main.centerX
           var questionCard
-          Phaser.Actions.Call(this.things.rotation.getChildren(), function(card) {
-            let x_max = card.x + width / 2
-            let x_min = card.x - width / 2
-            if (x_max < 0) {
-              card.x = card.x + max_width
+          Phaser.Actions.Call(this.things.rotation.getChildren(), function (card) {
+            let xMax = card.x + width / 2
+            let xMin = card.x - width / 2
+            if (xMax < 0) {
+              card.x = card.x + maxWidth
             }
-            if (cameraCenterX > x_min && cameraCenterX < x_max) {
+            if (cameraCenterX > xMin && cameraCenterX < xMax) {
               questionCard = card
               card.alpha = 1
             } else {
@@ -96,8 +96,8 @@ class FantasticRotationScene extends Phaser.Scene {
     var wordlist = this.things.wordlist
     var head = this.things.head
     for (let index in wordlist) {
-      for (let head_index in head) {
-        questions.push(wordlist[index] + head[head_index])
+      for (let headIndex in head) {
+        questions.push(wordlist[index] + head[headIndex])
       }
     }
     questions = shuffle(questions)
@@ -106,7 +106,7 @@ class FantasticRotationScene extends Phaser.Scene {
       let key = questions[index]
       let number = parseInt(index) + 1
       let configs = this.configTheQuestionCard(number)
-      let card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 0.2, false, this.onCardChoose.bind(this), false)
+      let card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 0.2, false, this.onCardChoose.bind(this), true)
       this.things.rotation.add(card)
     }
   }
@@ -117,9 +117,9 @@ class FantasticRotationScene extends Phaser.Scene {
     let questionHead = card.head
     let wordlist = this.things.wordlist
     let head = this.things.head
-    let questionWordIndex = this.things.wordlist.indexOf(questionWord);
+    let questionWordIndex = this.things.wordlist.indexOf(questionWord)
     if (questionWordIndex > -1) this.things.wordlist.splice(questionWordIndex, 1)
-    let questionHeadIndex = this.things.head.indexOf(questionHead);
+    let questionHeadIndex = this.things.head.indexOf(questionHead)
     if (questionHeadIndex > -1) this.things.head.splice(questionHeadIndex, 1)
 
     let answerHead = randItem(head)
@@ -128,7 +128,7 @@ class FantasticRotationScene extends Phaser.Scene {
     switch (level) {
       case 'easy':
         answers.push(questionWord + questionHead)
-        for (let i=0; i< 1; i++) {
+        for (let i = 0; i < 1; i++) {
           let item = randSplice(wordlist)
           answers.push(item + questionHead)
         }
@@ -136,7 +136,7 @@ class FantasticRotationScene extends Phaser.Scene {
 
       case 'normal':
         answers.push(questionWord + answerHead)
-        for (let i=0; i< 1; i++) {
+        for (let i = 0; i < 1; i++) {
           let item = randSplice(wordlist)
           answers.push(item + randItem(this.things.head))
         }
@@ -144,7 +144,7 @@ class FantasticRotationScene extends Phaser.Scene {
 
       case 'hard':
         answers.push(questionWord + answerHead)
-        for (let i=0; i< 2; i++) {
+        for (let i = 0; i < 2; i++) {
           let item = randSplice(wordlist)
           answers.push(item + randItem(this.things.head))
         }
@@ -152,7 +152,7 @@ class FantasticRotationScene extends Phaser.Scene {
 
       case 'hardest':
         answers.push(questionWord + answerHead)
-        for (let i=0; i< 3; i++) {
+        for (let i = 0; i < 3; i++) {
           let item = randSplice(wordlist)
           answers.push(item + randItem(this.things.head))
         }
@@ -177,8 +177,6 @@ class FantasticRotationScene extends Phaser.Scene {
 
     const column = 3
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
-    const endX = this.cameras.main.width - 50
     const width = this.cameras.main.width / column
     const height = this.cameras.main.height / 5
     const scaleX = (width - padding) / assetWidth
@@ -277,13 +275,13 @@ class FantasticRotationScene extends Phaser.Scene {
   playRightSound () {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
-    this.things.rightSound.play({ delay: 1.2 })
+    this.things.rightSound.play({ delay: 0.5 })
   }
 
   playWrongSound () {
     if (this.things.wrongSound === undefined) this.things.wrongSound = this.sound.add(WrongSound.KEY)
     this.things.wrongSound.stop()
-    this.things.wrongSound.play({ delay: 1.2 })
+    this.things.wrongSound.play({ delay: 0.5 })
   }
 
   stopWrongSound () {
@@ -294,7 +292,6 @@ class FantasticRotationScene extends Phaser.Scene {
     this.stopGuideSound()
     this.scene.stop()
     this.scene.resume(GameOneScene.KEY, { from: FantasticRotationScene.KEY, coin: FantasticRotationScene.WIN_COIN })
-
   }
 }
 

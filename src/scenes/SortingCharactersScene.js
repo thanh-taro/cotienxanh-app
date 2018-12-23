@@ -30,7 +30,7 @@ class SortingCharactersScene extends Phaser.Scene {
       currentQuestionCardIndex: 0,
       rightSound: this.sound.add(RightSound.KEY),
       wrongSound: this.sound.add(WrongSound.KEY),
-      beStopped: false,
+      beStopped: false
     }
     this.cameras.main.setBackgroundColor('#000000')
     if (!data.noGuide) this.playGuideSound()
@@ -52,37 +52,37 @@ class SortingCharactersScene extends Phaser.Scene {
     switch (level) {
       case 'easy':
         question = randItem(easyGroup).split('')
-        Phaser.Actions.Call(question, function(item) {
+        Phaser.Actions.Call(question, function (item) {
           let index = alphabetList.indexOf(item)
           alphabetList.splice(index, 1)
         })
         break
 
       case 'normal':
-        for (let i=0; i< 3; i++) {
+        for (let i = 0; i < 3; i++) {
           let item = randSplice(alphabetList)
           let index = alphabetListDefault.indexOf(item)
           question[index] = item
           question = question.filter((el) => {
-            return el != 'empty'
+            return el !== 'empty'
           })
         }
         break
 
       case 'hard':
-        for (let i=0; i< 3; i++) {
+        for (let i = 0; i < 3; i++) {
           let item = randSplice(alphabetList)
           question.push(item)
         }
         break
 
       case 'hardest':
-        for (let i=0; i< 5; i++) {
+        for (let i = 0; i < 5; i++) {
           let item = randSplice(alphabetList)
           let index = alphabetListDefault.indexOf(item)
           question[index] = item
           question = question.filter((el) => {
-            return el != 'empty'
+            return el !== 'empty'
           })
         }
         break
@@ -90,7 +90,7 @@ class SortingCharactersScene extends Phaser.Scene {
 
     this.createQuestion(question)
     this.createAnswers(question)
-    if (level != 'hardest') {
+    if (level !== 'hardest') {
       this.createSpeaker(question)
       var delay = noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
       this.time.delayedCall(delay, () => {
@@ -102,7 +102,7 @@ class SortingCharactersScene extends Phaser.Scene {
   createSpeaker (question) {
     let data = this.calculateQuestionCard(0, question.length)
     data.hasSound = false
-    let card = new Cards(this, 'speakerI', 0, data, false, true, {}, this.onClickSpeaker.bind(this))
+    const card = new Cards(this, 'speakerI', 0, data, false, true, {}, this.onClickSpeaker.bind(this))
   }
 
   createQuestion (question) {
@@ -130,6 +130,7 @@ class SortingCharactersScene extends Phaser.Scene {
       let data = this.calculateAnswerCard(number, answers.length)
       data.isOpen = true
       let card = new Cards(this, key, number, data, this.checkAnswer.bind(this), true, {}, this.onPointerDown)
+      card.setScale(0.5)
       this.things.answerCards.push(card)
     }
   }
@@ -170,7 +171,7 @@ class SortingCharactersScene extends Phaser.Scene {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const x = parseInt(startX + padding / 2 + number * width + width / 2) + 50
     const y = parseInt(this.cameras.main.height / row * 2)
 
     return {
@@ -199,11 +200,11 @@ class SortingCharactersScene extends Phaser.Scene {
     if (event) event.stopPropagation()
     if (this.allowClick === false) return
     var delay = 0
-    Phaser.Actions.Call(this.things.questionCards, function(card) {
+    Phaser.Actions.Call(this.things.questionCards, function (card) {
       setTimeout(() => {
         card.sound.play()
       }, delay)
-      delay += 800
+      delay += 100
     })
   }
 
@@ -231,7 +232,7 @@ class SortingCharactersScene extends Phaser.Scene {
         answerCards[index].allowClick = false
       }
       this.time.delayedCall(2000, () => {
-         this.won()
+        this.won()
       })
     }
   }
