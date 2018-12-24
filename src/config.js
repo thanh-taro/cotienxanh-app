@@ -14,6 +14,7 @@ import GameThreeScene from './scenes/GameThreeScene'
 import GameTwoListScene from './scenes/GameTwoListScene'
 import GameTwoSubOneScene from './scenes/GameTwoSubOneScene'
 import GameTwoSubTwoScene from './scenes/GameTwoSubTwoScene'
+import FindRightAnswerScene from './scenes/FindRightAnswerScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -35,6 +36,6 @@ export const physics = {
 export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
-export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene, GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene ]
+export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene, GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FindRightAnswerScene ]
 export const allowedTime = 1800
 export const waitTime = 3600
