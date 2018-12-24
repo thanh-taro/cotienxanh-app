@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
 import GameOneScene from './GameOneScene'
-import { destroyObject, randItem, randSplice, shuffle, onlyUnique, removeTimbre } from '../helpers'
+import { destroyObject, randItem, randSplice, shuffle, removeTimbre } from '../helpers'
 import Cards from '../components/Cards'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
@@ -36,7 +36,7 @@ class FindCharactersScene extends Phaser.Scene {
       noGuide: data.noGuide,
       beStopped: false
     }
-    this.cameras.main.setBackgroundColor('#000000')
+    this.cameras.main.setBackgroundColor('#AED581')
     if (!data.noGuide) this.playGuideSound()
 
     this.things.level = data.level
@@ -49,8 +49,9 @@ class FindCharactersScene extends Phaser.Scene {
   generate () {
     let question = randItem(this.things.wordList)
     this.things.question = question
+
     let questionCharacters = question.split('')
-    for (let i = questionCharacters.length - 1; i >= 0; i--) if (questionCharacters[i] === '_') questionCharacters.splice(i, 1)
+
     let hideList = []
     const level = this.things.level
     let length
@@ -71,11 +72,6 @@ class FindCharactersScene extends Phaser.Scene {
         question = randItem(this.things.individualNouns)
         this.things.question = question
         questionCharacters = question.split('')
-        for (let i = questionCharacters.length - 1; i >= 0; i--) {
-          if (questionCharacters[i] === '_') {
-            questionCharacters.splice(i, 1)
-          }
-        }
         length = questionCharacters.length
         more = length < 4 ? length - 1 : 3
         arrayIndex = Array.apply(null, { length }).map(Number.call, Number)
@@ -110,26 +106,31 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   createQuestion (questionCharacters, hideList) {
-    // create question image
     let question = this.things.question
     let questionData = this.calculateQuestionCard(questionCharacters.length)
+
+    // create panel
+    this.things.pannel = this.add.rectangle(0, questionData.y, this.cameras.main.width, questionData.height * 1.2, 0xF9A825)
+    this.things.pannel.setOrigin(0, 0.5)
+
+    // create question image
     let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {}, true)
     this.things.questionCard = questionCard
     let delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
-    this.time.delayedCall(delay, () => {
-      if (!this.things.beStopped) questionCard.sound.play()
-    })
+    this.time.delayedCall(delay, () => questionCard.sound.play())
 
     // create question characters
     for (let index in questionCharacters) {
       let key = questionCharacters[index]
-      let number = parseInt(index) + 3
+      if (key === '_') continue
+
+      let number = parseInt(index) + 4.5
       let data = this.calculateQuestionCharacterCard(number, questionCharacters.length)
       data.allowClick = false
       let card = new Cards(this, key, number, data, false, true, {}, false)
-      if (hideList.indexOf(parseInt(index)) < 0) {
-        card.flipOut(false)
-      } else {
+
+      if (hideList.indexOf(parseInt(index)) < 0) card.flipOut(false)
+      else {
         card.makeWhite(false)
         this.things.questionCharacterCards.push(card)
       }
@@ -137,7 +138,9 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   createAnswers (questionCharacters) {
-    let answers = questionCharacters
+    let questionWithoutDash = []
+    for (let i = questionCharacters.length - 1; i >= 0; i--) if (questionCharacters[i] !== '_') questionWithoutDash.push(questionCharacters[i])
+    let answers = questionWithoutDash
     let alphabetList = JSON.parse(JSON.stringify(this.things.alphabetList))
 
     for (let index in answers) {
@@ -179,41 +182,46 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   calculateQuestionCard (total) {
+    const startColumn = 4
+    const row = 2.5
+    const startX = 10
+
     const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
     const endX = this.cameras.main.width - startX
-    const row = 3
-    const column = total + 3
-    const width = 3 * (endX - startX) / column
+    const column = total + startColumn
+    const width = startColumn * (endX - startX) / column
     const height = this.cameras.main.height / row
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + width / 2)
+    const x = parseInt(startX + padding / 2 + width / 2 - padding / 2)
     const y = parseInt(this.cameras.main.height / row)
 
     return {
       x: x,
       y: y,
-      scale: scale
+      scale: scale,
+      height: assetHeight * scale
     }
   }
 
   calculateQuestionCharacterCard (number, total) {
     const { assetWidth, assetHeight } = Cards.ASSETSPEC
 
+    const startColumn = 4.5
+    const startX = 10
+
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
     const endX = this.cameras.main.width - startX
-    const row = 3
-    const column = total + 3
+    const row = 2.5
+    const column = total + startColumn
     const width = (endX - startX) / column
     const height = this.cameras.main.height / row
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const x = parseInt(startX + padding / 2 + number * width + width / 2 - padding / 2)
     const y = parseInt(this.cameras.main.height / row)
 
     return {
@@ -236,7 +244,7 @@ class FindCharactersScene extends Phaser.Scene {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const x = parseInt(startX + padding / 2 + number * width + width / 2 - padding / 2)
     const y = this.cameras.main.height - padding * 2
 
     return {
