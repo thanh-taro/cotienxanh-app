@@ -7,7 +7,7 @@ import ClockBadge from '../components/ClockBadge'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
-import { destroyObject } from '../helpers'
+import { destroyObject, addBee } from '../helpers'
 
 class GameTwoSubTwoScene extends Phaser.Scene {
   static get KEY () {
@@ -30,6 +30,8 @@ class GameTwoSubTwoScene extends Phaser.Scene {
     this.createBackToHomeButton()
     this.createMusicButton()
     this.createLevelButtons()
+
+    addBee(this)
   }
 
   forceRestart () {

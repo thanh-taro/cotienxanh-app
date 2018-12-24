@@ -135,6 +135,8 @@ class FindCharactersScene extends Phaser.Scene {
         this.things.questionCharacterCards.push(card)
       }
     }
+
+    this.animateCurrentCard()
   }
 
   createAnswers (questionCharacters) {
@@ -183,7 +185,7 @@ class FindCharactersScene extends Phaser.Scene {
 
   calculateQuestionCard (total) {
     const startColumn = 4
-    const row = 2.5
+    const row = 2.7
     const startX = 10
 
     const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
@@ -195,7 +197,7 @@ class FindCharactersScene extends Phaser.Scene {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + width / 2 - padding / 2)
+    const x = parseInt(startX + width / 2)
     const y = parseInt(this.cameras.main.height / row)
 
     return {
@@ -214,14 +216,14 @@ class FindCharactersScene extends Phaser.Scene {
 
     const padding = parseInt(this.cameras.main.width * 0.01)
     const endX = this.cameras.main.width - startX
-    const row = 2.5
+    const row = 2.7
     const column = total + startColumn
     const width = (endX - startX) / column
     const height = this.cameras.main.height / row
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2 - padding / 2)
+    const x = parseInt(startX + number * width + width / 2)
     const y = parseInt(this.cameras.main.height / row)
 
     return {
@@ -276,8 +278,12 @@ class FindCharactersScene extends Phaser.Scene {
     if (card.cardKey !== removeTimbre(currentQuestionCard.cardKey)) this.playWrongSound(delay / 1000)
     else {
       currentQuestionCard.flipOut(false)
+      currentQuestionCard.setScale(currentQuestionCard.oldScaleX, currentQuestionCard.oldScaleY)
+      currentQuestionCard.tween.stop()
+      destroyObject(currentQuestionCard.tween)
       questionCharacterCards.splice(0, 1)
       destroyObject(this.things.answerCards[card.listIndex])
+      this.animateCurrentCard()
     }
 
     if (questionCharacterCards.length === 0) {
@@ -293,6 +299,22 @@ class FindCharactersScene extends Phaser.Scene {
         this.won()
       })
     }
+  }
+
+  animateCurrentCard () {
+    if (this.things.questionCharacterCards.length === 0) return
+
+    const currentQuestionCard = this.things.questionCharacterCards[0]
+    currentQuestionCard.oldScaleX = currentQuestionCard.scaleX
+    currentQuestionCard.oldScaleY = currentQuestionCard.scaleY
+    currentQuestionCard.tween = this.tweens.add({
+      targets: currentQuestionCard,
+      scaleX: currentQuestionCard.scaleX * 1.3,
+      scaleY: currentQuestionCard.scaleY * 1.3,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    })
   }
 
   playGuideSound () {

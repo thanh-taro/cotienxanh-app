@@ -87,7 +87,7 @@ class HomeScene extends Phaser.Scene {
   playBackgroundMusic () {
     if (this.things.backgroundMusic === undefined) {
       this.things.backgroundMusic = this.sound.add(BackgroundAudio.KEY)
-      this.things.backgroundMusic.play({ loop: true, volume: 0.3 })
+      this.things.backgroundMusic.play({ loop: true, volume: 0.25 })
     }
   }
 }

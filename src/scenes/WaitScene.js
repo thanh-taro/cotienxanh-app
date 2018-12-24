@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import CheckUserScene from './CheckUserScene'
 import store from 'store'
-import { destroyObject } from '../helpers'
+import { destroyObject, addBee } from '../helpers'
 
 class WaitScene extends Phaser.Scene {
   static get KEY () {
@@ -43,6 +43,8 @@ class WaitScene extends Phaser.Scene {
 
     this.things.waitText = waitText
     this.things.remainTime = 0
+
+    addBee(this)
   }
 
   update () {

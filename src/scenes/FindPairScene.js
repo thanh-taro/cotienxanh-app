@@ -24,7 +24,7 @@ class FindPairScene extends Phaser.Scene {
   }
 
   create (data) {
-    this.cameras.main.setBackgroundColor('#000000')
+    this.cameras.main.setBackgroundColor('#00796B')
 
     if (!data.noGuide) this.playGuideSound()
     this.things.level = data.level
@@ -209,7 +209,7 @@ class FindPairScene extends Phaser.Scene {
 
       let number = parseInt(index) + 1
       let data = this.calculateCard(keys.length, number)
-      this.things.cards.push(new Cards(this, key, number, data, this.onCardOpen.bind(this), true, {}, this.onPointerDown ))
+      this.things.cards.push(new Cards(this, key, number, data, this.onCardOpen.bind(this), true, {}, this.onPointerDown))
     }
   }
 

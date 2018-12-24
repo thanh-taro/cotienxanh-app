@@ -2,6 +2,7 @@ import WaitScene from './scenes/WaitScene'
 import CheckUserScene from './scenes/CheckUserScene'
 import store from 'store'
 import { allowedTime, waitTime } from './config'
+import FlyingBee from './components/FlyingBee'
 
 export const loadAsset = (scene, assetSpec) => {
   const { assetScaleBy, assetScale, assetScaleBase, assets, assetWidth, assetHeight } = assetSpec
@@ -140,4 +141,8 @@ export const checkPlayTime = (scene, stay = true) => {
 
     scene.start(CheckUserScene.KEY)
   }
+}
+
+export const addBee = (scene) => {
+  scene.things.bee = new FlyingBee(scene, scene.cameras.main.centerX, scene.cameras.main.centerY)
 }

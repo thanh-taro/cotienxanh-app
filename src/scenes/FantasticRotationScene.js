@@ -33,7 +33,7 @@ class FantasticRotationScene extends Phaser.Scene {
       wordList: ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt'],
       head: ['W', 'I']
     }
-    this.cameras.main.setBackgroundColor('#000000')
+    this.cameras.main.setBackgroundColor('#3E2723')
 
     if (!data.noGuide) this.playGuideSound()
     this.things.level = data.level
@@ -218,13 +218,13 @@ class FantasticRotationScene extends Phaser.Scene {
 
     var scale = Math.min(scaleX, scaleY)
 
-    var y = this.cameras.main.height / 3 * 2
+    var y = this.cameras.main.height / 4 * 3
     var x = startX + (number - 1) * width + width / 2
 
     return {
       x: x,
       y: y,
-      scale: scale
+      scale: scale * 1.3
     }
   }
 

@@ -9,7 +9,7 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
-import { destroyObject } from '../helpers'
+import { destroyObject, addBee } from '../helpers'
 
 class GameThreeScene extends Phaser.Scene {
   static get KEY () {
@@ -33,6 +33,8 @@ class GameThreeScene extends Phaser.Scene {
     this.createBackToHomeButton()
     this.createMusicButton()
     this.createLevelButtons()
+
+    addBee(this)
   }
 
   forceRestart () {

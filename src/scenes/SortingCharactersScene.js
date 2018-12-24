@@ -33,7 +33,7 @@ class SortingCharactersScene extends Phaser.Scene {
       wrongSound: this.sound.add(WrongSound.KEY),
       beStopped: false
     }
-    this.cameras.main.setBackgroundColor('#000000')
+    this.cameras.main.setBackgroundColor('#4DD0E1')
     if (!data.noGuide) this.playGuideSound()
 
     this.things.level = data.level
@@ -93,12 +93,14 @@ class SortingCharactersScene extends Phaser.Scene {
     this.createAnswers(question)
     this.createSpeaker(question)
 
+    this.things.allowPlay = true
+
     let delay = noGuide ? 1500 : (2 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => {
       Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
         const { sound, delay } = item
         this.time.delayedCall(delay, () => {
-          sound.play()
+          if (this.things.allowPlay) sound.play()
         })
       })
     })
@@ -112,6 +114,7 @@ class SortingCharactersScene extends Phaser.Scene {
   createSpeaker (question) {
     let data = this.calculateQuestionCard(0, question.length)
     data.hasSound = false
+    this.things.allowPlay = false
     // eslint-disable-next-line no-unused-vars
     const card = new Cards(this, 'speakerI', 0, data, false, true, {}, this.onClickSpeaker.bind(this))
   }
@@ -119,6 +122,12 @@ class SortingCharactersScene extends Phaser.Scene {
   createQuestion (question) {
     this.things.questionCardsSounds.totalDuration = 0
     this.things.questionCardsSounds.list = []
+
+    // create panel
+    let data = this.calculateQuestionCard(1, question.length)
+    this.things.pannel = this.add.rectangle(0, data.y, this.cameras.main.width, data.height * 1.2, 0xF9A825)
+    this.things.pannel.setOrigin(0, 0.5)
+
     let lastDelay = 0
     for (let index in question) {
       let key = question[index]
@@ -175,30 +184,26 @@ class SortingCharactersScene extends Phaser.Scene {
     const { assetWidth, assetHeight } = Cards.ASSETSPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 100
+    const startX = 10
     const endX = this.cameras.main.width - startX
-    const row = 3
+    const row = 2.7
     const column = total + 1
     const width = (endX - startX) / column
     const height = this.cameras.main.height / row
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const x = parseInt(startX + number * width + width / 2)
     const y = parseInt(this.cameras.main.height / row)
 
-    return {
-      x: x,
-      y: y,
-      scale: scale
-    }
+    return { x, y, scale, height }
   }
 
   calculateAnswerCard (number, total) {
     const { assetWidth, assetHeight } = Cards.ASSETSPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
+    const startX = this.cameras.main.width * 0.17
     const endX = this.cameras.main.width - startX
     const row = 3
     const column = total
@@ -207,7 +212,7 @@ class SortingCharactersScene extends Phaser.Scene {
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
     const scale = Math.min(scaleX, scaleY)
-    const x = parseInt(startX + padding / 2 + number * width + width / 2)
+    const x = parseInt(startX + number * width + width / 2)
     const y = this.cameras.main.height - padding * 2
 
     return {

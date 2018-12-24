@@ -5,7 +5,7 @@ import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
 import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
-import { destroyObject } from '../helpers'
+import { destroyObject, addBee } from '../helpers'
 import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
 import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 
@@ -31,6 +31,8 @@ class GameTwoListScene extends Phaser.Scene {
     this.createBackToHomeButton()
     this.createMusicButton()
     this.createSubGameButtons()
+
+    addBee(this)
   }
 
   forceRestart () {

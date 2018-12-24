@@ -232,6 +232,7 @@ class GameOneScene extends Phaser.Scene {
       default:
         this.playFindPair(level)
     }
+    level = 'hardest'
   }
 
   onGamePadLeftDown () {
