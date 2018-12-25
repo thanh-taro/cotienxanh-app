@@ -7,6 +7,7 @@ import Cards from '../components/Cards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
+import store from 'store'
 
 class SortingCharactersScene extends Phaser.Scene {
   static get KEY () {
@@ -34,7 +35,13 @@ class SortingCharactersScene extends Phaser.Scene {
       beStopped: false
     }
     this.cameras.main.setBackgroundColor('#4DD0E1')
-    if (!data.noGuide) this.playGuideSound()
+
+    const noGuide = store.get(SortingCharactersScene.KEY)
+    if (!noGuide) {
+      store.set(SortingCharactersScene.KEY, 1)
+      this.playGuideSound()
+    }
+    this.things.noGuide = noGuide
 
     this.things.level = data.level
 

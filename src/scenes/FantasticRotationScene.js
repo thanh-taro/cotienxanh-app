@@ -8,6 +8,7 @@ import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
+import store from 'store'
 
 class FantasticRotationScene extends Phaser.Scene {
   static get KEY () {
@@ -35,7 +36,13 @@ class FantasticRotationScene extends Phaser.Scene {
     }
     this.cameras.main.setBackgroundColor('#3E2723')
 
-    if (!data.noGuide) this.playGuideSound()
+    const noGuide = store.get(FantasticRotationScene.KEY)
+    if (!noGuide) {
+      store.set(FantasticRotationScene.KEY, 1)
+      this.playGuideSound()
+    }
+    this.things.noGuide = noGuide
+
     this.things.level = data.level
 
     this.createMusicButton()

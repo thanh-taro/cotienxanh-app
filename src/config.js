@@ -15,6 +15,11 @@ import GameTwoListScene from './scenes/GameTwoListScene'
 import GameTwoSubOneScene from './scenes/GameTwoSubOneScene'
 import GameTwoSubTwoScene from './scenes/GameTwoSubTwoScene'
 import FindRightAnswerScene from './scenes/FindRightAnswerScene'
+import GameOneListScene from './scenes/GameOneListScene'
+import GameOneSubOneScene from './scenes/GameOneSubOneScene'
+import GameOneSubTwoScene from './scenes/GameOneSubTwoScene'
+import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
+import GameOneSubFourScene from './scenes/GameOneSubFourScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -36,6 +41,9 @@ export const physics = {
 export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
-export const scene = [ BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene, GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FindRightAnswerScene ]
+export const scene = [
+  BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene,
+  GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FindRightAnswerScene, GameOneListScene,
+  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene ]
 export const allowedTime = 1800
 export const waitTime = 3600

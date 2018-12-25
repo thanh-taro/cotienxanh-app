@@ -44,6 +44,10 @@ import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
 import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
 import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 import FlyingBee from '../components/FlyingBee'
+import GameOneSubOneButton from '../components/GameOneSubOneButton'
+import GameOneSubTwoButton from '../components/GameOneSubTwoButton'
+import GameOneSubThreeButton from '../components/GameOneSubThreeButton'
+import GameOneSubFourButton from '../components/GameOneSubFourButton'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -107,6 +111,10 @@ class BootScene extends Phaser.Scene {
     LevelHardButton.preload(this)
     LevelHardestButton.preload(this)
     FlyingBee.preload(this)
+    GameOneSubOneButton.preload(this)
+    GameOneSubTwoButton.preload(this)
+    GameOneSubThreeButton.preload(this)
+    GameOneSubFourButton.preload(this)
   }
 
   create () {

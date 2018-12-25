@@ -18,6 +18,7 @@ import SortingCharactersScene from '../scenes/SortingCharactersScene'
 import FindCharactersScene from '../scenes/FindCharactersScene'
 import { isTouchableDevice, destroyObject, randItem } from '../helpers'
 import CeremonySound from '../components/CeremonySound'
+import GameOneListScene from './GameOneListScene';
 
 class GameOneScene extends Phaser.Scene {
   static get KEY () {
@@ -207,32 +208,15 @@ class GameOneScene extends Phaser.Scene {
   onHitQuest (sprite, tile) {
     this.playHitQuestAudio()
     this.things.tilemap.questLayer.removeTileAt(tile.x, tile.y)
-
-    let level = 'easy'
-    if (tile.x < 30) level = 'easy'
-    else if (tile.x < 60) level = 'normal'
-    else if (tile.x < 90) level = 'hard'
-    else level = 'hardest'
-
-    let miniGame = ['fantasticRotation', 'findPair', 'sortingCharacters', 'findCharacters']
-    this.runMiniGame(randItem(miniGame), level)
+    this.runMiniGame()
   }
 
-  runMiniGame (game, level) {
-    switch (game) {
-      case 'fantasticRotation':
-        this.playFantasticRotation(level)
-        break
-      case 'sortingCharacters':
-        this.playSortingCharacters(level)
-        break
-      case 'findCharacters':
-        this.playFindCharacters(level)
-        break
-      default:
-        this.playFindPair(level)
-    }
-    level = 'hardest'
+  runMiniGame () {
+    this.stopWelcomeAudio()
+    this.resetPlayer()
+
+    this.scene.pause()
+    this.scene.run(GameOneListScene.KEY)
   }
 
   onGamePadLeftDown () {
@@ -310,44 +294,6 @@ class GameOneScene extends Phaser.Scene {
 
     this.things.player.body.setVelocityX(0)
     this.things.player.body.setVelocityY(0)
-  }
-
-  playFindPair (level) {
-    if (this.things.playFindPairTimes === undefined) this.things.playFindPairTimes = 1
-    else this.things.playFindPairTimes++
-
-    this.stopWelcomeAudio()
-    this.resetPlayer()
-
-    this.scene.pause()
-    this.scene.run(FindPairScene.KEY, { noGuide: this.things.playFindPairTimes > 1, level })
-  }
-
-  playFantasticRotation (level) {
-    if (this.things.playFantasticRotationTimes === undefined) this.things.playFantasticRotationTimes = 1
-    else this.things.playFantasticRotationTimes++
-    this.stopWelcomeAudio()
-    this.resetPlayer()
-    this.scene.pause()
-    this.scene.run(FantasticRotationScene.KEY, { noGuide: this.things.playFantasticRotationTimes > 1, level })
-  }
-
-  playSortingCharacters (level) {
-    if (this.things.playSortingCharactersTimes === undefined) this.things.playSortingCharactersTimes = 1
-    else this.things.playSortingCharactersTimes++
-    this.stopWelcomeAudio()
-    this.resetPlayer()
-    this.scene.pause()
-    this.scene.run(SortingCharactersScene.KEY, { noGuide: this.things.playSortingCharactersTimes > 1, level })
-  }
-
-  playFindCharacters (level) {
-    if (this.things.playFindCharactersTimes === undefined) this.things.playFindCharactersTimes = 1
-    else this.things.playFindCharactersTimes++
-    this.stopWelcomeAudio()
-    this.resetPlayer()
-    this.scene.pause()
-    this.scene.run(FindCharactersScene.KEY, { noGuide: this.things.playFindCharactersTimes > 1, level })
   }
 }
 

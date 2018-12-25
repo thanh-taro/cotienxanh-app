@@ -7,6 +7,7 @@ import Cards from '../components/Cards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import FindPairGuideSound from '../components/FindPairGuideSound'
+import store from 'store'
 
 class FindPairScene extends Phaser.Scene {
   static get KEY () {
@@ -26,7 +27,13 @@ class FindPairScene extends Phaser.Scene {
   create (data) {
     this.cameras.main.setBackgroundColor('#00796B')
 
-    if (!data.noGuide) this.playGuideSound()
+    const noGuide = store.get(FindPairScene.KEY)
+    if (!noGuide) {
+      store.set(FindPairScene.KEY, 1)
+      this.playGuideSound()
+    }
+    this.things.noGuide = noGuide
+
     this.things.level = data.level
 
     this.createMusicButton()

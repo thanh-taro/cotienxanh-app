@@ -8,6 +8,7 @@ import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
+import store from 'store'
 
 class FindCharactersScene extends Phaser.Scene {
   static get KEY () {
@@ -37,7 +38,13 @@ class FindCharactersScene extends Phaser.Scene {
       beStopped: false
     }
     this.cameras.main.setBackgroundColor('#AED581')
-    if (!data.noGuide) this.playGuideSound()
+
+    const noGuide = store.get(FindCharactersScene.KEY)
+    if (!noGuide) {
+      store.set(FindCharactersScene.KEY, 1)
+      this.playGuideSound()
+    }
+    this.things.noGuide = noGuide
 
     this.things.level = data.level
 
