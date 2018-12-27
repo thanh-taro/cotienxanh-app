@@ -38,12 +38,40 @@ import Hoa_cẩm_tú_cầuI from './i_Hoa_cẩm_tú_cầu.png'
 import Hoa_bằng_lăngI from './i_Hoa_bằng_lăng.png'
 import Hoa_bướmI from './i_Hoa_bướm.png'
 import Hoa_cúcI from './i_Hoa_cúc.png'
+
 import Vịnh_Hạ_LongI from './i_Vịnh_Hạ_Long.png'
 import Lăng_BácI from './i_Lăng_Bác.png'
 import Hoàng_thành_HuếI from './i_Hoàng_thành_Huế.png'
 import Nhà_thờ_Đức_BàI from './i_Nhà_thờ_Đức_Bà.png'
 import Cầu_rồng_Đà_NẵngI from './i_Cầu_rồng_Đà_Nẵng.png'
 import Chùa_Một_CộtI from './i_Chùa_Một_Cột.png'
+
+import story_1_1 from './story-1-1.png'
+import story_1_2 from './story-1-2.png'
+import story_1_3 from './story-1-3.png'
+import story_1_4 from './story-1-4.png'
+import story_2_1 from './story-2-1.png'
+import story_2_2 from './story-2-2.png'
+import story_2_3 from './story-2-3.png'
+import story_2_4 from './story-2-4.png'
+import story_3_1 from './story-3-1.png'
+import story_3_2 from './story-3-2.png'
+import story_3_3 from './story-3-3.png'
+import story_3_4 from './story-3-4.png'
+import story_3_5 from './story-3-5.png'
+import story_4_1 from './story-4-1.png'
+import story_4_2 from './story-4-2.png'
+import story_4_3 from './story-4-3.png'
+import story_4_4 from './story-4-4.png'
+import story_4_5 from './story-4-5.png'
+import story_6_1 from './story-6-1.png'
+import story_6_2 from './story-6-2.png'
+import story_6_3 from './story-6-3.png'
+import story_6_4 from './story-6-4.png'
+import story_7_1 from './story-7-1.png'
+import story_7_2 from './story-7-2.png'
+import story_7_3 from './story-7-3.png'
+import story_7_4 from './story-7-4.png'
 
 const assetSpec = {
   assetScaleBy: 'height',
@@ -77,7 +105,33 @@ const assetSpec = {
     { key: 'Hoàng_thành_HuếI', asset: Hoàng_thành_HuếI },
     { key: 'Nhà_thờ_Đức_BàI', asset: Nhà_thờ_Đức_BàI },
     { key: 'Cầu_Rồng_Đà_NẵngI', asset: Cầu_rồng_Đà_NẵngI },
-    { key: 'Chùa_Một_CộtI', asset: Chùa_Một_CộtI }
+    { key: 'Chùa_Một_CộtI', asset: Chùa_Một_CộtI },
+    { key: 'story_1_1', asset: story_1_1 },
+    { key: 'story_1_2', asset: story_1_2 },
+    { key: 'story_1_3', asset: story_1_3 },
+    { key: 'story_1_4', asset: story_1_4 },
+    { key: 'story_2_1', asset: story_2_1 },
+    { key: 'story_2_2', asset: story_2_2 },
+    { key: 'story_2_3', asset: story_2_3 },
+    { key: 'story_2_4', asset: story_2_4 },
+    { key: 'story_3_1', asset: story_3_1 },
+    { key: 'story_3_2', asset: story_3_2 },
+    { key: 'story_3_3', asset: story_3_3 },
+    { key: 'story_3_4', asset: story_3_4 },
+    { key: 'story_3_5', asset: story_3_5 },
+    { key: 'story_4_1', asset: story_4_1 },
+    { key: 'story_4_2', asset: story_4_2 },
+    { key: 'story_4_3', asset: story_4_3 },
+    { key: 'story_4_4', asset: story_4_4 },
+    { key: 'story_4_5', asset: story_4_5 },
+    { key: 'story_6_1', asset: story_6_1 },
+    { key: 'story_6_2', asset: story_6_2 },
+    { key: 'story_6_3', asset: story_6_3 },
+    { key: 'story_6_4', asset: story_6_4 },
+    { key: 'story_7_1', asset: story_7_1 },
+    { key: 'story_7_2', asset: story_7_2 },
+    { key: 'story_7_3', asset: story_7_3 },
+    { key: 'story_7_4', asset: story_7_4 }
   ],
 
   soundCollection: [

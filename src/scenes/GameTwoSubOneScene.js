@@ -6,7 +6,9 @@ import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
-import LevelHardButton from '../components/LevelHardButton'
+import FormingAStoryScene from './FormingAStoryScene'
+import CeremonySound from '../components/CeremonySound'
+
 import { destroyObject, addBee } from '../helpers'
 
 class GameTwoSubOneScene extends Phaser.Scene {
@@ -30,6 +32,11 @@ class GameTwoSubOneScene extends Phaser.Scene {
     this.createBackToHomeButton()
     this.createMusicButton()
     this.createLevelButtons()
+
+    if (data) {
+      const { coin } = data
+      if (undefined !== coin) this.won(data)
+    }
 
     addBee(this)
   }
@@ -87,9 +94,26 @@ class GameTwoSubOneScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
-    if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
-    if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => this.scene.start(FormingAStoryScene.KEY, { level: 'easy' }))
+    }
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => this.scene.start(FormingAStoryScene.KEY, { level: 'normal' }))
+    }
+  }
+
+  won (data) {
+    if (undefined !== data && undefined !== data.from) {
+      this.playCeremonyAudio()
+      this.things.diamondBadge.addDiamond(data.diamond)
+    }
+  }
+
+  playCeremonyAudio () {
+    if (this.things.ceremonyAudio === undefined) this.things.ceremonyAudio = this.sound.add(CeremonySound.KEY)
+    this.things.ceremonyAudio.play({ volume: 0.4 })
   }
 }
 

@@ -27,7 +27,7 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
     }
   }
 
-  constructor (scene, key, x, y, scale, alpha, allowClick, cb, addToScene = true, config = {}, noDelay = false) {
+  constructor (scene, key, x, y, scale, alpha, allowClick, cb, addToScene = true, config = {}, noSound = false) {
     super(scene, x, y, HorizontalCards.KEY + '-' + key, 0)
 
     const cardKey = key.substring(0, key.length - 1)
@@ -35,8 +35,9 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
     this.head = key[key.length - 1]
     this.cb = cb
     this.allowClick = allowClick
-    this.noDelay = noDelay
-    this.sound = scene.sound.add(HorizontalCards.KEY + '-' + cardKey.toLowerCase() + '-sound')
+    if (!noSound) {
+      this.sound = scene.sound.add(HorizontalCards.KEY + '-' + cardKey.toLowerCase() + '-sound')
+    }
 
     Phaser.GameObjects.BuildGameObject(scene, this, { ...config, x, y })
     this.setScrollFactor(0)
