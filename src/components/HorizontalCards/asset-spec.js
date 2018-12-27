@@ -1,4 +1,30 @@
 /* eslint-disable camelcase */
+import story_1_1 from './story-1-1.png'
+import story_1_2 from './story-1-2.png'
+import story_1_3 from './story-1-3.png'
+import story_1_4 from './story-1-4.png'
+import story_2_1 from './story-2-1.png'
+import story_2_2 from './story-2-2.png'
+import story_2_3 from './story-2-3.png'
+import story_2_4 from './story-2-4.png'
+import story_3_1 from './story-3-1.png'
+import story_3_2 from './story-3-2.png'
+import story_3_3 from './story-3-3.png'
+import story_3_4 from './story-3-4.png'
+import story_3_5 from './story-3-5.png'
+import story_4_1 from './story-4-1.png'
+import story_4_2 from './story-4-2.png'
+import story_4_3 from './story-4-3.png'
+import story_4_4 from './story-4-4.png'
+import story_4_5 from './story-4-5.png'
+import story_6_1 from './story-6-1.png'
+import story_6_2 from './story-6-2.png'
+import story_6_3 from './story-6-3.png'
+import story_6_4 from './story-6-4.png'
+import story_7_1 from './story-7-1.png'
+import story_7_2 from './story-7-2.png'
+import story_7_3 from './story-7-3.png'
+import story_7_4 from './story-7-4.png'
 
 import Hoa_phượngSound from './hoa_phuong.mp3'
 import Hoa_tulipSound from './hoa_tulip.mp3'
@@ -160,6 +186,33 @@ const assetSpec = {
   assetWidth: 512,
   assetHeight: 320,
   assetCollection: [
+    { key: 'story_1_1', asset: story_1_1 },
+    { key: 'story_1_2', asset: story_1_2 },
+    { key: 'story_1_3', asset: story_1_3 },
+    { key: 'story_1_4', asset: story_1_4 },
+    { key: 'story_2_1', asset: story_2_1 },
+    { key: 'story_2_2', asset: story_2_2 },
+    { key: 'story_2_3', asset: story_2_3 },
+    { key: 'story_2_4', asset: story_2_4 },
+    { key: 'story_3_1', asset: story_3_1 },
+    { key: 'story_3_2', asset: story_3_2 },
+    { key: 'story_3_3', asset: story_3_3 },
+    { key: 'story_3_4', asset: story_3_4 },
+    { key: 'story_3_5', asset: story_3_5 },
+    { key: 'story_4_1', asset: story_4_1 },
+    { key: 'story_4_2', asset: story_4_2 },
+    { key: 'story_4_3', asset: story_4_3 },
+    { key: 'story_4_4', asset: story_4_4 },
+    { key: 'story_4_5', asset: story_4_5 },
+    { key: 'story_6_1', asset: story_6_1 },
+    { key: 'story_6_2', asset: story_6_2 },
+    { key: 'story_6_3', asset: story_6_3 },
+    { key: 'story_6_4', asset: story_6_4 },
+    { key: 'story_7_1', asset: story_7_1 },
+    { key: 'story_7_2', asset: story_7_2 },
+    { key: 'story_7_3', asset: story_7_3 },
+    { key: 'story_7_4', asset: story_7_4 },
+
     { key: 'Hoa_phượngI', asset: Hoa_phượngI },
     { key: 'Hoa_tulipI', asset: Hoa_tulipI },
     { key: 'Hoa_râm_bụtI', asset: Hoa_râm_bụtI },

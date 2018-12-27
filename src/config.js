@@ -9,6 +9,7 @@ import FindPairScene from './scenes/FindPairScene'
 import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
 import FindCharactersScene from './scenes/FindCharactersScene'
+import FormingAStoryScene from './scenes/FormingAStoryScene'
 import UpdatePlugin from 'phaser-plugin-update'
 import GameThreeScene from './scenes/GameThreeScene'
 import GameTwoListScene from './scenes/GameTwoListScene'
@@ -45,7 +46,8 @@ export const plugins = {
 }
 export const scene = [
   BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene,
-  GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FindRightAnswerScene, GameOneListScene,
-  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene, LittleTalentScene, PuzzleScene ]
+  GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, GameOneListScene,
+  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene, LittleTalentScene, PuzzleScene
+]
 export const allowedTime = 1800
 export const waitTime = 3600

@@ -126,7 +126,7 @@ class FindCharactersScene extends Phaser.Scene {
     this.things.pannel.setOrigin(0, 0.5)
 
     // create question image
-    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {}, true)
+    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {})
     this.things.questionCard = questionCard
     let delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
     this.time.delayedCall(delay, () => questionCard.sound.play())

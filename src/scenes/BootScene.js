@@ -14,6 +14,7 @@ import CollectCoinAudio from '../components/CollectCoinAudio'
 import HitQuestSound from '../components/HitQuestSound'
 import Arrow from '../components/Arrow'
 import BackButton from '../components/BackButton'
+import NextButton from '../components/NextButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
@@ -33,6 +34,7 @@ import WrongSound from '../components/WrongSound'
 import CeremonySound from '../components/CeremonySound'
 import FindPairGuideSound from '../components/FindPairGuideSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
+import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
 import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
 import LevelEasyButton from '../components/LevelEasyButton'
@@ -85,6 +87,7 @@ class BootScene extends Phaser.Scene {
     HomeButton.preload(this)
     Arrow.preload(this)
     BackButton.preload(this)
+    NextButton.preload(this)
     CoinBadge.preload(this)
     DiamondBadge.preload(this)
     ClockBadge.preload(this)
@@ -104,6 +107,7 @@ class BootScene extends Phaser.Scene {
     CeremonySound.preload(this)
     FindPairGuideSound.preload(this)
     FantasticRotationGuideSound.preload(this)
+    FormingAStoryGuideSound.preload(this)
     SortingCharactersGuideSound.preload(this)
     FindCharactersGuideSound.preload(this)
     LevelEasyButton.preload(this)
