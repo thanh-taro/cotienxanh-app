@@ -3,12 +3,11 @@ import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
 import NextButton from '../components/NextButton'
 import GameTwoSubOneScene from './GameTwoSubOneScene'
-import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import { destroyObject, randItem, randSplice } from '../helpers'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
-import DiamondBadge from '../components/DiamondBadge'
 import Cards from '../components/Cards'
 import store from 'store'
 
@@ -76,8 +75,7 @@ class FormingAStoryScene extends Phaser.Scene {
     this.createTheDragFeature()
   }
 
-  configTheQuestionCard(number, total) {
-    const level = this.things.level
+  configTheQuestionCard (number, total) {
     const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 50
@@ -89,26 +87,24 @@ class FormingAStoryScene extends Phaser.Scene {
     const scale = Math.min(scaleX, scaleY)
     const x = parseInt((startX + padding / 2 + (number * width) + width / 2))
     const y = this.cameras.main.centerY
-    return {
-      x: x,
-      y: y,
-      scale: scale
-    }
+    return { x, y, scale }
   }
 
-  createTheDragFeature() {
-    this.input.dragDistanceThreshold = 16;
-    this.input.on('dragstart', function (pointer, gameObject) {
+  createTheDragFeature () {
+    this.input.dragDistanceThreshold = 16
+    this.input.on('dragstart', (pointer, gameObject) => {
       this.stopGuideSound()
+      this.children.bringToTop(gameObject)
       this.things.originalX = gameObject.x
       this.things.originalY = gameObject.y
-    }, this);
+    })
 
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
-    this.input.on('dragend', function (pointer, gameObject) {
+    this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+      gameObject.x = dragX
+      gameObject.y = dragY
+    })
+
+    this.input.on('dragend', (pointer, gameObject) => {
       var questionCards = this.things.questionCards
       let minY = this.cameras.main.centerY - gameObject.displayHeight / 2
       let maxY = this.cameras.main.centerY + gameObject.displayHeight / 2
@@ -141,11 +137,11 @@ class FormingAStoryScene extends Phaser.Scene {
         gameObject.y = this.things.originalY
       }
       this.checkAnswers()
-    }, this);
+    })
   }
 
-  checkAnswers() {
-    var isWin =true
+  checkAnswers () {
+    var isWin = true
     var questionCards = this.things.questionCards
     for (let index in questionCards) {
       let card = questionCards[index]
@@ -209,7 +205,6 @@ class FormingAStoryScene extends Phaser.Scene {
       this.scene.stop()
       this.scene.start(GameTwoSubOneScene.KEY, {from: FormingAStoryScene.KEY, coin: FormingAStoryScene.WIN_DIAMOND})
     })
-
   }
 
   showBottomBar () {
@@ -226,9 +221,7 @@ class FormingAStoryScene extends Phaser.Scene {
     data.scale = 200 / assetHeight
     data.hasSound = false
     const card = new Cards(this, 'speakerI', 0, data, false, true, {})
-
     this.createNextButton(y)
-
   }
 
   createNextButton (y) {
@@ -237,7 +230,7 @@ class FormingAStoryScene extends Phaser.Scene {
     data.x = this.cameras.main.width - 100
     data.y = y
     this.things.nextButton = new NextButton(this, data, () => {
-      this.scene.start(GameTwoSubOneScene.KEY, {from: FormingAStoryScene.KEY, coin: FormingAStoryScene.WIN_DIAMOND})
+      this.scene.start(GameTwoSubOneScene.KEY, { from: FormingAStoryScene.KEY, coin: FormingAStoryScene.WIN_DIAMOND })
     })
   }
 }
