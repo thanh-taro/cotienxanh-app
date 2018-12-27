@@ -10,6 +10,7 @@ import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
 import { destroyObject, addBee } from '../helpers'
+import PuzzleScene from './PuzzleScene'
 
 class GameThreeScene extends Phaser.Scene {
   static get KEY () {
@@ -99,8 +100,20 @@ class GameThreeScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
-    if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(PuzzleScene.KEY, { level: 'easy' })
+      })
+    }
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(PuzzleScene.KEY, { level: 'normal' })
+      })
+    }
     if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
     if (this.things.levelHardestButton === undefined) this.things.levelHardestButton = new LevelHardestButton(this)
   }

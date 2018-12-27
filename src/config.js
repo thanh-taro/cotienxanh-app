@@ -20,6 +20,8 @@ import GameOneSubOneScene from './scenes/GameOneSubOneScene'
 import GameOneSubTwoScene from './scenes/GameOneSubTwoScene'
 import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
 import GameOneSubFourScene from './scenes/GameOneSubFourScene'
+import LittleTalentScene from './scenes/LittleTalentScene'
+import PuzzleScene from './scenes/PuzzleScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -44,6 +46,6 @@ export const plugins = {
 export const scene = [
   BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene,
   GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FindRightAnswerScene, GameOneListScene,
-  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene ]
+  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene, LittleTalentScene, PuzzleScene ]
 export const allowedTime = 1800
 export const waitTime = 3600

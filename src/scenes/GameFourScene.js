@@ -8,8 +8,8 @@ import GameFourWelcomeAudio from '../components/GameFourWelcomeAudio'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
-import LevelHardestButton from '../components/LevelHardestButton'
 import { destroyObject, addBee } from '../helpers'
+import LittleTalentScene from './LittleTalentScene'
 
 class GameFourScene extends Phaser.Scene {
   static get KEY () {
@@ -88,9 +88,7 @@ class GameFourScene extends Phaser.Scene {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
 
-      this.things.homeButton.setCallback(() => {
-        this.things.welcomeAudio.stop()
-      })
+      this.things.homeButton.setCallback(() => this.things.welcomeAudio.stop())
     }
   }
 
@@ -99,10 +97,21 @@ class GameFourScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
-    if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(LittleTalentScene.KEY, { level: 'easy' })
+      })
+    }
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(LittleTalentScene.KEY, { level: 'normal' })
+      })
+    }
     if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
-    if (this.things.levelHardestButton === undefined) this.things.levelHardestButton = new LevelHardestButton(this)
   }
 }
 
