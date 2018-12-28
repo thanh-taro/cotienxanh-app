@@ -1,28 +1,26 @@
 import Phaser from 'phaser'
+import UpdatePlugin from 'phaser-plugin-update'
 import BootScene from './scenes/BootScene'
 import WaitScene from './scenes/WaitScene'
 import CheckUserScene from './scenes/CheckUserScene'
 import HomeScene from './scenes/HomeScene'
+import MainGameScene from './scenes/MainGameScene'
 import GameOneScene from './scenes/GameOneScene'
+import GameTwoScene from './scenes/GameTwoScene'
+import GameThreeScene from './scenes/GameThreeScene'
 import GameFourScene from './scenes/GameFourScene'
+import GameOneSubOneScene from './scenes/GameOneSubOneScene'
+import GameOneSubTwoScene from './scenes/GameOneSubTwoScene'
+import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
+import GameOneSubFourScene from './scenes/GameOneSubFourScene'
+import FindRightAnswerScene from './scenes/FindRightAnswerScene'
+import LittleTalentScene from './scenes/LittleTalentScene'
+import PuzzleScene from './scenes/PuzzleScene'
 import FindPairScene from './scenes/FindPairScene'
 import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
 import FindCharactersScene from './scenes/FindCharactersScene'
 import FormingAStoryScene from './scenes/FormingAStoryScene'
-import UpdatePlugin from 'phaser-plugin-update'
-import GameThreeScene from './scenes/GameThreeScene'
-import GameTwoListScene from './scenes/GameTwoListScene'
-import GameTwoSubOneScene from './scenes/GameTwoSubOneScene'
-import GameTwoSubTwoScene from './scenes/GameTwoSubTwoScene'
-import FindRightAnswerScene from './scenes/FindRightAnswerScene'
-import GameOneListScene from './scenes/GameOneListScene'
-import GameOneSubOneScene from './scenes/GameOneSubOneScene'
-import GameOneSubTwoScene from './scenes/GameOneSubTwoScene'
-import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
-import GameOneSubFourScene from './scenes/GameOneSubFourScene'
-import LittleTalentScene from './scenes/LittleTalentScene'
-import PuzzleScene from './scenes/PuzzleScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -45,9 +43,12 @@ export const plugins = {
   scene: [{ key: 'updatePlugin', plugin: UpdatePlugin, mapping: 'updates' }]
 }
 export const scene = [
-  BootScene, WaitScene, CheckUserScene, HomeScene, GameOneScene, GameTwoListScene, GameTwoSubOneScene, GameTwoSubTwoScene, GameThreeScene,
-  GameFourScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, GameOneListScene,
-  GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene, LittleTalentScene, PuzzleScene
+  BootScene, WaitScene, CheckUserScene, HomeScene, MainGameScene,
+  GameOneScene, GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene,
+  GameTwoScene,
+  GameThreeScene,
+  GameFourScene,
+  FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene
 ]
 export const allowedTime = 1800
 export const waitTime = 3600

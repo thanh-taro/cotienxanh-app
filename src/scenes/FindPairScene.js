@@ -1,13 +1,11 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
-import GameOneScene from './GameOneScene'
-import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import MainGameScene from './MainGameScene'
 import Cards from '../components/Cards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
-import FindPairGuideSound from '../components/FindPairGuideSound'
-import store from 'store'
+import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
 
 class FindPairScene extends Phaser.Scene {
   static get KEY () {
@@ -27,13 +25,6 @@ class FindPairScene extends Phaser.Scene {
   create (data) {
     this.cameras.main.setBackgroundColor('#00796B')
 
-    const noGuide = store.get(FindPairScene.KEY)
-    if (!noGuide) {
-      store.set(FindPairScene.KEY, 1)
-      this.playGuideSound()
-    }
-    this.things.noGuide = noGuide
-
     this.things.level = data.level
 
     this.createMusicButton()
@@ -44,7 +35,7 @@ class FindPairScene extends Phaser.Scene {
 
   generate () {
     let lowercaseList = ['a', 'ă', 'â', 'b', 'c', 'd', 'đ', 'e', 'ê', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'ô', 'ơ', 'p', 'q', 'r', 's', 't', 'u', 'ư', 'v', 'x', 'y']
-    let wordlist = ['meo', 'cho', 'heo']
+    let wordList = ['meo', 'cho', 'heo']
     let keys = []
 
     const level = this.things.level
@@ -198,7 +189,7 @@ class FindPairScene extends Phaser.Scene {
         break
       default:
         for (let i = 0; i < 3; i++) {
-          let item = randSplice(wordlist)
+          let item = randSplice(wordList)
           keys.push(item + 'W')
           keys.push(item + 'I')
         }
@@ -221,7 +212,7 @@ class FindPairScene extends Phaser.Scene {
   }
 
   calculateCard (total, number) {
-    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const { assetWidth, assetHeight } = Cards.ASSET_SPEC
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 50
     const startY = 50
@@ -252,9 +243,7 @@ class FindPairScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
-      this.stopGuideSound()
-    })
+    this.things.backButton = new BackButton(this, MainGameScene.KEY)
   }
 
   onPointerDown (pointer, x, y, event) {
@@ -270,7 +259,6 @@ class FindPairScene extends Phaser.Scene {
 
   onCardOpen (card) {
     card.allowClick = false
-    this.stopGuideSound()
 
     if (!this.things.openCards) this.things.openCards = []
 
@@ -320,15 +308,6 @@ class FindPairScene extends Phaser.Scene {
     })
   }
 
-  playGuideSound () {
-    this.things.guideSound = this.sound.add(FindPairGuideSound.KEY)
-    this.things.guideSound.play({ delay: 1.5 })
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
-  }
-
   playRightSound (delay = 0) {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
@@ -342,10 +321,8 @@ class FindPairScene extends Phaser.Scene {
   }
 
   won () {
-    this.stopGuideSound()
-
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindPairScene.KEY, diamond: FindPairScene.WIN_DIAMOND })
+    this.scene.resume(MainGameScene.KEY, { from: FindPairScene.KEY, diamond: FindPairScene.WIN_DIAMOND })
   }
 }
 

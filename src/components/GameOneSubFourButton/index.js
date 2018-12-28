@@ -37,6 +37,7 @@ class GameOneSubFourButton extends Phaser.GameObjects.Sprite {
 
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
+    this.scene.things.welcomeAudio.stop()
     this.scene.scene.start(GameOneSubFourScene.KEY)
   }
 }

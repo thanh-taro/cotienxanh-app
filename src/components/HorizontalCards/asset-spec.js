@@ -26,6 +26,9 @@ import story_7_2 from './story-7-2.png'
 import story_7_3 from './story-7-3.png'
 import story_7_4 from './story-7-4.png'
 
+import story_1Sound from './story_1.mp3'
+import story_2Sound from './story_2.mp3'
+
 import Hoa_phượngSound from './hoa_phuong.mp3'
 import Hoa_tulipSound from './hoa_tulip.mp3'
 import Hoa_râm_bụtSound from './hoa_ram_but.mp3'
@@ -317,6 +320,9 @@ const assetSpec = {
   ],
 
   soundCollection: [
+    { key: 'story_1', asset: story_1Sound },
+    { key: 'story_2', asset: story_2Sound },
+
     { key: 'Hoa_phượng', asset: Hoa_phượngSound },
     { key: 'Hoa_tulip', asset: Hoa_tulipSound },
     { key: 'Hoa_râm_bụt', asset: Hoa_râm_bụtSound },

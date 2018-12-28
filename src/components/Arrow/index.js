@@ -7,7 +7,7 @@ class Arrow extends Phaser.GameObjects.Sprite {
     return 'Arrow'
   }
 
-  static get ASSETSPEC () {
+  static get ASSET_SPEC () {
     return assetSpec
   }
 

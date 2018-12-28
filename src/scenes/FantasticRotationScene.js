@@ -2,21 +2,19 @@ import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
 import Arrow from '../components/Arrow'
-import GameOneScene from './GameOneScene'
-import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import MainGameScene from './MainGameScene'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
-import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
-import store from 'store'
+import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
 
 class FantasticRotationScene extends Phaser.Scene {
   static get KEY () {
     return 'FantasticRotationScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -41,13 +39,6 @@ class FantasticRotationScene extends Phaser.Scene {
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#3E2723')
-
-    const noGuide = store.get(FantasticRotationScene.KEY)
-    if (!noGuide) {
-      store.set(FantasticRotationScene.KEY, 1)
-      this.playGuideSound()
-    }
-    this.things.noGuide = noGuide
 
     this.things.level = data.level
 
@@ -197,7 +188,7 @@ class FantasticRotationScene extends Phaser.Scene {
   }
 
   configTheQuestionCard (number) {
-    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+    const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
 
     const column = 3
     const padding = parseInt(this.cameras.main.width * 0.01)
@@ -219,26 +210,22 @@ class FantasticRotationScene extends Phaser.Scene {
   }
 
   configTheAnswerCard (column, number) {
-    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+    const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
-    const endX = this.cameras.main.width - 50
+    const startX = 10
+    const endX = this.cameras.main.width - 10
     const width = (endX - startX) / column
     const height = this.cameras.main.height / 5
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
 
-    var scale = Math.min(scaleX, scaleY)
+    var scale = Math.min(scaleX, scaleY) * 1.3
 
     var y = this.cameras.main.height / 4 * 3
     var x = startX + (number - 1) * width + width / 2
 
-    return {
-      x: x,
-      y: y,
-      scale: scale * 1.3
-    }
+    return { x, y, scale }
   }
 
   createMusicButton () {
@@ -250,9 +237,7 @@ class FantasticRotationScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
-      this.stopGuideSound()
-    })
+    this.things.backButton = new BackButton(this, MainGameScene.KEY)
   }
 
   createArrow () {
@@ -270,7 +255,6 @@ class FantasticRotationScene extends Phaser.Scene {
       item.allowClick = false
     })
 
-    this.stopGuideSound()
     this.stopWrongSound()
 
     let delay = card.sound.duration * 1000
@@ -308,16 +292,6 @@ class FantasticRotationScene extends Phaser.Scene {
     })
   }
 
-  playGuideSound () {
-    this.things.guideSound = this.sound.add(FantasticRotationGuideSound.KEY)
-    this.things.guideSound.play({ delay: 1.5 })
-    this.things.delay = (this.things.guideSound.duration + 1.5) * 1000
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
-  }
-
   playRightSound (delay = 0) {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
@@ -335,9 +309,8 @@ class FantasticRotationScene extends Phaser.Scene {
   }
 
   won () {
-    this.stopGuideSound()
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FantasticRotationScene.KEY, coin: FantasticRotationScene.WIN_COIN })
+    this.scene.resume(MainGameScene.KEY, { from: FantasticRotationScene.KEY, diamond: FantasticRotationScene.WIN_DIAMOND })
   }
 }
 

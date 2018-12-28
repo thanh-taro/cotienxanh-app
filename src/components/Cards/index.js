@@ -7,7 +7,7 @@ class Cards extends Phaser.GameObjects.Sprite {
     return 'Cards'
   }
 
-  static get ASSETSPEC () {
+  static get ASSET_SPEC () {
     return assetSpec
   }
 

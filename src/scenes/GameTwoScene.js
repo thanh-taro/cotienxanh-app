@@ -6,16 +6,23 @@ import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
-import LevelHardButton from '../components/LevelHardButton'
+import FormingAStoryScene from './FormingAStoryScene'
+import CeremonySound from '../components/CeremonySound'
+import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import { destroyObject, addBee } from '../helpers'
+import MainGameScene from './MainGameScene';
 
-class GameTwoSubTwoScene extends Phaser.Scene {
+class GameTwoScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameTwoSubTwoScene'
+    return 'GameTwoScene'
+  }
+
+  static get GAME_SCENE_KEY () {
+    return FormingAStoryScene.KEY
   }
 
   constructor () {
-    super({ key: GameTwoSubTwoScene.KEY })
+    super({ key: GameTwoScene.KEY })
 
     this.things = {}
   }
@@ -24,6 +31,7 @@ class GameTwoSubTwoScene extends Phaser.Scene {
     this.forceRestart()
     this.setBackground()
 
+    this.playWelcomeAudio()
     this.createCoinBadge()
     this.createDiamondBadge()
     this.createClockBadge()
@@ -50,7 +58,7 @@ class GameTwoSubTwoScene extends Phaser.Scene {
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Hoàn thành tác phẩm',
+      text: 'Thông minh tinh mắt',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'
@@ -59,8 +67,9 @@ class GameTwoSubTwoScene extends Phaser.Scene {
     this.things.backgroundText.setOrigin(0.5, 1)
   }
 
-  stopWelcomeAudio () {
-    this.things.welcomeAudio.stop()
+  playWelcomeAudio () {
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(FormingAStoryGuideSound.KEY)
+    this.things.welcomeAudio.play()
   }
 
   createCoinBadge () {
@@ -87,10 +96,27 @@ class GameTwoSubTwoScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.levelEasyButton === undefined) this.things.levelEasyButton = new LevelEasyButton(this)
-    if (this.things.levelNormalButton === undefined) this.things.levelNormalButton = new LevelNormalButton(this)
-    if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoScene.GAME_SCENE_KEY, level: 'easy' }))
+    }
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoScene.GAME_SCENE_KEY, level: 'normal' }))
+    }
+  }
+
+  won (data) {
+    if (undefined !== data && undefined !== data.from) {
+      this.playCeremonyAudio()
+      this.things.diamondBadge.addDiamond(data.diamond)
+    }
+  }
+
+  playCeremonyAudio () {
+    if (this.things.ceremonyAudio === undefined) this.things.ceremonyAudio = this.sound.add(CeremonySound.KEY)
+    this.things.ceremonyAudio.play({ volume: 0.4 })
   }
 }
 
-export default GameTwoSubTwoScene
+export default GameTwoScene

@@ -1,14 +1,12 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
-import GameOneScene from './GameOneScene'
+import MainGameScene from './MainGameScene'
 import { destroyObject, randItem, randSplice, shuffle, removeTimbre } from '../helpers'
 import Cards from '../components/Cards'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
-import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
-import store from 'store'
 
 class FindCharactersScene extends Phaser.Scene {
   static get KEY () {
@@ -39,17 +37,9 @@ class FindCharactersScene extends Phaser.Scene {
       currentQuestionCardIndex: 0,
       rightSound: this.sound.add(RightSound.KEY),
       wrongSound: this.sound.add(WrongSound.KEY),
-      noGuide: data.noGuide,
       beStopped: false
     }
     this.cameras.main.setBackgroundColor('#AED581')
-
-    const noGuide = store.get(FindCharactersScene.KEY)
-    if (!noGuide) {
-      store.set(FindCharactersScene.KEY, 1)
-      this.playGuideSound()
-    }
-    this.things.noGuide = noGuide
 
     this.things.level = data.level
 
@@ -122,14 +112,13 @@ class FindCharactersScene extends Phaser.Scene {
     let questionData = this.calculateQuestionCard(questionCharacters.length)
 
     // create panel
-    this.things.pannel = this.add.rectangle(0, questionData.y, this.cameras.main.width, questionData.height * 1.2, 0xF9A825)
-    this.things.pannel.setOrigin(0, 0.5)
+    this.things.panel = this.add.rectangle(0, questionData.y, this.cameras.main.width, questionData.height * 1.2, 0xF9A825)
+    this.things.panel.setOrigin(0, 0.5)
 
     // create question image
-    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, this.stopGuideSound.bind(this), true, {})
+    let questionCard = new HorizontalCards(this, question + 'I', questionData.x, questionData.y, questionData.scale, 1, true, null, true, {})
     this.things.questionCard = questionCard
-    let delay = this.things.noGuide ? 1500 : (1.5 + this.things.guideSound.duration) * 1000
-    this.time.delayedCall(delay, () => questionCard.sound.play())
+    questionCard.sound.play()
 
     // create question characters
     for (let index in questionCharacters) {
@@ -190,9 +179,7 @@ class FindCharactersScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
-      this.stopGuideSound()
-    })
+    this.things.backButton = new BackButton(this, MainGameScene.KEY)
   }
 
   calculateQuestionCard (total) {
@@ -200,7 +187,7 @@ class FindCharactersScene extends Phaser.Scene {
     const row = 2.7
     const startX = 10
 
-    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+    const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
     const padding = parseInt(this.cameras.main.width * 0.01)
     const endX = this.cameras.main.width - startX
     const column = total + startColumn
@@ -221,7 +208,7 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   calculateQuestionCharacterCard (number, total) {
-    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const { assetWidth, assetHeight } = Cards.ASSET_SPEC
 
     const startColumn = 4.5
     const startX = 10
@@ -246,7 +233,7 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   calculateAnswerCard (number, total) {
-    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const { assetWidth, assetHeight } = Cards.ASSET_SPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 50
@@ -276,8 +263,6 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   checkAnswer (card) {
-    this.stopGuideSound()
-
     this.things.questionCard.sound.stop()
     this.things.rightSound.stop()
     this.things.wrongSound.stop()
@@ -329,16 +314,6 @@ class FindCharactersScene extends Phaser.Scene {
     })
   }
 
-  playGuideSound () {
-    this.things.guideSound = this.sound.add(FindCharactersGuideSound.KEY)
-    this.things.guideSound.play({ delay: 1.5 })
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
-    this.things.beStopped = true
-  }
-
   playRightSound (delay = 0) {
     this.things.rightSound.stop()
     this.things.rightSound.play({ delay })
@@ -354,9 +329,8 @@ class FindCharactersScene extends Phaser.Scene {
   }
 
   won () {
-    this.stopGuideSound()
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindCharactersScene.KEY, diamond: FindCharactersScene.WIN_DIAMOND })
+    this.scene.resume(MainGameScene.KEY, { from: FindCharactersScene.KEY, diamond: FindCharactersScene.WIN_DIAMOND })
   }
 }
 

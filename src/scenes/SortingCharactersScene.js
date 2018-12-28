@@ -1,21 +1,19 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
-import GameOneScene from './GameOneScene'
-import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import MainGameScene from './MainGameScene'
 import Cards from '../components/Cards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
-import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
-import store from 'store'
+import { destroyObject, randItem, shuffle } from '../helpers'
 
 class SortingCharactersScene extends Phaser.Scene {
   static get KEY () {
     return 'SortingCharactersScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -36,24 +34,16 @@ class SortingCharactersScene extends Phaser.Scene {
     }
     this.cameras.main.setBackgroundColor('#4DD0E1')
 
-    const noGuide = store.get(SortingCharactersScene.KEY)
-    if (!noGuide) {
-      store.set(SortingCharactersScene.KEY, 1)
-      this.playGuideSound()
-    }
-    this.things.noGuide = noGuide
-
     this.things.level = data.level
 
     this.createMusicButton()
     this.createBackButton()
-    this.generate(data.noGuide)
+    this.generate()
   }
 
-  generate (noGuide) {
-    var question = []
-    var alphabetListDefault = JSON.parse(JSON.stringify(this.things.alphabetList))
-    var alphabetList = this.things.alphabetList
+  generate () {
+    let question = []
+    let alphabetList = this.things.alphabetList
     const easyGroup = ['aăâ', 'oôơ', 'lmn', 'cdđ', 'uưv']
     const level = this.things.level
     let index
@@ -85,14 +75,14 @@ class SortingCharactersScene extends Phaser.Scene {
         break
 
       case 'hardest':
-        for (let i = 0; i < 5; i++) {
-          let item = randSplice(alphabetList)
-          let index = alphabetListDefault.indexOf(item)
-          question[index] = item
-          question = question.filter((el) => {
-            return el !== 'empty'
-          })
-        }
+        index = Math.floor(Math.random() * 21)
+        question.push(alphabetList[index])
+        question.push(alphabetList[index + 1])
+        question.push(alphabetList[index + 2])
+        question.push(alphabetList[index + 3])
+        question.push(alphabetList[index + 4])
+        question.push(alphabetList[index + 5])
+        question.push(alphabetList[index + 6])
         break
     }
 
@@ -102,20 +92,14 @@ class SortingCharactersScene extends Phaser.Scene {
 
     this.things.allowPlay = true
 
-    let delay = noGuide ? 1500 : (2 + this.things.guideSound.duration) * 1000
-    this.time.delayedCall(delay, () => {
-      Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
-        const { sound, delay } = item
-        this.time.delayedCall(delay, () => {
-          if (this.things.allowPlay) sound.play()
-        })
+    Phaser.Actions.Call(this.things.questionCardsSounds.list, (item) => {
+      const { sound, delay } = item
+      this.time.delayedCall(delay, () => {
+        if (this.things.allowPlay) sound.play()
       })
     })
-    delay += this.things.questionCardsSounds.totalDuration
 
-    this.time.delayedCall(delay, () => {
-      this.enableAnswers()
-    })
+    this.time.delayedCall(this.things.questionCardsSounds.totalDuration, () => this.enableAnswers())
   }
 
   createSpeaker (question) {
@@ -132,8 +116,8 @@ class SortingCharactersScene extends Phaser.Scene {
 
     // create panel
     let data = this.calculateQuestionCard(1, question.length)
-    this.things.pannel = this.add.rectangle(0, data.y, this.cameras.main.width, data.height * 1.2, 0xF9A825)
-    this.things.pannel.setOrigin(0, 0.5)
+    this.things.panel = this.add.rectangle(0, data.y, this.cameras.main.width, data.height * 1.2, 0xF9A825)
+    this.things.panel.setOrigin(0, 0.5)
 
     let lastDelay = 0
     for (let index in question) {
@@ -148,12 +132,8 @@ class SortingCharactersScene extends Phaser.Scene {
       let duration = (card.sound.duration + 0.2) * 1000
       this.things.questionCardsSounds.totalDuration += duration
       this.things.questionCardsSounds.list.push({ sound: card.sound, delay: lastDelay })
-      card.sound.on('play', () => {
-        card.setFrame(1)
-      })
-      card.sound.on('ended', () => {
-        card.setFrame(card.currentFrame)
-      })
+      card.sound.on('play', () => card.setFrame(1))
+      card.sound.on('ended', () => card.setFrame(card.currentFrame))
 
       lastDelay += duration
     }
@@ -188,7 +168,7 @@ class SortingCharactersScene extends Phaser.Scene {
   }
 
   calculateQuestionCard (number, total) {
-    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const { assetWidth, assetHeight } = Cards.ASSET_SPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 10
@@ -207,7 +187,7 @@ class SortingCharactersScene extends Phaser.Scene {
   }
 
   calculateAnswerCard (number, total) {
-    const { assetWidth, assetHeight } = Cards.ASSETSPEC
+    const { assetWidth, assetHeight } = Cards.ASSET_SPEC
 
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = this.cameras.main.width * 0.17
@@ -222,11 +202,7 @@ class SortingCharactersScene extends Phaser.Scene {
     const x = parseInt(startX + number * width + width / 2)
     const y = this.cameras.main.height - padding * 2
 
-    return {
-      x: x,
-      y: y,
-      scale: scale
-    }
+    return { x, y, scale }
   }
 
   createMusicButton () {
@@ -238,13 +214,10 @@ class SortingCharactersScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
-      this.stopGuideSound()
-    })
+    this.things.backButton = new BackButton(this, MainGameScene.KEY)
   }
 
   onClickSpeaker (pointer, x, y, event) {
-    this.stopGuideSound()
     this.disableAnswers()
 
     if (event) event.stopPropagation()
@@ -270,7 +243,6 @@ class SortingCharactersScene extends Phaser.Scene {
   }
 
   checkAnswer (card) {
-    this.stopGuideSound()
     this.things.rightSound.stop()
     this.things.wrongSound.stop()
 
@@ -296,16 +268,6 @@ class SortingCharactersScene extends Phaser.Scene {
     }
   }
 
-  playGuideSound () {
-    this.things.guideSound = this.sound.add(SortingCharactersGuideSound.KEY)
-    this.things.guideSound.play({ delay: 1.5 })
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
-    this.things.beStopped = true
-  }
-
   playRightSound (delay = 0) {
     this.things.rightSound.stop()
     this.things.rightSound.play({ delay })
@@ -321,9 +283,8 @@ class SortingCharactersScene extends Phaser.Scene {
   }
 
   won () {
-    this.stopGuideSound()
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: SortingCharactersScene.KEY, coin: SortingCharactersScene.WIN_COIN })
+    this.scene.resume(MainGameScene.KEY, { from: SortingCharactersScene.KEY, diamond: SortingCharactersScene.WIN_DIAMOND })
   }
 }
 

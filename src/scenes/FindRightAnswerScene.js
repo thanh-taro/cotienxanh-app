@@ -11,8 +11,8 @@ class FindRightAnswerScene extends Phaser.Scene {
     return 'FindRightAnswerScene'
   }
 
-  static get WIN_COIN () {
-    return 100
+  static get WIN_DIAMOND () {
+    return 1
   }
 
   constructor () {
@@ -22,16 +22,15 @@ class FindRightAnswerScene extends Phaser.Scene {
 
   create (data) {
     this.cameras.main.setBackgroundColor('#4DD0E1')
-    // if (!data.noGuide) this.playGuideSound()
 
     this.things.level = data.level
 
     this.createMusicButton()
     this.createBackButton()
-    this.generate(data.noGuide)
+    this.generate()
   }
 
-  generate (noGuide) {
+  generate () {
     const level = this.things.level
 
     switch (level) {
@@ -56,18 +55,7 @@ class FindRightAnswerScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameOneScene.KEY, () => {
-      this.stopGuideSound()
-    })
-  }
-
-  playGuideSound () {
-    this.things.guideSound = this.sound.add()
-    this.things.guideSound.play({ delay: 1.5 })
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
+    this.things.backButton = new BackButton(this, GameOneScene.KEY)
   }
 
   playRightSound (delay = 0) {
@@ -83,9 +71,8 @@ class FindRightAnswerScene extends Phaser.Scene {
   }
 
   won () {
-    this.stopGuideSound()
     this.scene.stop()
-    this.scene.resume(GameOneScene.KEY, { from: FindRightAnswerScene.KEY, coin: FindRightAnswerScene.WIN_COIN })
+    this.scene.resume(MainGameScene.KEY, { from: FindRightAnswerScene.KEY, diamond: FindRightAnswerScene.WIN_DIAMOND })
   }
 }
 

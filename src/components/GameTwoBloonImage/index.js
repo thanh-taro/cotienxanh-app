@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import { loadAsset } from '../../helpers'
 import assetSpec from './asset-spec'
-import GameTwoListScene from '../../scenes/GameTwoListScene'
+import GameTwoScene from '../../scenes/GameTwoScene'
 
 class GameTwoBloonImage extends Phaser.GameObjects.Image {
   static get KEY () {
@@ -61,7 +61,7 @@ class GameTwoBloonImage extends Phaser.GameObjects.Image {
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
     this.scene.things.welcomeAudio.stop()
-    this.scene.scene.start(GameTwoListScene.KEY)
+    this.scene.scene.start(GameTwoScene.KEY)
   }
 }
 

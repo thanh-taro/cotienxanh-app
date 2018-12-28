@@ -7,7 +7,7 @@ class HorizontalCards extends Phaser.GameObjects.Sprite {
     return 'HorizontalCards'
   }
 
-  static get ASSETSPEC () {
+  static get ASSET_SPEC () {
     return assetSpec
   }
 

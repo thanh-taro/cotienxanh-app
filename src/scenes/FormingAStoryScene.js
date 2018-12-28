@@ -2,14 +2,13 @@ import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
 import NextButton from '../components/NextButton'
-import GameTwoSubOneScene from './GameTwoSubOneScene'
-import { destroyObject, randItem, randSplice } from '../helpers'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
-import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import Cards from '../components/Cards'
-import store from 'store'
+import MainGameScene from './MainGameScene'
+import { destroyObject, randItem, randSplice } from '../helpers'
+import AskSound from '../components/AskSound';
 
 class FormingAStoryScene extends Phaser.Scene {
   static get KEY () {
@@ -34,13 +33,6 @@ class FormingAStoryScene extends Phaser.Scene {
     }
     this.cameras.main.setBackgroundColor('#AED581')
 
-    const noGuide = store.get(FormingAStoryScene.KEY)
-    if (!noGuide) {
-      store.set(FormingAStoryScene.KEY, 1)
-      this.playGuideSound()
-    }
-    this.things.noGuide = noGuide
-
     this.things.level = data.level
 
     this.createMusicButton()
@@ -51,8 +43,12 @@ class FormingAStoryScene extends Phaser.Scene {
   generate () {
     const level = this.things.level
     const total = level === 'easy' ? 4 : 5
-    var question = randItem(this.things.stories[level])
+
+    const question = randItem(this.things.stories[level])
+    const sound = this.sound.add(HorizontalCards.KEY + '-' + question + '-sound')
+
     this.things.questionCards = []
+
     var arrayIndex = []
     for (let i = 0; i < total; i++) {
       let key = question + '_' + (i + 1)
@@ -63,6 +59,7 @@ class FormingAStoryScene extends Phaser.Scene {
       this.input.setDraggable(card)
       arrayIndex.push(i)
     }
+
     // randSplice questionCards
     for (let i = 0; i < total; i++) {
       let realNumber = randSplice(arrayIndex)
@@ -73,10 +70,13 @@ class FormingAStoryScene extends Phaser.Scene {
       card.realNumber = realNumber
     }
     this.createTheDragFeature()
+
+    this.things.sound = sound
+    this.things.speaker = new Cards(this, 'speakerI', 0, { x: this.cameras.main.width * 0.9, y: this.cameras.main.height * 0.9, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.sound.play())
   }
 
   configTheQuestionCard (number, total) {
-    const { assetWidth, assetHeight } = HorizontalCards.ASSETSPEC
+    const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 50
     const endX = this.cameras.main.width - startX
@@ -87,13 +87,14 @@ class FormingAStoryScene extends Phaser.Scene {
     const scale = Math.min(scaleX, scaleY)
     const x = parseInt((startX + padding / 2 + (number * width) + width / 2))
     const y = this.cameras.main.centerY
+
     return { x, y, scale }
   }
 
   createTheDragFeature () {
     this.input.dragDistanceThreshold = 16
     this.input.on('dragstart', (pointer, gameObject) => {
-      this.stopGuideSound()
+      this.things.sound.stop()
       this.children.bringToTop(gameObject)
       this.things.originalX = gameObject.x
       this.things.originalY = gameObject.y
@@ -136,6 +137,7 @@ class FormingAStoryScene extends Phaser.Scene {
         gameObject.x = this.things.originalX
         gameObject.y = this.things.originalY
       }
+
       this.checkAnswers()
     })
   }
@@ -150,6 +152,7 @@ class FormingAStoryScene extends Phaser.Scene {
         break
       }
     }
+
     if (isWin) this.won()
   }
 
@@ -162,19 +165,7 @@ class FormingAStoryScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, GameTwoSubOneScene.KEY, () => {
-      this.stopGuideSound()
-    }, true, {}, true)
-  }
-
-  playGuideSound () {
-    this.things.guideSound = this.sound.add(FormingAStoryGuideSound.KEY)
-    this.things.guideSound.play({ delay: 1.5 })
-    this.things.delay = (this.things.guideSound.duration + 1.5) * 1000
-  }
-
-  stopGuideSound () {
-    if (this.things.guideSound) this.things.guideSound.stop()
+    this.things.backButton = new BackButton(this, MainGameScene.KEY)
   }
 
   playRightSound (delay = 0) {
@@ -194,43 +185,16 @@ class FormingAStoryScene extends Phaser.Scene {
   }
 
   won () {
+    this.playRightSound()
+    this.sound.add(AskSound.KEY).play({ delay: 1.2 })
+
     let questionCards = this.things.questionCards
     // Disable dragging
-    for (let index in questionCards) {
-      questionCards[index].input.draggable = false
-    }
-    this.stopGuideSound()
-    this.showBottomBar()
+    for (let index in questionCards) questionCards[index].input.draggable = false
+
     this.time.delayedCall(30000, () => {
       this.scene.stop()
-      this.scene.start(GameTwoSubOneScene.KEY, {from: FormingAStoryScene.KEY, coin: FormingAStoryScene.WIN_DIAMOND})
-    })
-  }
-
-  showBottomBar () {
-    let y = this.cameras.main.height / 4 * 3
-    // create panel
-    this.things.pannel = this.add.rectangle(0, y, this.cameras.main.width, 150, 0xF9A825)
-    this.things.pannel.setOrigin(0, 0.5)
-
-    // add sound image
-    let data = []
-    let { assetHeight } = Cards.ASSETSPEC
-    data.x = this.cameras.main.width - 250
-    data.y = y
-    data.scale = 200 / assetHeight
-    data.hasSound = false
-    const card = new Cards(this, 'speakerI', 0, data, false, true, {})
-    this.createNextButton(y)
-  }
-
-  createNextButton (y) {
-    destroyObject(this.things.nextButton)
-    let data = []
-    data.x = this.cameras.main.width - 100
-    data.y = y
-    this.things.nextButton = new NextButton(this, data, () => {
-      this.scene.start(GameTwoSubOneScene.KEY, { from: FormingAStoryScene.KEY, coin: FormingAStoryScene.WIN_DIAMOND })
+      this.scene.resume(MainGameScene.KEY, { from: FormingAStoryScene.KEY, diamond: FormingAStoryScene.WIN_DIAMOND })
     })
   }
 }

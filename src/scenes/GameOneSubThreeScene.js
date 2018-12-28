@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import BackButton from '../components/BackButton'
+import HomeButton from '../components/HomeButton'
 import MusicButton from '../components/MusicButton'
 import CoinBadge from '../components/CoinBadge'
 import DiamondBadge from '../components/DiamondBadge'
@@ -8,13 +8,18 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
-import { destroyObject, addBee } from '../helpers'
-import GameOneScene from './GameOneScene'
+import MainGameScene from './MainGameScene'
 import SortingCharactersScene from './SortingCharactersScene'
+import { destroyObject, addBee } from '../helpers'
+import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
 
 class GameOneSubThreeScene extends Phaser.Scene {
   static get KEY () {
     return 'GameOneSubThreeScene'
+  }
+
+  static get GAME_SCENE_KEY () {
+    return SortingCharactersScene.KEY
   }
 
   constructor () {
@@ -27,10 +32,11 @@ class GameOneSubThreeScene extends Phaser.Scene {
     this.forceRestart()
     this.setBackground()
 
+    this.playWelcomeAudio()
     this.createCoinBadge()
     this.createDiamondBadge()
     this.createClockBadge()
-    this.createBackButton()
+    this.createBackToHomeButton()
     this.createMusicButton()
     this.createLevelButtons()
 
@@ -62,8 +68,9 @@ class GameOneSubThreeScene extends Phaser.Scene {
     this.things.backgroundText.setOrigin(0.5, 1)
   }
 
-  stopWelcomeAudio () {
-    this.things.welcomeAudio.stop()
+  playWelcomeAudio () {
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(SortingCharactersGuideSound.KEY)
+    this.things.welcomeAudio.play()
   }
 
   createCoinBadge () {
@@ -78,11 +85,10 @@ class GameOneSubThreeScene extends Phaser.Scene {
     if (this.things.clockBadge === undefined) this.things.clockBadge = new ClockBadge(this)
   }
 
-  createBackButton () {
-    if (this.things.backButton === undefined) {
+  createBackToHomeButton () {
+    if (this.things.homeButton === undefined) {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
-      this.things.backButton = new BackButton(this, GameOneScene.KEY)
-      this.things.backButton.y = y
+      this.things.homeButton = new HomeButton(this, y)
     }
   }
 
@@ -93,19 +99,19 @@ class GameOneSubThreeScene extends Phaser.Scene {
   createLevelButtons () {
     if (this.things.levelEasyButton === undefined) {
       this.things.levelEasyButton = new LevelEasyButton(this)
-      this.things.levelEasyButton.setCallback(() => this.scene.start(SortingCharactersScene.KEY, { level: 'easy' }))
+      this.things.levelEasyButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameOneSubThreeScene.GAME_SCENE_KEY, level: 'easy' }))
     }
     if (this.things.levelNormalButton === undefined) {
       this.things.levelNormalButton = new LevelNormalButton(this)
-      this.things.levelNormalButton.setCallback(() => this.scene.start(SortingCharactersScene.KEY, { level: 'normal' }))
+      this.things.levelNormalButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameOneSubThreeScene.GAME_SCENE_KEY, level: 'normal' }))
     }
     if (this.things.levelHardButton === undefined) {
       this.things.levelHardButton = new LevelHardButton(this)
-      this.things.levelHardButton.setCallback(() => this.scene.start(SortingCharactersScene.KEY, { level: 'hard' }))
+      this.things.levelHardButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameOneSubThreeScene.GAME_SCENE_KEY, level: 'hard' }))
     }
     if (this.things.levelHardestButton === undefined) {
       this.things.levelHardestButton = new LevelHardestButton(this)
-      this.things.levelHardestButton.setCallback(() => this.scene.start(SortingCharactersScene.KEY, { level: 'hardest' }))
+      this.things.levelHardestButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameOneSubThreeScene.GAME_SCENE_KEY, level: 'hardest' }))
     }
   }
 }

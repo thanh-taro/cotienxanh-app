@@ -43,13 +43,12 @@ import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
 import GameThreeWelcomeAudio from '../components/GameThreeWelcomeAudio'
 import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
-import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
-import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 import FlyingBee from '../components/FlyingBee'
 import GameOneSubOneButton from '../components/GameOneSubOneButton'
 import GameOneSubTwoButton from '../components/GameOneSubTwoButton'
 import GameOneSubThreeButton from '../components/GameOneSubThreeButton'
 import GameOneSubFourButton from '../components/GameOneSubFourButton'
+import AskSound from '../components/AskSound'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -73,8 +72,6 @@ class BootScene extends Phaser.Scene {
     LogoImage.preload(this)
     GameOneWelcomeAudio.preload(this)
     GameTwoWelcomeAudio.preload(this)
-    GameTwoSubOneButton.preload(this)
-    GameTwoSubTwoButton.preload(this)
     GameThreeWelcomeAudio.preload(this)
     GameFourWelcomeAudio.preload(this)
     GameOneTilemap.preload(this)
@@ -119,6 +116,7 @@ class BootScene extends Phaser.Scene {
     GameOneSubTwoButton.preload(this)
     GameOneSubThreeButton.preload(this)
     GameOneSubFourButton.preload(this)
+    AskSound.preload(this)
   }
 
   create () {

@@ -40,6 +40,7 @@ class LevelHardButton extends Phaser.GameObjects.Sprite {
 
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
+    this.scene.things.welcomeAudio.stop()
     if (this.cb) this.cb()
   }
 }
