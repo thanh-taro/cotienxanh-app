@@ -1,14 +1,13 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
-import NextButton from '../components/NextButton'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import Cards from '../components/Cards'
 import MainGameScene from './MainGameScene'
 import { destroyObject, randItem, randSplice } from '../helpers'
-import AskSound from '../components/AskSound';
+import AskSound from '../components/AskSound'
 
 class FormingAStoryScene extends Phaser.Scene {
   static get KEY () {
@@ -72,7 +71,7 @@ class FormingAStoryScene extends Phaser.Scene {
     this.createTheDragFeature()
 
     this.things.sound = sound
-    this.things.speaker = new Cards(this, 'speakerI', 0, { x: this.cameras.main.width * 0.9, y: this.cameras.main.height * 0.9, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.sound.play())
+    // this.things.speaker = new Cards(this, 'speakerI', 0, { x: this.cameras.main.width * 0.9, y: this.cameras.main.height * 0.9, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.sound.play())
   }
 
   configTheQuestionCard (number, total) {
