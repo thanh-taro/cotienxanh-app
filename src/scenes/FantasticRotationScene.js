@@ -29,13 +29,13 @@ class FantasticRotationScene extends Phaser.Scene {
       speed: 22,
       acceleration: 0.05,
       hasAnswers: false,
-      wordList: [
-        'Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_bồ_công_anh', 'Hoa_cẩm_chướng',
-        'Vịnh_Hạ_Long', 'Lăng_Bác', 'Hoàng_thành_Huế', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột',
-        'Trái_Đất', 'Sao_Thủy', 'Sao_Thổ', 'Sao_Kim', 'Sao_Hỏa', 'Sao_Mộc', 'Sao_Thiên_Vương', 'Mặt_Trăng', 'Mặt_Trời', 'Sao_Chổi', 'Sao_Hải_Vương',
-        'Màu_nâu', 'Màu_tím', 'Màu_hồng', 'Màu_trắng', 'Màu_đen', 'Màu_đỏ', 'Màu_cam', 'Màu_vàng', 'Màu_xanh_lá', 'Màu_xám',
-        'Hình_ngũ_giác', 'Hình_thoi', 'Hình_trái_tim', 'Hình_ngôi_sao', 'Hình_chữ_nhật', 'Hình_vuông', 'Hình_tròn', 'Hình_bầu_dục', 'Hình_tam_giác'
-      ],
+      wordList: {
+        'hoa': ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_bồ_công_anh', 'Hoa_cẩm_chướng'],
+        'cong_trinh': ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Hoàng_thành_Huế', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột'],
+        'hanh_tinh': ['Trái_Đất', 'Sao_Thủy', 'Sao_Thổ', 'Sao_Kim', 'Sao_Hỏa', 'Sao_Mộc', 'Sao_Thiên_Vương', 'Mặt_Trăng', 'Mặt_Trời', 'Sao_Chổi', 'Sao_Hải_Vương'],
+        'mau_sac': ['Màu_nâu', 'Màu_tím', 'Màu_hồng', 'Màu_trắng', 'Màu_đen', 'Màu_đỏ', 'Màu_cam', 'Màu_vàng', 'Màu_xanh_lá', 'Màu_xám'],
+        'hinh_dang': ['Hình_ngũ_giác', 'Hình_thoi', 'Hình_trái_tim', 'Hình_ngôi_sao', 'Hình_chữ_nhật', 'Hình_vuông', 'Hình_tròn', 'Hình_bầu_dục', 'Hình_tam_giác'],
+      },
       head: ['W', 'I']
     }
     this.cameras.main.setBackgroundColor('#3E2723')
@@ -109,10 +109,14 @@ class FantasticRotationScene extends Phaser.Scene {
     this.things.rotation = this.add.group()
     let questions = []
     var wordList = this.things.wordList
-    var head = this.things.head
+    var fullWordList = []
     for (let index in wordList) {
+      fullWordList = fullWordList.concat(wordList[index])
+    }
+    var head = this.things.head
+    for (let index in fullWordList) {
       for (let headIndex in head) {
-        questions.push(wordList[index] + head[headIndex])
+        questions.push(fullWordList[index] + head[headIndex])
       }
     }
     questions = shuffle(questions)
@@ -132,11 +136,17 @@ class FantasticRotationScene extends Phaser.Scene {
     let questionHead = card.head
     let wordList = this.things.wordList
     let head = this.things.head
-    let questionWordIndex = this.things.wordList.indexOf(questionWord)
-    if (questionWordIndex > -1) this.things.wordList.splice(questionWordIndex, 1)
+    // Get the type of question
+    for (let index in wordList) {
+      let indexOfQuestion = wordList[index].indexOf(questionWord)
+      if (indexOfQuestion > -1) var type = index
+    }
+    if (type) wordList = wordList[type]
+
+    let questionWordIndex = wordList.indexOf(questionWord)
+    if (questionWordIndex > -1) wordList.splice(questionWordIndex, 1)
     let questionHeadIndex = this.things.head.indexOf(questionHead)
     if (questionHeadIndex > -1) this.things.head.splice(questionHeadIndex, 1)
-
     let answerHead = randItem(head)
     const level = this.things.level
 
