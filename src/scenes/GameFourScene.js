@@ -9,11 +9,21 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import { destroyObject, addBee } from '../helpers'
-import LittleTalentScene from './LittleTalentScene'
+import ChooseTheRightPictureScene from './ChooseTheRightPictureScene'
+import MoveTheImagesToTheRightRroups from './MoveTheImagesToTheRightRroups'
+import MainGameScene from './MainGameScene'
 
 class GameFourScene extends Phaser.Scene {
   static get KEY () {
     return 'GameFourScene'
+  }
+
+  static get GAME_SCENE_KEY () {
+    return ChooseTheRightPictureScene.KEY
+  }
+
+  static get GAME_HARD_SCENE_KEY () {
+    return MoveTheImagesToTheRightRroups.KEY
   }
 
   constructor () {
@@ -101,17 +111,23 @@ class GameFourScene extends Phaser.Scene {
       this.things.levelEasyButton = new LevelEasyButton(this)
       this.things.levelEasyButton.setCallback(() => {
         this.things.welcomeAudio.stop()
-        this.scene.start(LittleTalentScene.KEY, { level: 'easy' })
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameFourScene.GAME_SCENE_KEY, level: 'easy' })
       })
     }
     if (this.things.levelNormalButton === undefined) {
       this.things.levelNormalButton = new LevelNormalButton(this)
       this.things.levelNormalButton.setCallback(() => {
         this.things.welcomeAudio.stop()
-        this.scene.start(LittleTalentScene.KEY, { level: 'normal' })
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameFourScene.GAME_SCENE_KEY, level: 'normal' })
       })
     }
-    if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
+    if (this.things.levelHardButton === undefined) {
+      this.things.levelHardButton = new LevelHardButton(this)
+      this.things.levelHardButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameFourScene.GAME_HARD_SCENE_KEY, level: 'hard' })
+      })
+    }
   }
 }
 

@@ -33,6 +33,7 @@ import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import CeremonySound from '../components/CeremonySound'
 import FindPairGuideSound from '../components/FindPairGuideSound'
+import ChooseTheRightPictureGuideSound from '../components/ChooseTheRightPictureGuideSound'
 import FantasticRotationGuideSound from '../components/FantasticRotationGuideSound'
 import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
@@ -103,6 +104,7 @@ class BootScene extends Phaser.Scene {
     WrongSound.preload(this)
     CeremonySound.preload(this)
     FindPairGuideSound.preload(this)
+    ChooseTheRightPictureGuideSound.preload(this)
     FantasticRotationGuideSound.preload(this)
     FormingAStoryGuideSound.preload(this)
     SortingCharactersGuideSound.preload(this)

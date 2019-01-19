@@ -17,6 +17,7 @@ class CoinText extends Phaser.GameObjects.Text {
     this.setFontStyle('bold')
     this.setColor('#FFEB3B')
     this.setShadow(1, 1, '#000000')
+
     this.coin = coin
 
     if (addToScene) this.addToScene(scene)
@@ -27,6 +28,7 @@ class CoinText extends Phaser.GameObjects.Text {
   }
 
   updateCoin () {
+    console.log('update');
     this.setText(this.coin)
   }
 }

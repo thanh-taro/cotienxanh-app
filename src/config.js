@@ -17,10 +17,12 @@ import FindRightAnswerScene from './scenes/FindRightAnswerScene'
 import LittleTalentScene from './scenes/LittleTalentScene'
 import PuzzleScene from './scenes/PuzzleScene'
 import FindPairScene from './scenes/FindPairScene'
+import ChooseTheRightPictureScene from './scenes/ChooseTheRightPictureScene'
 import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
 import FindCharactersScene from './scenes/FindCharactersScene'
 import FormingAStoryScene from './scenes/FormingAStoryScene'
+import MoveTheImagesToTheRightRroups from './scenes/MoveTheImagesToTheRightRroups'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -48,7 +50,7 @@ export const scene = [
   GameTwoScene,
   GameThreeScene,
   GameFourScene,
-  FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene
+  ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightRroups
 ]
 export const allowedTime = 1800
 export const waitTime = 3600

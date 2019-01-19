@@ -17,6 +17,9 @@ import story_4_2 from './story-4-2.png'
 import story_4_3 from './story-4-3.png'
 import story_4_4 from './story-4-4.png'
 import story_4_5 from './story-4-5.png'
+import story_5_1 from './story-5-1.png'
+import story_5_2 from './story-5-2.png'
+import story_5_3 from './story-5-3.png'
 import story_6_1 from './story-6-1.png'
 import story_6_2 from './story-6-2.png'
 import story_6_3 from './story-6-3.png'
@@ -26,8 +29,22 @@ import story_7_2 from './story-7-2.png'
 import story_7_3 from './story-7-3.png'
 import story_7_4 from './story-7-4.png'
 
+import position_1 from './position_1.png'
+import position_2 from './position_2.png'
+import position_3 from './position_3.png'
+import position_4 from './position_4.png'
+import position_5 from './position_5.png'
+import position_6 from './position_6.png'
+import position_7 from './position_7.png'
+import position_8 from './position_8.png'
+
 import story_1Sound from './story_1.mp3'
 import story_2Sound from './story_2.mp3'
+import story_3Sound from './story_3.mp3'
+import story_4Sound from './story_4.mp3'
+import story_5Sound from './story_5.mp3'
+import story_6Sound from './story_6.mp3'
+import story_7Sound from './story_7.mp3'
 
 // Hoa - sound
 import Hoa_phượngSound from './hoa_phuong.mp3'
@@ -289,23 +306,23 @@ import Hoa_cúcI from './i_Hoa_cúc.png'
 import Hoa_thuỷ_tiênI from './i_Hoa_thuỷ_tiên.png'
 import Hoa_tulipI from './i_Hoa_tulip.png'
 import Hoa_râm_bụtI from './i_Hoa_râm_bụt.png'
-import Hoa_đàoI from './w_Hoa_đào.png'
-import Hoa_đồng_tiềnI from './w_Hoa_đồng_tiền.png'
-import Hoa_hải_đườngI from './w_Hoa_hải_đường.png'
-import Hoa_hồngI from './w_Hoa_hồng.png'
-import Hoa_hướng_dươngI from './w_Hoa_hướng_dương.png'
-import Hoa_lan_hồ_điệpI from './w_Hoa_lan_hồ_điệp.png'
-import Hoa_lay_ơnI from './w_Hoa_lay_ơn.png'
-import Hoa_Thược_DượcI from './w_Hoa_thược_dược.png'
-import Hoa_lyI from './w_Hoa_ly.png'
-import Hoa_maiI from './w_Hoa_mai.png'
-import Hoa_quỳnhI from './w_Hoa_quỳnh.png'
-import Hoa_nhàiI from './w_Hoa_nhài.png'
-import Hoa_mẫu_đơnI from './w_Hoa_mẫu_đơn.png'
-import Hoa_senI from './w_Hoa_sen.png'
-import Hoa_sứI from './w_Hoa_sứ.png'
-import Hoa_súngI from './w_Hoa_súng.png'
-import Hoa_thiên_điểuI from './w_Hoa_thiên_điểu.png'
+import Hoa_đàoI from './i_Hoa_đào.png'
+import Hoa_đồng_tiềnI from './i_Hoa_đồng_tiền.png'
+import Hoa_hải_đườngI from './i_Hoa_hải_đường.png'
+import Hoa_hồngI from './i_Hoa_hồng.png'
+import Hoa_hướng_dươngI from './i_Hoa_hướng_dương.png'
+import Hoa_lan_hồ_điệpI from './i_Hoa_lan_hồ_điệp.png'
+import Hoa_lay_ơnI from './i_Hoa_lay_ơn.png'
+import Hoa_Thược_DượcI from './i_Hoa_thược_dược.png'
+import Hoa_lyI from './i_Hoa_ly.png'
+import Hoa_maiI from './i_Hoa_mai.png'
+import Hoa_quỳnhI from './i_Hoa_quỳnh.png'
+import Hoa_nhàiI from './i_Hoa_nhài.png'
+import Hoa_mẫu_đơnI from './i_Hoa_mẫu_đơn.png'
+import Hoa_senI from './i_Hoa_sen.png'
+import Hoa_sứI from './i_Hoa_sứ.png'
+import Hoa_súngI from './i_Hoa_súng.png'
+import Hoa_thiên_điểuI from './i_Hoa_thiên_điểu.png'
 
 // Động vật hoang dã - image
 import Tê_giác_một_sừngI from './i_Tê_giác_một_sừng.png'
@@ -427,6 +444,9 @@ const assetSpec = {
     { key: 'story_4_3', asset: story_4_3 },
     { key: 'story_4_4', asset: story_4_4 },
     { key: 'story_4_5', asset: story_4_5 },
+    { key: 'story_5_1', asset: story_5_1 },
+    { key: 'story_5_2', asset: story_5_2 },
+    { key: 'story_5_3', asset: story_5_3 },
     { key: 'story_6_1', asset: story_6_1 },
     { key: 'story_6_2', asset: story_6_2 },
     { key: 'story_6_3', asset: story_6_3 },
@@ -435,6 +455,15 @@ const assetSpec = {
     { key: 'story_7_2', asset: story_7_2 },
     { key: 'story_7_3', asset: story_7_3 },
     { key: 'story_7_4', asset: story_7_4 },
+
+    { key: 'position_1', asset: position_1 },
+    { key: 'position_2', asset: position_2 },
+    { key: 'position_3', asset: position_3 },
+    { key: 'position_4', asset: position_4 },
+    { key: 'position_5', asset: position_5 },
+    { key: 'position_6', asset: position_6 },
+    { key: 'position_7', asset: position_7 },
+    { key: 'position_8', asset: position_8 },
 
     { key: 'Hoa_phượngI', asset: Hoa_phượngI },
     { key: 'Hoa_bằng_lăngI', asset: Hoa_bằng_lăngI },
@@ -684,6 +713,11 @@ const assetSpec = {
   soundCollection: [
     { key: 'story_1', asset: story_1Sound },
     { key: 'story_2', asset: story_2Sound },
+    { key: 'story_3', asset: story_3Sound },
+    { key: 'story_4', asset: story_4Sound },
+    { key: 'story_5', asset: story_5Sound },
+    { key: 'story_6', asset: story_6Sound },
+    { key: 'story_7', asset: story_7Sound },
 
     { key: 'Hoa_phượng', asset: Hoa_phượngSound },
     { key: 'Hoa_bằng_lăng', asset: Hoa_bằng_lăngSound },
