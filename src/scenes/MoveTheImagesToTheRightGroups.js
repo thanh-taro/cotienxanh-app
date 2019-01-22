@@ -43,7 +43,7 @@ class MoveTheImagesToTheRightGroups extends Phaser.Scene {
       head: ['W', 'I'],
       'questionCards': []
     }
-    this.cameras.main.setBackgroundColor('#3E2723')
+    this.cameras.main.setBackgroundColor('#ffa6f7')
 
     this.things.level = data.level
 

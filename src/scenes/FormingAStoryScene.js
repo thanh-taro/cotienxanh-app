@@ -9,7 +9,7 @@ import MainGameScene from './MainGameScene'
 import { destroyObject, randItem, randSplice } from '../helpers'
 import AskSound from '../components/AskSound'
 import Text from '../components/Text'
-import storiesContent from '../storiesContent'
+import storiesContent from '../app/asset/content/storiesContent'
 
 class FormingAStoryScene extends Phaser.Scene {
   static get KEY () {
@@ -217,10 +217,7 @@ class FormingAStoryScene extends Phaser.Scene {
     this.things.wordIndex = 0
     this.things.lineIndex = 0
 
-    console.log(this.things.storySound.duration);
-    console.log(this.things.storyContent[0].split(' ').length);
     this.things.wordDelay = (this.things.storySound.duration - 2) * 1000 / this.things.storyContent[0].split(' ').length
-    console.log(this.things.wordDelay);
     this.things.lineDelay = 40
     this.nextLine()
   }

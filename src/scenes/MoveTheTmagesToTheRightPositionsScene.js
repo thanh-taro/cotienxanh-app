@@ -7,6 +7,7 @@ import RightSound from '../components/RightSound'
 import MainGameScene from './MainGameScene'
 import WrongSound from '../components/WrongSound'
 import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import bookContent from '../app/asset/content/bookContent'
 
 class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
   static get KEY () {
@@ -24,57 +25,18 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
   create (data) {
     this.things = {
-      data: {
-        sach_1: {
-          bia_truoc: {
-            ten_sach: {
-              x: 103,
-              y: 62
-            },
-            nxb: {
-              x: 18,
-              y: 625
-            }
-          },
-          bia_sau: {
-            gia_sach: {
-              x: 1,
-              y: 2
-            },
-            nha_xuat_ban: {
-              x: 2,
-              y: 3
-            }
-          },
-          trang: {
-            10: {
-              x: 235,
-              y: 657
-            },
-            11: {
-              x: 212,
-              y: 644
-            },
-            12: {
-              x: 225,
-              y: 653
-            }
-          }
-        },
-        sach_2: {},
-        sach_3: {}
-      },
-      questions: ['sach_1', 'sach_1', 'sach_1'],
-      kind_of_questions: ['bia_truoc']
+      data: bookContent,
+      questions: ['sach_1'],
+      kind_of_questions: ['bia_sau']
     }
-    this.cameras.main.setBackgroundColor('#3E2723')
+    this.cameras.main.setBackgroundColor('#5f82ea')
+
 
     this.things.level = data.level
 
     this.createMusicButton()
     this.createBackButton()
     this.generate()
-    this.createSpeaker()
     this.createTheDragFeature()
   }
 
@@ -87,12 +49,18 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
     var key = question + '_' + type
     this.things.questionKey = key
-
-
+    var card;
     switch (level) {
+      case 'normal':
+        this.things.questionSound = this.sound.add(FreeSizeCard.KEY + '-' + type + '-sound')
+        this.createSpeaker()
+        var data = this.configTheQuestionCard(0, 1)
+        card = new FreeSizeCard(this, key, data, false)
+        this.things.questionCards.push(card)
+        break
       case 'hard':
         var data = this.configTheQuestionCard(0, 1)
-        let card = new FreeSizeCard(this, key, data, false)
+        card = new FreeSizeCard(this, key, data, false)
         this.things.questionCards.push(card)
         break
       case 'hardest':
@@ -102,16 +70,17 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
         for (let i = 0; i < pages.length; i++) {
           var data = this.configTheQuestionCard(i, pages.length)
-          let card = new FreeSizeCard(this, key + '_' + pages[i], data, false)
-          console.log(card);
+          card = new FreeSizeCard(this, key + '_' + pages[i], data, false)
           this.things.questionCards.push(card)
         }
 
         break
       default:
+        this.things.questionSound = this.sound.add(FreeSizeCard.KEY + '-' + type + '-sound')
+        this.createSpeaker()
         for (let i = 0; i < 2; i++) {
           var data = this.configTheQuestionCard(i, 2)
-          let card = new FreeSizeCard(this, key, data, false)
+          card = new FreeSizeCard(this, key, data, false)
           this.things.questionCards.push(card)
         }
     }
@@ -230,7 +199,6 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
     this.input.on('dragend', (pointer, gameObject) => {
       var whileCards = this.things.whileCards
-      console.log(whileCards);
       var win = false
       for (let index in whileCards) {
         var card = whileCards[index]
@@ -239,13 +207,6 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
         let minY = card.y - card.displayHeight / 2
         let maxY = card.y + card.displayHeight / 2
 
-        // var graphics = this.add.graphics();
-        //
-        // graphics.lineStyle(1, 0x222222, 1);
-        // graphics.lineBetween(minX, minY, minX, maxY);
-        // graphics.lineBetween(minX, minY, maxX, minY);
-        // graphics.lineBetween(maxX, minY, maxX, maxY);
-        // graphics.lineBetween(minX, maxY, maxX, maxY);
         if (pointer.x > minX && pointer.x < maxX && pointer.y > minY && pointer.y < maxY && card.answerKey == gameObject.key) {
           win = true
           whileCards.splice(index, 1)
@@ -303,7 +264,7 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
   createSpeaker () {
     let x = this.cameras.main.width - 70
     let y = this.cameras.main.height - 70
-    this.things.speaker = new Cards(this, 'speakerI', 0, { x: x, y: y, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.storySound.play())
+    this.things.speaker = new Cards(this, 'speakerI', 0, { x: x, y: y, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.questionSound.play())
   }
 
   onCardChoose (card) {

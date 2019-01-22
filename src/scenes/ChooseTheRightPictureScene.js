@@ -42,7 +42,7 @@ class ChooseTheRightPictureScene extends Phaser.Scene {
       },
       head: ['W', 'I']
     }
-    this.cameras.main.setBackgroundColor('#3E2723')
+    this.cameras.main.setBackgroundColor('#ff9797')
 
     this.things.level = data.level
 
@@ -97,7 +97,6 @@ class ChooseTheRightPictureScene extends Phaser.Scene {
     }
 
     answers = shuffle(answers)
-    console.log(answers);
     this.things.answers = []
 
     for (let index in answers) {

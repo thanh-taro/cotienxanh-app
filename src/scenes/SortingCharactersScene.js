@@ -6,6 +6,7 @@ import Cards from '../components/Cards'
 import RightSound from '../components/RightSound'
 import WrongSound from '../components/WrongSound'
 import { destroyObject, randItem, shuffle } from '../helpers'
+import SortingCharactersNormalAndHardestGuideSound from '../components/SortingCharactersNormalAndHardestGuideSound'
 
 class SortingCharactersScene extends Phaser.Scene {
   static get KEY () {
@@ -281,6 +282,11 @@ class SortingCharactersScene extends Phaser.Scene {
   stopWrongSound () {
     if (this.things.wrongSound) this.things.wrongSound.stop()
   }
+
+  // playGuideSound () {
+  //   if (this.things.guideSound === undefined) this.things.guideSound = this.sound.add(SortingCharactersNormalAndHardestGuideSound.KEY)
+  //   this.things.guideSound.play()
+  // }
 
   won () {
     this.scene.stop()

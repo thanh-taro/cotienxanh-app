@@ -28,7 +28,6 @@ class CoinText extends Phaser.GameObjects.Text {
   }
 
   updateCoin () {
-    console.log('update');
     this.setText(this.coin)
   }
 }
