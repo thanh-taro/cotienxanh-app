@@ -8,9 +8,9 @@ import MainGameScene from './MainGameScene'
 import WrongSound from '../components/WrongSound'
 import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
 
-class MoveTheImagesToTheRightRroups extends Phaser.Scene {
+class MoveTheImagesToTheRightGroups extends Phaser.Scene {
   static get KEY () {
-    return 'MoveTheImagesToTheRightRroups'
+    return 'MoveTheImagesToTheRightGroups'
   }
 
   static get WIN_DIAMOND () {
@@ -18,7 +18,7 @@ class MoveTheImagesToTheRightRroups extends Phaser.Scene {
   }
 
   constructor () {
-    super({ key: MoveTheImagesToTheRightRroups.KEY })
+    super({ key: MoveTheImagesToTheRightGroups.KEY })
     this.things = {}
   }
 
@@ -256,8 +256,8 @@ class MoveTheImagesToTheRightRroups extends Phaser.Scene {
 
   won () {
     this.scene.stop()
-    this.scene.resume(MainGameScene.KEY, { from: MoveTheImagesToTheRightRroups.KEY, diamond: MoveTheImagesToTheRightRroups.WIN_DIAMOND })
+    this.scene.resume(MainGameScene.KEY, { from: MoveTheImagesToTheRightGroups.KEY, diamond: MoveTheImagesToTheRightGroups.WIN_DIAMOND })
   }
 }
 
-export default MoveTheImagesToTheRightRroups
+export default MoveTheImagesToTheRightGroups

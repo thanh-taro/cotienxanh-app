@@ -6,18 +6,14 @@ import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
+import MainGameScene from './MainGameScene'
 import FormingAStoryScene from './FormingAStoryScene'
-import CeremonySound from '../components/CeremonySound'
 import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import { destroyObject, addBee } from '../helpers'
-import MainGameScene from './MainGameScene';
-import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
-import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
-import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
 
-class GameTwoScene extends Phaser.Scene {
+class GameTwoSubOneScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameTwoScene'
+    return 'GameTwoSubOneScene'
   }
 
   static get GAME_SCENE_KEY () {
@@ -25,7 +21,7 @@ class GameTwoScene extends Phaser.Scene {
   }
 
   constructor () {
-    super({ key: GameTwoScene.KEY })
+    super({ key: GameTwoSubOneScene.KEY })
 
     this.things = {}
   }
@@ -57,7 +53,7 @@ class GameTwoScene extends Phaser.Scene {
 
     const centerX = this.cameras.main.centerX
     const centerY = this.cameras.main.height * 0.95
-    const fontSize = Math.floor(this.cameras.main.height * 0.15)
+    const fontSize = Math.floor(this.cameras.main.height * 0.2)
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
@@ -71,7 +67,7 @@ class GameTwoScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
-    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameTwoWelcomeAudio.KEY)
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(FormingAStoryGuideSound.KEY)
     this.things.welcomeAudio.play()
   }
 
@@ -100,21 +96,15 @@ class GameTwoScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.subGameOneButton === undefined) this.things.subGameOneButton = new GameTwoSubOneButton(this)
-    // if (this.things.subGameTwoButton === undefined) this.things.subGameTwoButton = new GameTwoSubTwoButton(this)
-  }
-
-  won (data) {
-    if (undefined !== data && undefined !== data.from) {
-      this.playCeremonyAudio()
-      this.things.diamondBadge.addDiamond(data.diamond)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoSubOneScene.GAME_SCENE_KEY, level: 'easy' }))
     }
-  }
-
-  playCeremonyAudio () {
-    if (this.things.ceremonyAudio === undefined) this.things.ceremonyAudio = this.sound.add(CeremonySound.KEY)
-    this.things.ceremonyAudio.play({ volume: 0.4 })
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoSubOneScene.GAME_SCENE_KEY, level: 'normal' }))
+    }
   }
 }
 
-export default GameTwoScene
+export default GameTwoSubOneScene

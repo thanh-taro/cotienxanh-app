@@ -43,7 +43,7 @@ class BackButton extends Phaser.GameObjects.Sprite {
 
   onPointerDown (pointer, x, y, event) {
     if (event) event.stopPropagation()
-
+    console.log(this.cb);
     if (this.cb) this.cb()
     this.scene.scene.stop()
     if (this.start) {

@@ -9,12 +9,17 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
+import MoveTheTmagesToTheRightPositionsScene from './MoveTheTmagesToTheRightPositionsScene'
+import MainGameScene from './MainGameScene'
 import { destroyObject, addBee } from '../helpers'
-import PuzzleScene from './PuzzleScene'
 
 class GameThreeScene extends Phaser.Scene {
   static get KEY () {
     return 'GameThreeScene'
+  }
+
+  static get GAME_SCENE_KEY () {
+    return MoveTheTmagesToTheRightPositionsScene.KEY
   }
 
   constructor () {
@@ -104,18 +109,30 @@ class GameThreeScene extends Phaser.Scene {
       this.things.levelEasyButton = new LevelEasyButton(this)
       this.things.levelEasyButton.setCallback(() => {
         this.things.welcomeAudio.stop()
-        this.scene.start(PuzzleScene.KEY, { level: 'easy' })
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameThreeScene.GAME_SCENE_KEY, level: 'easy' })
       })
     }
     if (this.things.levelNormalButton === undefined) {
       this.things.levelNormalButton = new LevelNormalButton(this)
       this.things.levelNormalButton.setCallback(() => {
         this.things.welcomeAudio.stop()
-        this.scene.start(PuzzleScene.KEY, { level: 'normal' })
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameThreeScene.GAME_SCENE_KEY, level: 'normal' })
       })
     }
-    if (this.things.levelHardButton === undefined) this.things.levelHardButton = new LevelHardButton(this)
-    if (this.things.levelHardestButton === undefined) this.things.levelHardestButton = new LevelHardestButton(this)
+    if (this.things.levelHardButton === undefined) {
+      this.things.levelHardButton = new LevelHardButton(this)
+      this.things.levelHardButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameThreeScene.GAME_SCENE_KEY, level: 'hard' })
+      })
+    }
+    if (this.things.levelHardestButton === undefined) {
+      this.things.levelHardestButton = new LevelHardestButton(this)
+      this.things.levelHardestButton.setCallback(() => {
+        this.things.welcomeAudio.stop()
+        this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameThreeScene.GAME_SCENE_KEY, level: 'hardest' })
+      })
+    }
   }
 }
 

@@ -37,6 +37,8 @@ import position_5 from './position_5.png'
 import position_6 from './position_6.png'
 import position_7 from './position_7.png'
 import position_8 from './position_8.png'
+import position_9 from './position_9.png'
+import position_10 from './position_10.png'
 
 import story_1Sound from './story_1.mp3'
 import story_2Sound from './story_2.mp3'
@@ -464,6 +466,8 @@ const assetSpec = {
     { key: 'position_6', asset: position_6 },
     { key: 'position_7', asset: position_7 },
     { key: 'position_8', asset: position_8 },
+    { key: 'position_9', asset: position_9 },
+    { key: 'position_10', asset: position_10 },
 
     { key: 'Hoa_phượngI', asset: Hoa_phượngI },
     { key: 'Hoa_bằng_lăngI', asset: Hoa_bằng_lăngI },

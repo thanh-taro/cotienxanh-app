@@ -13,6 +13,8 @@ import GameOneSubOneScene from './scenes/GameOneSubOneScene'
 import GameOneSubTwoScene from './scenes/GameOneSubTwoScene'
 import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
 import GameOneSubFourScene from './scenes/GameOneSubFourScene'
+import GameTwoSubOneScene from './scenes/GameTwoSubOneScene'
+import GameTwoSubTwoScene from './scenes/GameTwoSubTwoScene'
 import FindRightAnswerScene from './scenes/FindRightAnswerScene'
 import LittleTalentScene from './scenes/LittleTalentScene'
 import PuzzleScene from './scenes/PuzzleScene'
@@ -22,7 +24,9 @@ import FantasticRotationScene from './scenes/FantasticRotationScene'
 import SortingCharactersScene from './scenes/SortingCharactersScene'
 import FindCharactersScene from './scenes/FindCharactersScene'
 import FormingAStoryScene from './scenes/FormingAStoryScene'
-import MoveTheImagesToTheRightRroups from './scenes/MoveTheImagesToTheRightRroups'
+import MoveTheImagesToTheRightGroups from './scenes/MoveTheImagesToTheRightGroups'
+import MoveTheTmagesToTheRightPositionsScene from './scenes/MoveTheTmagesToTheRightPositionsScene'
+import CompleteTheStoriesScene from './scenes/CompleteTheStoriesScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
 export const version = '0.0.1'
@@ -47,10 +51,10 @@ export const plugins = {
 export const scene = [
   BootScene, WaitScene, CheckUserScene, HomeScene, MainGameScene,
   GameOneScene, GameOneSubOneScene, GameOneSubTwoScene, GameOneSubThreeScene, GameOneSubFourScene,
-  GameTwoScene,
+  GameTwoScene, GameTwoSubOneScene, GameTwoSubTwoScene,
   GameThreeScene,
   GameFourScene,
-  ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightRroups
+  CompleteTheStoriesScene, MoveTheTmagesToTheRightPositionsScene,ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightGroups
 ]
 export const allowedTime = 1800
 export const waitTime = 3600

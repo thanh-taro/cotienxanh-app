@@ -10,7 +10,7 @@ import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import { destroyObject, addBee } from '../helpers'
 import ChooseTheRightPictureScene from './ChooseTheRightPictureScene'
-import MoveTheImagesToTheRightRroups from './MoveTheImagesToTheRightRroups'
+import MoveTheImagesToTheRightGroups from './MoveTheImagesToTheRightGroups'
 import MainGameScene from './MainGameScene'
 
 class GameFourScene extends Phaser.Scene {
@@ -23,7 +23,7 @@ class GameFourScene extends Phaser.Scene {
   }
 
   static get GAME_HARD_SCENE_KEY () {
-    return MoveTheImagesToTheRightRroups.KEY
+    return MoveTheImagesToTheRightGroups.KEY
   }
 
   constructor () {

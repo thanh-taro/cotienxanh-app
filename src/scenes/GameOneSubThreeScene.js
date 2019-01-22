@@ -89,6 +89,7 @@ class GameOneSubThreeScene extends Phaser.Scene {
     if (this.things.homeButton === undefined) {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
+      this.things.homeButton.setCallback(() => this.things.welcomeAudio.stop())
     }
   }
 

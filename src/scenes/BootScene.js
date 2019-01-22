@@ -38,6 +38,7 @@ import FantasticRotationGuideSound from '../components/FantasticRotationGuideSou
 import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
 import SortingCharactersGuideSound from '../components/SortingCharactersGuideSound'
 import FindCharactersGuideSound from '../components/FindCharactersGuideSound'
+import CompleteTheStoriesGuideSound from '../components/CompleteTheStoriesGuideSound'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
@@ -49,7 +50,10 @@ import GameOneSubOneButton from '../components/GameOneSubOneButton'
 import GameOneSubTwoButton from '../components/GameOneSubTwoButton'
 import GameOneSubThreeButton from '../components/GameOneSubThreeButton'
 import GameOneSubFourButton from '../components/GameOneSubFourButton'
+import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
+import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
 import AskSound from '../components/AskSound'
+import FreeSizeCard from '../components/FreeSizeCard'
 
 class BootScene extends Phaser.Scene {
   static get KEY () {
@@ -109,6 +113,7 @@ class BootScene extends Phaser.Scene {
     FormingAStoryGuideSound.preload(this)
     SortingCharactersGuideSound.preload(this)
     FindCharactersGuideSound.preload(this)
+    CompleteTheStoriesGuideSound.preload(this)
     LevelEasyButton.preload(this)
     LevelNormalButton.preload(this)
     LevelHardButton.preload(this)
@@ -118,7 +123,10 @@ class BootScene extends Phaser.Scene {
     GameOneSubTwoButton.preload(this)
     GameOneSubThreeButton.preload(this)
     GameOneSubFourButton.preload(this)
+    GameTwoSubOneButton.preload(this)
+    GameTwoSubTwoButton.preload(this)
     AskSound.preload(this)
+    FreeSizeCard.preload(this)
   }
 
   create () {

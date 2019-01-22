@@ -6,26 +6,23 @@ import DiamondBadge from '../components/DiamondBadge'
 import ClockBadge from '../components/ClockBadge'
 import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
-import FormingAStoryScene from './FormingAStoryScene'
-import CeremonySound from '../components/CeremonySound'
-import FormingAStoryGuideSound from '../components/FormingAStoryGuideSound'
+import LevelHardButton from '../components/LevelHardButton'
+import MainGameScene from './MainGameScene'
+import CompleteTheStoriesScene from './CompleteTheStoriesScene'
 import { destroyObject, addBee } from '../helpers'
-import MainGameScene from './MainGameScene';
-import GameTwoSubOneButton from '../components/GameTwoSubOneButton'
-import GameTwoSubTwoButton from '../components/GameTwoSubTwoButton'
-import GameTwoWelcomeAudio from '../components/GameTwoWelcomeAudio'
+import CompleteTheStoriesGuideSound from '../components/CompleteTheStoriesGuideSound'
 
-class GameTwoScene extends Phaser.Scene {
+class GameTwoSubTwoScene extends Phaser.Scene {
   static get KEY () {
-    return 'GameTwoScene'
+    return 'GameTwoSubTwoScene'
   }
 
   static get GAME_SCENE_KEY () {
-    return FormingAStoryScene.KEY
+    return CompleteTheStoriesScene.KEY
   }
 
   constructor () {
-    super({ key: GameTwoScene.KEY })
+    super({ key: GameTwoSubTwoScene.KEY })
 
     this.things = {}
   }
@@ -61,7 +58,7 @@ class GameTwoScene extends Phaser.Scene {
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Thông minh tinh mắt',
+      text: 'Hoàn thành tác phẩm',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'
@@ -71,7 +68,7 @@ class GameTwoScene extends Phaser.Scene {
   }
 
   playWelcomeAudio () {
-    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(GameTwoWelcomeAudio.KEY)
+    if (this.things.welcomeAudio === undefined) this.things.welcomeAudio = this.sound.add(CompleteTheStoriesGuideSound.KEY)
     this.things.welcomeAudio.play()
   }
 
@@ -91,7 +88,6 @@ class GameTwoScene extends Phaser.Scene {
     if (this.things.homeButton === undefined) {
       const y = this.things.coinBadge.coinImage.y + this.things.coinBadge.coinImage.displayHeight / 2 + 8
       this.things.homeButton = new HomeButton(this, y)
-      this.things.homeButton.setCallback(() => this.things.welcomeAudio.stop())
     }
   }
 
@@ -100,21 +96,19 @@ class GameTwoScene extends Phaser.Scene {
   }
 
   createLevelButtons () {
-    if (this.things.subGameOneButton === undefined) this.things.subGameOneButton = new GameTwoSubOneButton(this)
-    // if (this.things.subGameTwoButton === undefined) this.things.subGameTwoButton = new GameTwoSubTwoButton(this)
-  }
-
-  won (data) {
-    if (undefined !== data && undefined !== data.from) {
-      this.playCeremonyAudio()
-      this.things.diamondBadge.addDiamond(data.diamond)
+    if (this.things.levelEasyButton === undefined) {
+      this.things.levelEasyButton = new LevelEasyButton(this)
+      this.things.levelEasyButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoSubTwoScene.GAME_SCENE_KEY, level: 'easy' }))
     }
-  }
-
-  playCeremonyAudio () {
-    if (this.things.ceremonyAudio === undefined) this.things.ceremonyAudio = this.sound.add(CeremonySound.KEY)
-    this.things.ceremonyAudio.play({ volume: 0.4 })
+    if (this.things.levelNormalButton === undefined) {
+      this.things.levelNormalButton = new LevelNormalButton(this)
+      this.things.levelNormalButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoSubTwoScene.GAME_SCENE_KEY, level: 'normal' }))
+    }
+    if (this.things.levelHardButton === undefined) {
+      this.things.levelHardButton = new LevelHardButton(this)
+      this.things.levelHardButton.setCallback(() => this.scene.start(MainGameScene.KEY, { forceRestart: true, gameSceneKey: GameTwoSubTwoScene.GAME_SCENE_KEY, level: 'hard' }))
+    }
   }
 }
 
-export default GameTwoScene
+export default GameTwoSubTwoScene

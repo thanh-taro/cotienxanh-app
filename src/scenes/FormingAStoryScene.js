@@ -29,6 +29,7 @@ class FormingAStoryScene extends Phaser.Scene {
 
     this.things = {
       stories: {
+        // 'easy': ['story_1'],
         'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7'],
         'normal': ['story_3', 'story_4']
       },
@@ -164,7 +165,7 @@ class FormingAStoryScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, MainGameScene.KEY)
+    this.things.backButton = new BackButton(this, MainGameScene.KEY, this.stopSound.bind(this))
   }
 
   playRightSound (delay = 0) {
@@ -216,7 +217,10 @@ class FormingAStoryScene extends Phaser.Scene {
     this.things.wordIndex = 0
     this.things.lineIndex = 0
 
-    this.things.wordDelay = 10
+    console.log(this.things.storySound.duration);
+    console.log(this.things.storyContent[0].split(' ').length);
+    this.things.wordDelay = (this.things.storySound.duration - 2) * 1000 / this.things.storyContent[0].split(' ').length
+    console.log(this.things.wordDelay);
     this.things.lineDelay = 40
     this.nextLine()
   }
@@ -267,6 +271,10 @@ class FormingAStoryScene extends Phaser.Scene {
 
   createSpeaker () {
     this.things.speaker = new Cards(this, 'speakerI', 0, { x: -500, y: -500, scale: 0.5, hasSound: false, allowClick: true }, null, true, {}, () => this.things.storySound.play())
+  }
+
+  stopSound () {
+    if (this.things.storySound) this.things.storySound.stop()
   }
 }
 
