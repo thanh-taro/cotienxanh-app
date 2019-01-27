@@ -29,8 +29,8 @@ class FormingAStoryScene extends Phaser.Scene {
 
     this.things = {
       stories: {
-        // 'easy': ['story_1'],
-        'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7'],
+        'easy': ['story_1'],
+        // 'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7'],
         'normal': ['story_3', 'story_4']
       },
       'numberOfPaintings': {
@@ -205,7 +205,7 @@ class FormingAStoryScene extends Phaser.Scene {
   }
 
   runStoryContent () {
-    const y = this.cameras.main.height / 3 * 2
+    const y = this.cameras.main.centerY
     var text = new Text(this, 100, y , '')
 
     text.setWordWrapWidth(this.cameras.main.width - 200, true)
@@ -246,9 +246,13 @@ class FormingAStoryScene extends Phaser.Scene {
   }
 
   nextWord() {
+    if (this.things.text.text.length > 210) {
+      this.things.text.text = ''
+    }
     //  Add the next word onto the text string, followed by a space
     this.things.text.text = this.things.text.text.concat(this.things.line[this.things.wordIndex] + " ");
-    let y = this.cameras.main.height - 100 - (this.things.text.height / 2)
+
+    let y = this.cameras.main.centerY + (this.things.text.height / 2)
     this.things.text.y = y
     //  Advance the word index to the next word in the line
     this.things.wordIndex++;

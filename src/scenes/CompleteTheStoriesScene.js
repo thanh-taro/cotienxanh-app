@@ -1,12 +1,15 @@
 import Phaser from 'phaser'
 import MusicButton from '../components/MusicButton'
 import BackButton from '../components/BackButton'
-import Arrow from '../components/Arrow'
 import HorizontalCards from '../components/HorizontalCards'
 import RightSound from '../components/RightSound'
-import MainGameScene from './MainGameScene'
 import WrongSound from '../components/WrongSound'
+import Cards from '../components/Cards'
+import MainGameScene from './MainGameScene'
 import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
+import AskSound from '../components/AskSound'
+import Text from '../components/Text'
+import poemContent from '../app/asset/content/poemContent'
 
 class CompleteTheStoriesScene extends Phaser.Scene {
   static get KEY () {
@@ -23,128 +26,164 @@ class CompleteTheStoriesScene extends Phaser.Scene {
   }
 
   create (data) {
+    console.log(poemContent);
     this.things = {
-      play: false,
-      delay: 1000,
-      speed: 22,
-      acceleration: 0.05,
-      hasAnswers: false,
-      wordList: {
-        'hoa': ['Hoa_phượng', 'Hoa_tulip', 'Hoa_bằng_lăng', 'Hoa_bướm', 'Hoa_cẩm_tú_cầu', 'Hoa_cúc', 'Hoa_thuỷ_tiên', 'Hoa_râm_bụt', 'Hoa_bồ_công_anh', 'Hoa_cẩm_chướng', 'Hoa_đào', 'Hoa_đồng_tiền', 'Hoa_hải_đường', 'Hoa_hồng', 'Hoa_hướng_dương', 'Hoa_lan_hồ_điệp', 'Hoa_lay_ơn', 'Hoa_Thược_Dược', 'Hoa_ly', 'Hoa_mai', 'Hoa_quỳnh', 'Hoa_nhài', 'Hoa_mẫu_đơn', 'Hoa_sen', 'Hoa_sứ', 'Hoa_súng', 'Hoa_thiên_điểu'],
-        'dong_vat_hoang_da': ['Tê_giác_một_sừng', 'Sao_la', 'Sóc_đỏ', 'Ngựa_vằn', 'Báo_hoa_mai', 'Khỉ', 'Gấu_trúc', 'Hươu_cao_cổ', 'Chuột_túi', 'Lạc_đà', 'Voi', 'Nai', 'Sư_tử', 'Hổ', 'Cáo', 'Cầy_hương', 'Chồn', 'Đà_điểu'],
-        'sinh_vat_bien': ['Bạch_tuộc', 'Cá_mập', 'Cá_heo', 'Cá_ngựa', 'Cá_thu', 'Cá_voi', 'Hải_cẩu', 'Mực', 'Sao_biển', 'Sư_tử_biển', 'Sứa', 'Tôm_hùm', 'Chim_cánh_cụt', 'Tu_hài'],
-        'bo_sat': ['Tắc_kè', 'Cá_sấu', 'Rùa', 'Khủng_long', 'Trăn', 'Thằn_lằn', 'Rắn_hổ_mang', 'Kỳ_nhông'],
-        'con_trung': ['Kiến_vàng', 'Ong_mật', 'Bọ_đuôi_kim_đen', 'Châu_chấu', 'Chuồn_chuồn_kim', 'Bọ_hung_ba_sừng', 'Bọ_rùa_bảy_chấm', 'Ve_sầu', 'Bướm_khế', 'Bọ_ngựa'],
-        'cong_trinh': ['Vịnh_Hạ_Long', 'Lăng_Bác', 'Hoàng_thành_Huế', 'Nhà_thờ_Đức_Bà', 'Cầu_rồng_Đà_Nẵng', 'Chùa_Một_Cột'],
-        'hanh_tinh': ['Trái_Đất', 'Sao_Thủy', 'Sao_Thổ', 'Sao_Kim', 'Sao_Hỏa', 'Sao_Mộc', 'Sao_Thiên_Vương', 'Mặt_Trăng', 'Mặt_Trời', 'Sao_Chổi', 'Sao_Hải_Vương'],
-        'mau_sac': ['Màu_nâu', 'Màu_tím', 'Màu_hồng', 'Màu_trắng', 'Màu_đen', 'Màu_đỏ', 'Màu_cam', 'Màu_vàng', 'Màu_xanh_lá', 'Màu_xám'],
-        'hinh_dang': ['Hình_ngũ_giác', 'Hình_thoi', 'Hình_trái_tim', 'Hình_ngôi_sao', 'Hình_chữ_nhật', 'Hình_vuông', 'Hình_tròn', 'Hình_bầu_dục', 'Hình_tam_giác'],
+      poem: {
+        'easy': ['ong_va_buom'],
+        // 'easy': ['khong_vut_rac', 'choi_ngoan', 'ong_va_buom'],
+        'normal': ['poem_3', 'poem_4'],
       },
-      head: ['W', 'I'],
-      'questionCards': []
+      answers: ['Hoa_mẫu_đơn', 'Hoa_sen', 'Hoa_sứ', 'Màu_vàng']
     }
-    this.cameras.main.setBackgroundColor('#3E2723')
-
+    this.cameras.main.setBackgroundColor('#AED581')
     this.things.level = data.level
-
     this.createMusicButton()
     this.createBackButton()
-    this.generate()
-    this.createTheDragFeature()
+    this.createQuestionCards()
+    this.createTheAnswerCards()
+
+    this.showNextQuestion(true)
   }
 
-  generate () {
-    this.things.rotation = {}
-    this.things.rotation = this.add.group()
-    var wordList = this.things.wordList
-    var keys = Object.keys(wordList)
-    var questionTypes = []
-    for (let i = 0; i < 3; i++) questionTypes.push(randSplice(keys))
-    this.things.questionTypes = questionTypes
-    for (let index in questionTypes) {
-      const question = randItem(wordList[questionTypes[index]]) + 'I'
-      const configs = this.configTheQuestionCard(index)
-      let card = new HorizontalCards(this, question, configs.x, configs.y, configs.scale, 1, true, null, true)
-      card.type = questionTypes[index]
-      this.things.questionCards.push(card)
-    }
-
-    this.addAnswers()
+  createQuestionCards () {
+    const level = this.things.level
+    const question = this.things.question = randItem(this.things.poem[level])
+    this.things.sound = this.sound.add(HorizontalCards.KEY + '-' + question + '-sound')
+    this.things.text = new Text(this, 120, 100 , '')
+    this.things.dataPoem = JSON.parse(JSON.stringify(poemContent[question]))
   }
 
-  addAnswers () {
-    let answers = []
-    var wordList = this.things.wordList
-    var questionTypes = this.things.questionTypes
-    var questionCards = this.things.questionCards
-    var fullWordList = []
-    for (let index in questionTypes) {
-      fullWordList = fullWordList.concat(wordList[questionTypes[index]])
-    }
-
-    this.things.fullWordList = fullWordList
-    for (let index in questionCards) {
-      let position = fullWordList.indexOf(questionCards[index].cardKey)
-      if (position > -1) fullWordList.splice(position, 1)
-    }
-
-    for (let i = 0; i < 10; i++) {
-      let item = randSplice(fullWordList)
-      let answerHead = randItem(this.things.head)
-      answers.push(item + answerHead)
-    }
-
-    answers = shuffle(answers)
-    this.things.answerCards = []
-    for (let index in answers) {
-      let key = answers[index]
-      let configs = this.configTheAnswerCard(index)
-      var card = new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 1, true, false, true, {}, false)
-      for (let index in questionTypes) {
-        let position = wordList[questionTypes[index]].indexOf(card.cardKey)
-        if (position > -1) card.type = questionTypes[index]
+  createTheAnswerCards () {
+    const dataPoem = this.things.dataPoem
+    var answers = []
+    for (var index in dataPoem) {
+      if (dataPoem[index].answer !== undefined) {
+        answers.push(dataPoem[index].answer)
       }
-      this.input.setDraggable(card)
-      this.things.answerCards.push(card)
+    }
+    if (answers.length < 3) {
+      var data = JSON.parse(JSON.stringify(this.things.answers))
+      for (let index in answers) {
+        let position = data.indexOf(answers[index].image)
+        if (position > -1) {
+          data.splice(position, 1)
+        }
+      }
+      var length = answers.length
+      for (let i = 0; i < 3 - length; i++) {
+        answers.push({
+          image: randSplice(data),
+          words: ''
+        })
+      }
+    }
+    answers = shuffle(answers);
+    this.things.answerCards = []
+    for (var index in answers) {
+      let number = parseInt(index) + 1
+      let key = answers[index].image + 'I'
+      let configs = this.configTheAnswerCard(answers.length, number)
+      let allowClick = true
+      this.things.answerCards.push(new HorizontalCards(this, key, configs.x, configs.y, configs.scale, 1, allowClick, this.onCardChoose.bind(this)))
     }
   }
 
-  configTheQuestionCard (number) {
+  showNextQuestion(isFirst = false) {
+    // Do not allow click when the poem is being read
+    var answerCards = this.things.answerCards
+    for (let index in answerCards) {
+      answerCards[index].allowClick = false
+    }
+    var currentData = this.things.currentData = this.things.dataPoem[0]
+    if (currentData == undefined) {
+      this.won()
+    } else {
+      if (isFirst) {
+        this.things.sound.play()
+      } else {
+        this.things.sound.resume()
+      }
+      this.time.delayedCall(currentData.time * 1000, () => {
+        if (currentData.answer == undefined) {
+          this.playRightSound()
+          this.time.delayedCall(1000, () => {
+            this.won()
+          })
+        }
+        this.things.sound.pause()
+        // Allow to click when the poem is finished reading
+        for (let index in answerCards) {
+          answerCards[index].allowClick = true
+        }
+      })
+      this.things.wordIndex = 0
+      this.time.addEvent({
+        delay: currentData.time / currentData.string.length * 1000,
+        callback: this.nextWord,
+        callbackScope: this,
+        repeat: currentData.string.length - 1
+      });
+    }
+  }
+
+  configTheAnswerCard (column, number) {
     const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
-    const startX = 100
-    const endX = this.cameras.main.width - 100
-    const column = 3
+
     const padding = parseInt(this.cameras.main.width * 0.01)
+    const startX = 10
+    const endX = this.cameras.main.width - 10
     const width = (endX - startX) / column
-    const height = this.cameras.main.height / 4
+    const height = this.cameras.main.height / 5
     const scaleX = (width - padding) / assetWidth
     const scaleY = (height - padding) / assetHeight
 
-    const scale = Math.min(scaleX, scaleY)
+    var scale = Math.min(scaleX, scaleY) * 1.3
 
-    const y = this.cameras.main.height / 3
-    const x = startX + (endX - startX) / column * number + width / 2
+    var y = this.cameras.main.height / 4 * 3
+    var x = startX + (number - 1) * width + width / 2
 
-    return {
-      x: x,
-      y: y,
-      scale: scale
+    return { x, y, scale }
+  }
+
+  onCardChoose (card) {
+    var currentData = this.things.currentData
+    if (card.cardKey == currentData.answer.image) {
+      this.playRightSound(1.5)
+      this.tweens.add({
+        targets: card,
+        scaleX: card.scaleX * 1.5,
+        scaleY: card.scaleY * 1.5,
+        duration: 500,
+      })
+      this.time.delayedCall(500, () => {
+        this.tweens.add({
+          targets: card,
+          scaleX: 0,
+          scaleY: 0,
+          duration: 500,
+        })
+      })
+      let length = this.things.text.text.length
+      this.things.text.text = this.things.text.text.replace('...', currentData.answer.words)
+      this.things.text.setColor('#ffff00', length)
+      this.things.text.setColor('#ffff00', length + currentData.answer.words.length)
+      this.things.dataPoem.splice(0, 1)
+      this.things.currentData = this.things.dataPoem[0]
+      this.time.delayedCall(3000, () => {
+        this.showNextQuestion()
+      })
+    } else {
+      this.playWrongSound(1.5)
     }
   }
 
-  configTheAnswerCard (number, column = 5) {
-    const { assetWidth, assetHeight } = HorizontalCards.ASSET_SPEC
+  nextWord() {
+    // remove text if the text is too long
+    if (this.things.text.text.split('\n').length > 7) this.things.text.text = ''
 
-    const width = this.cameras.main.width / column
-    const height = this.cameras.main.height / 5
-    const scaleX = width / assetWidth
-    const scaleY = height / assetHeight
-
-    var scale = Math.min(scaleX, scaleY)
-    var y = this.cameras.main.height / 4 * 3
-    var x = number * width + width / 2
-
-    return { x, y, scale }
+    this.things.text.text = this.things.text.text.concat(this.things.currentData.string[this.things.wordIndex])
+    this.things.text.y = 100 + this.things.text.height / 2
+    this.things.wordIndex++
   }
 
   createMusicButton () {
@@ -156,86 +195,7 @@ class CompleteTheStoriesScene extends Phaser.Scene {
   createBackButton () {
     destroyObject(this.things.backButton)
 
-    this.things.backButton = new BackButton(this, MainGameScene.KEY)
-  }
-
-  createTheDragFeature () {
-    this.input.dragDistanceThreshold = 16
-    this.input.on('dragstart', (pointer, gameObject) => {
-      this.children.bringToTop(gameObject)
-      this.things.originalX = gameObject.x
-      this.things.originalY = gameObject.y
-    })
-
-    this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-      gameObject.x = dragX
-      gameObject.y = dragY
-    })
-
-    this.input.on('dragend', (pointer, gameObject) => {
-      var questionCards = this.things.questionCards
-      let minY = this.cameras.main.height / 3  - questionCards[0].displayHeight / 2
-      let maxY = this.cameras.main.height / 3 + questionCards[0].displayHeight / 2
-      var win = false
-      var is_choose = false
-      if (pointer.y > minY && pointer.y < maxY) {
-        var is_choose = true
-        for (let index in questionCards) {
-          var card = questionCards[index]
-          let minX = card.x - card.displayWidth / 2
-          let maxX = card.x + card.displayWidth / 2
-          if (pointer.x > minX && pointer.x < maxX && card.type == gameObject.type) {
-            win = true
-            break
-          }
-        }
-      }
-      if (win) {
-        this.playRightSound(1.5);
-        var answerCards = this.things.answerCards
-        for (let index in answerCards) {
-          if (answerCards[index].cardKey == gameObject.cardKey) {
-            answerCards.splice(index, 1)
-          }
-        }
-
-        this.tweens.add({
-          targets: gameObject,
-          scaleX: gameObject.scaleX * 1.5,
-          scaleY: gameObject.scaleY * 1.5,
-          duration: 500,
-        })
-        this.time.delayedCall(500, () => {
-          this.tweens.add({
-            targets: gameObject,
-            scaleX: 0,
-            scaleY: 0,
-            duration: 500,
-          })
-        })
-        this.time.delayedCall(1000, () => {
-          destroyObject(gameObject)
-        })
-
-        if (answerCards.length > 4) this.rebuildAnswers()
-        if (answerCards.length === 0) this.won()
-      } else {
-        this.time.delayedCall(1500, () => {
-          if (is_choose) this.playWrongSound()
-          gameObject.x = this.things.originalX
-          gameObject.y = this.things.originalY
-        })
-      }
-    })
-  }
-
-  rebuildAnswers () {
-    var answerCards = this.things.answerCards
-    for (let index in answerCards) {
-      let configs = this.configTheAnswerCard(index)
-      answerCards[index].x = configs.x
-      answerCards[index].y = configs.y
-    }
+    this.things.backButton = new BackButton(this, MainGameScene.KEY, this.stopSound.bind(this))
   }
 
   playRightSound (delay = 0) {
@@ -255,8 +215,14 @@ class CompleteTheStoriesScene extends Phaser.Scene {
   }
 
   won () {
-    this.scene.stop()
-    this.scene.resume(MainGameScene.KEY, { from: CompleteTheStoriesScene.KEY, diamond: CompleteTheStoriesScene.WIN_DIAMOND })
+    this.time.delayedCall(2, () => {
+      this.scene.stop()
+      this.scene.resume(MainGameScene.KEY, { from: CompleteTheStoriesScene.KEY, diamond: CompleteTheStoriesScene.WIN_DIAMOND })
+    })
+  }
+
+  stopSound () {
+    if (this.things.sound) this.things.sound.stop()
   }
 }
 

@@ -48,6 +48,10 @@ import story_5Sound from './story_5.mp3'
 import story_6Sound from './story_6.mp3'
 import story_7Sound from './story_7.mp3'
 
+import khong_vut_racSound from './khong_vut_rac.mp3'
+import choi_ngoanSound from './choi_ngoan.mp3'
+import ong_va_buomSound from './ong_va_buom.mp3'
+
 // Hoa - sound
 import Hoa_phượngSound from './hoa_phuong.mp3'
 import Hoa_bằng_lăngSound from './hoa_bang_lang.mp3'
@@ -421,6 +425,91 @@ import Hình_trònI from './i_hinh_tron.png'
 import Hình_bầu_dụcI from './i_hinh_bau_duc.png'
 import Hình_tam_giácI from './i_hinh_tam_giac.png'
 
+// Ki hieu
+import Bưu_điệnI from './bieu_tuong_buu_dien.png' //
+import ChùaI from './bieu_tuong_chua.png' //
+import Đồng_ýI from './bieu_tuong_dong_y.png' //
+import Ga_tàuI from './bieu_tuong_ga_tau.png' //
+import Cấm_đổ_xeI from './cam_do_xe.png' //
+import Thuốc_láI from './cam_hut_thuoc.png' //
+import Cấm_vứt_rácI from './cam_vut_rac.png' //
+import Giữ_im_lặngI from './giu_trat_tu.png' //
+import Người_khuyết_tậtI from './khu_danh_cho_nguoi_khuyet_tat.png'
+import Bệnh_việnI from './ki_hieu_benh_vien.png'
+import Lối_thoát_hiểmI from './loi_thoat_hiem.png'
+import Có_bậc_thangI from './luu_y_co_cau_thang.png'
+import Nơi_bỏ_rácI from './noi_bo_rac.png'
+import Kí_hiệu_sân_bayI from './san_bay.png'
+import Siêu_thịI from './sieu_thi_icon.png'
+import Cảnh_sátI from './so_canh_sat.png'
+import Trạm_xăngI from './tram_xang.png'
+import Nhà_vệ_sinh_nữI from './wc_nu.png'
+import Trường_họcI from './bieu_tuong_truong_hoc.png' //
+import Sân_bayI from './san_bay.png' //
+
+import Bến_xeSound from './Bến xe.mp3'
+import Bệnh_việnSound from './Bệnh viện.mp3'
+import Bưu_điệnSound from './Buu diện.mp3'
+import Cấm_đổ_xeSound from './Cấm đổ xe.mp3'
+import Cấm_vứt_rácSound from './Cấm vứt rác.mp3'
+import Cảnh_sátSound from './Cảnh sát.mp3'
+import ChùaSound from './Chùa.mp3'
+import Có_bậc_thangSound from './Co bac thang.mp3'
+import Đồng_ýSound from './Đồng ý.mp3'
+import Ga_tàuSound from './Ga tau.mp3'
+import Giữ_im_lặngSound from './Giu im lang.mp3'
+import Kí_hiệu_sân_baySound from './Ki hieu san bay.mp3'
+import Lối_thoát_hiểmSound from './Loi thoat hiểm.mp3'
+import Người_khuyết_tậtSound from './Người khuyêt tât.mp3'
+import Nhà_vệ_sinh_nữSound from './Nha vẹ sinh nữ.mp3'
+import Nơi_bỏ_rácSound from './Nơi bỏ rác.mp3'
+import Sân_baySound from './Sân bay.mp3'
+import Siêu_thịSound from './Sieu thị.mp3'
+import Thuốc_láSound from './Thuốc lá.mp3'
+import Trạm_xăngSound from './Trạm xăng.mp3'
+import Trường_họcSound from './Trường học.mp3'
+
+// ki hieu trong lop
+import Bảng_danh_sách_lớpI from './bang_danh_sach.png' //
+import Bảng_phân_chia_thức_ănI from './bang_phan_chia_thuc_an.png' //
+import Bảng_tên_lớpI from './bang_ten_lop.png' //
+import Bảng_thực_đơnI from './thuc_don.png'
+import Góc_âm_nhạcI from './goc_am_nhac.png'
+import Góc_cảm_xúcI from './goc_cam_xuc.png'
+import Góc_chữ_cáiI from './goc_chu_cai.png'
+import Góc_chuyên_cầnI from './goc_chuyen_can.png'
+import Góc_đóng_vaiI from './goc_dong_vai.png'
+import Góc_học_tậpI from './goc_hoc_tap.png'
+import Góc_sinh_nhậtI from './goc_sinh_nhat.png'
+import Góc_tạo_hìnhI from './goc_tao_hinh.png'
+import Góc_toánI from './goc_toan.png'
+import Khu_nhà_bếpI from './khu_bep.png'
+import Khu_thể_chấtI from './khu_the_chat.png'
+import Khu_vệ_sinhI from './khu_ve_sinh.png'
+import Khu_vui_chơi_ngoài_trờiI from './khu_vui_choi_ngoai_troi.png'
+
+import Bảng_danh_sách_lớpSound from './Bang ds lop.mp3'
+import Bảng_phân_chia_thức_ănSound from './Bảng phân chia thức an.mp3'
+import Bảng_tên_lớpSound from './Bang ten lop.mp3'
+import Bảng_thực_đơnSound from './Bang thuc don.mp3'
+import Góc_âm_nhạcSound from './Goc âm nhac.mp3'
+import Góc_cảm_xúcSound from './Goc cam xuc.mp3'
+import Góc_chữ_cáiSound from './Goc chu cai.mp3'
+import Góc_chuyên_cầnSound from './Goc chuyen can.mp3'
+import Góc_đóng_vaiSound from './Góc đóng vai.mp3'
+import Góc_học_tậpSound from './Goc hoc tâp.mp3'
+import Góc_sinh_nhậtSound from './Goc sinh nhat.mp3'
+import Góc_tạo_hìnhSound from './Goc tao hinh.mp3'
+import Góc_toánSound from './Goc toan.mp3'
+import Khu_nhà_bếpSound from './Khu nha bep.mp3'
+import Khu_thể_chấtSound from './Khu the chat.mp3'
+import Khu_vệ_sinhSound from './Khu vệ sinh.mp3'
+import Khu_vui_chơi_ngoài_trờiSound from './Khu vui choi ngoai troi.mp3'
+
+import Chủ_đề_ký_hiệuI from './Chủ_đề_ký_hiệu.png'
+import Chủ_đề_ký_hiệu_trong_lớpI from './Chủ_đề_ký_hiệu_trong_lớp.png'
+import Chủ_đề_màu_sắcI from './Chủ_đề_màu_sắc.png'
+
 const assetSpec = {
   assetScaleBy: 'height',
   assetScale: 4,
@@ -711,7 +800,50 @@ const assetSpec = {
     { key: 'Hình_vuôngW', asset: Hình_vuôngW },
     { key: 'Hình_trònW', asset: Hình_trònW },
     { key: 'Hình_bầu_dụcW', asset: Hình_bầu_dụcW },
-    { key: 'Hình_tam_giácW', asset: Hình_tam_giácW }
+    { key: 'Hình_tam_giácW', asset: Hình_tam_giácW },
+
+    // Ki hieu
+    { key: 'Bưu_điệnI', asset: Bưu_điệnI },
+    { key: 'ChùaI', asset: ChùaI },
+    { key: 'Đồng_ýI', asset: Đồng_ýI },
+    { key: 'Ga_tàuI', asset: Ga_tàuI },
+    { key: 'Cấm_đổ_xeI', asset: Cấm_đổ_xeI },
+    { key: 'Thuốc_láI', asset: Thuốc_láI },
+    { key: 'Cấm_vứt_rácI', asset: Cấm_vứt_rácI },
+    { key: 'Giữ_im_lặngI', asset: Giữ_im_lặngI },
+    { key: 'Người_khuyết_tậtI', asset: Người_khuyết_tậtI },
+    { key: 'Bệnh_việnI', asset: Bệnh_việnI },
+    { key: 'Lối_thoát_hiểmI', asset: Lối_thoát_hiểmI },
+    { key: 'Có_bậc_thangI', asset: Có_bậc_thangI },
+    { key: 'Nơi_bỏ_rácI', asset: Nơi_bỏ_rácI },
+    { key: 'Kí_hiệu_sân_bayI', asset: Kí_hiệu_sân_bayI },
+    { key: 'Siêu_thịI', asset: Siêu_thịI },
+    { key: 'Cảnh_sátI', asset: Cảnh_sátI },
+    { key: 'Trạm_xăngI', asset: Trạm_xăngI },
+    { key: 'Nhà_vệ_sinh_nữI', asset: Nhà_vệ_sinh_nữI },
+    { key: 'Trường_họcI', asset: Trường_họcI },
+    { key: 'Sân_bayI', asset: Sân_bayI },
+
+    { key: 'Bảng_danh_sách_lớpI', asset: Bảng_danh_sách_lớpI },
+    { key: 'Bảng_phân_chia_thức_ănI', asset: Bảng_phân_chia_thức_ănI },
+    { key: 'Bảng_tên_lớpI', asset: Bảng_tên_lớpI },
+    { key: 'Bảng_thực_đơnI', asset: Bảng_thực_đơnI },
+    { key: 'Góc_âm_nhạcI', asset: Góc_âm_nhạcI },
+    { key: 'Góc_cảm_xúcI', asset: Góc_cảm_xúcI },
+    { key: 'Góc_chữ_cáiI', asset: Góc_chữ_cáiI },
+    { key: 'Góc_chuyên_cầnI', asset: Góc_chuyên_cầnI },
+    { key: 'Góc_đóng_vaiI', asset: Góc_đóng_vaiI },
+    { key: 'Góc_học_tậpI', asset: Góc_học_tậpI },
+    { key: 'Góc_sinh_nhậtI', asset: Góc_sinh_nhậtI },
+    { key: 'Góc_tạo_hìnhI', asset: Góc_tạo_hìnhI },
+    { key: 'Góc_toánI', asset: Góc_toánI },
+    { key: 'Khu_nhà_bếpI', asset: Khu_nhà_bếpI },
+    { key: 'Khu_thể_chấtI', asset: Khu_thể_chấtI },
+    { key: 'Khu_vệ_sinhI', asset: Khu_vệ_sinhI },
+    { key: 'Khu_vui_chơi_ngoài_trờiI', asset: Khu_vui_chơi_ngoài_trờiI },
+    { key: 'Chủ_đề_ký_hiệuI', asset: Chủ_đề_ký_hiệuI },
+    { key: 'Chủ_đề_ký_hiệu_trong_lớpI', asset: Chủ_đề_ký_hiệu_trong_lớpI },
+    { key: 'Chủ_đề_màu_sắcI', asset: Chủ_đề_màu_sắcI },
   ],
 
   soundCollection: [
@@ -722,6 +854,9 @@ const assetSpec = {
     { key: 'story_5', asset: story_5Sound },
     { key: 'story_6', asset: story_6Sound },
     { key: 'story_7', asset: story_7Sound },
+    { key: 'khong_vut_rac', asset: khong_vut_racSound },
+    { key: 'choi_ngoan', asset: choi_ngoanSound },
+    { key: 'ong_va_buom', asset: ong_va_buomSound },
 
     { key: 'Hoa_phượng', asset: Hoa_phượngSound },
     { key: 'Hoa_bằng_lăng', asset: Hoa_bằng_lăngSound },
@@ -843,7 +978,47 @@ const assetSpec = {
     { key: 'Hình_vuông', asset: Hình_vuôngSound },
     { key: 'Hình_tròn', asset: Hình_trònSound },
     { key: 'Hình_bầu_dục', asset: Hình_bầu_dụcSound },
-    { key: 'Hình_tam_giác', asset: Hình_tam_giácSound }
+    { key: 'Hình_tam_giác', asset: Hình_tam_giácSound },
+
+    // Ki hieu
+    { key: 'Bệnh_viện', asset: Bệnh_việnSound },
+    { key: 'Bưu_điện', asset: Bưu_điệnSound },
+    { key: 'Cấm_đổ_xe', asset: Cấm_đổ_xeSound },
+    { key: 'Cấm_vứt_rác', asset: Cấm_vứt_rácSound },
+    { key: 'Cảnh_sát', asset: Cảnh_sátSound },
+    { key: 'Chùa', asset: ChùaSound },
+    { key: 'Có_bậc_thang', asset: Có_bậc_thangSound },
+    { key: 'Đồng_ý', asset: Đồng_ýSound },
+    { key: 'Ga_tàu', asset: Ga_tàuSound },
+    { key: 'Giữ_im_lặng', asset: Giữ_im_lặngSound },
+    { key: 'Kí_hiệu_sân_bay', asset: Kí_hiệu_sân_baySound },
+    { key: 'Lối_thoát_hiểm', asset: Lối_thoát_hiểmSound },
+    { key: 'Người_khuyết_tật', asset: Người_khuyết_tậtSound },
+    { key: 'Nhà_vệ_sinh_nữ', asset: Nhà_vệ_sinh_nữSound },
+    { key: 'Nơi_bỏ_rác', asset: Nơi_bỏ_rácSound },
+    { key: 'Sân_bay', asset: Sân_baySound },
+    { key: 'Siêu_thị', asset: Siêu_thịSound },
+    { key: 'Thuốc_lá', asset: Thuốc_láSound },
+    { key: 'Trạm_xăng', asset: Trạm_xăngSound },
+    { key: 'Trường_học', asset: Trường_họcSound },
+
+    { key: 'Bảng_danh_sách_lớp', asset: Bảng_danh_sách_lớpSound },
+    { key: 'Bảng_phân_chia_thức_ăn', asset: Bảng_phân_chia_thức_ănSound },
+    { key: 'Bảng_tên_lớp', asset: Bảng_tên_lớpSound },
+    { key: 'Bảng_thực_đơn', asset: Bảng_thực_đơnSound },
+    { key: 'Góc_âm_nhạc', asset: Góc_âm_nhạcSound },
+    { key: 'Góc_cảm_xúc', asset: Góc_cảm_xúcSound },
+    { key: 'Góc_chữ_cái', asset: Góc_chữ_cáiSound },
+    { key: 'Góc_chuyên_cần', asset: Góc_chuyên_cầnSound },
+    { key: 'Góc_đóng_vai', asset: Góc_đóng_vaiSound },
+    { key: 'Góc_học_tập', asset: Góc_học_tậpSound },
+    { key: 'Góc_sinh_nhật', asset: Góc_sinh_nhậtSound },
+    { key: 'Góc_tạo_hình', asset: Góc_tạo_hìnhSound },
+    { key: 'Góc_toán', asset: Góc_toánSound },
+    { key: 'Khu_nhà_bếp', asset: Khu_nhà_bếpSound },
+    { key: 'Khu_thể_chất', asset: Khu_thể_chấtSound },
+    { key: 'Khu_vệ_sinh', asset: Khu_vệ_sinhSound },
+    { key: 'Khu_vui_chơi_ngoài_trời', asset: Khu_vui_chơi_ngoài_trờiSound },
   ]
 }
 

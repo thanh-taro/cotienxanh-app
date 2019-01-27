@@ -120,12 +120,22 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
   configTheQuestionCard (number, total) {
     const padding = parseInt(this.cameras.main.width * 0.01)
     const startX = 50
-    const endX = this.cameras.main.width / 3 * 2 - 50
-    const width = (endX - startX - padding * (total - 1)) / total
+    const endX = this.cameras.main.width / 3 * 2
+    let width = (endX - startX - padding * (total - 1)) / total
     const height = this.cameras.main.height - 200
 
-    const x = startX + width * (number + 0.5) + padding * number
+    let x = startX + width * (number + 0.5) + padding * number
     const y = this.cameras.main.centerY
+
+    if (total == 2) {
+      if (number == 0) {
+        width = (endX - startX - padding * (total - 1)) * 40 / 100
+        x = startX + width * (number + 0.5)
+      } else {
+        width = (endX - startX - padding * (total - 1)) * 60 / 100
+        x = endX - width * 0.5
+      }
+    }
 
     return {
       x: x,

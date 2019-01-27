@@ -101,7 +101,7 @@ class GameTwoScene extends Phaser.Scene {
 
   createLevelButtons () {
     if (this.things.subGameOneButton === undefined) this.things.subGameOneButton = new GameTwoSubOneButton(this)
-    // if (this.things.subGameTwoButton === undefined) this.things.subGameTwoButton = new GameTwoSubTwoButton(this)
+    if (this.things.subGameTwoButton === undefined) this.things.subGameTwoButton = new GameTwoSubTwoButton(this)
   }
 
   won (data) {

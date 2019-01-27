@@ -15,7 +15,6 @@ import GameOneSubThreeScene from './scenes/GameOneSubThreeScene'
 import GameOneSubFourScene from './scenes/GameOneSubFourScene'
 import GameTwoSubOneScene from './scenes/GameTwoSubOneScene'
 import GameTwoSubTwoScene from './scenes/GameTwoSubTwoScene'
-import FindRightAnswerScene from './scenes/FindRightAnswerScene'
 import LittleTalentScene from './scenes/LittleTalentScene'
 import PuzzleScene from './scenes/PuzzleScene'
 import FindPairScene from './scenes/FindPairScene'
@@ -54,7 +53,7 @@ export const scene = [
   GameTwoScene, GameTwoSubOneScene, GameTwoSubTwoScene,
   GameThreeScene,
   GameFourScene,
-  CompleteTheStoriesScene, MoveTheTmagesToTheRightPositionsScene,ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, FindRightAnswerScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightGroups
+  CompleteTheStoriesScene, MoveTheTmagesToTheRightPositionsScene,ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightGroups
 ]
 export const allowedTime = 1800
 export const waitTime = 3600
