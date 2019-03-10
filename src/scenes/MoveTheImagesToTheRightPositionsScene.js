@@ -9,9 +9,9 @@ import WrongSound from '../components/WrongSound'
 import { destroyObject, randItem, randSplice, shuffle } from '../helpers'
 import bookContent from '../app/asset/content/bookContent'
 
-class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
+class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
   static get KEY () {
-    return 'MoveTheTmagesToTheRightPositionsScene'
+    return 'MoveTheImagesToTheRightPositionsScene'
   }
 
   static get WIN_DIAMOND () {
@@ -19,7 +19,7 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
   }
 
   constructor () {
-    super({ key: MoveTheTmagesToTheRightPositionsScene.KEY })
+    super({ key: MoveTheImagesToTheRightPositionsScene.KEY })
     this.things = {}
   }
 
@@ -91,6 +91,7 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
   addAnswers (answersData) {
     this.things.answerCards = []
     this.things.whileCards = []
+    this.things.questionIconCards = []
     var questionCards = this.things.questionCards
     var questionCard = questionCards[questionCards.length - 1]
 
@@ -111,6 +112,8 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
         let whileCard = new FreeSizeCard(this, 'mau_trang', whileData, false, true)
         whileCard.answerKey = card.key
         this.things.whileCards.push(whileCard)
+
+        this.addQuestionIcon(whileCard)
       }
 
       number++
@@ -174,7 +177,6 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
     let topLeftQuestionX = questionCard.x - questionCard.displayWidth / 2
     let topLeftQuestionY = questionCard.y - questionCard.displayHeight / 2
 
-
     let scale = questionCard.scaleX
 
     let topLeftWhileX = topLeftQuestionX + x * scale
@@ -209,12 +211,14 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
     this.input.on('dragend', (pointer, gameObject) => {
       var whileCards = this.things.whileCards
+      var questionIconCards = this.things.questionIconCards
       var win = false
       for (let index in whileCards) {
         var card = whileCards[index]
         let minX = card.x - card.displayWidth / 2
         let maxX = card.x + card.displayWidth / 2
-        let minY = card.y - card.displayHeight / 2
+        // minus for height of questionIcon
+        let minY = card.y - card.displayHeight / 2 - this.things.questionIconCards[0].height
         let maxY = card.y + card.displayHeight / 2
 
         if (pointer.x > minX && pointer.x < maxX && pointer.y > minY && pointer.y < maxY && card.answerKey == gameObject.key) {
@@ -227,6 +231,17 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
       if (win) {
         this.playRightSound(1.5);
+
+        // get questionIconCard
+        var questionIconCard
+        for (let index in questionIconCards) {
+          questionIconCard = questionIconCards[index]
+          if (card.answerKey == questionIconCard.answerKey) {
+            questionIconCards.splice(index, 1)
+            this.things.questionIconCards = questionIconCards
+            break
+          }
+        }
 
         this.tweens.add({
           targets: gameObject,
@@ -245,6 +260,7 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
         this.time.delayedCall(1000, () => {
           destroyObject(gameObject)
           destroyObject(card)
+          destroyObject(questionIconCard)
         })
         this.time.delayedCall(1500, () => {
           if (this.things.whileCards.length === 0) this.won()
@@ -319,6 +335,20 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
     })
   }
 
+  addQuestionIcon(card) {
+    console.log(card);
+    let length = 50
+    let data = {
+      x: card.x,
+      y: card.y - card.displayHeight / 2 - length / 2,
+      width: length,
+      height: length
+    }
+    let questionIconCard = new FreeSizeCard(this, 'question', data, false)
+    questionIconCard.answerKey = card.answerKey
+    this.things.questionIconCards.push(questionIconCard)
+  }
+
   playRightSound (delay = 0) {
     if (this.things.rightSound === undefined) this.things.rightSound = this.sound.add(RightSound.KEY)
     this.things.rightSound.stop()
@@ -337,8 +367,8 @@ class MoveTheTmagesToTheRightPositionsScene extends Phaser.Scene {
 
   won () {
     this.scene.stop()
-    this.scene.resume(MainGameScene.KEY, { from: MoveTheTmagesToTheRightPositionsScene.KEY, diamond: MoveTheTmagesToTheRightPositionsScene.WIN_DIAMOND })
+    this.scene.resume(MainGameScene.KEY, { from: MoveTheImagesToTheRightPositionsScene.KEY, diamond: MoveTheImagesToTheRightPositionsScene.WIN_DIAMOND })
   }
 }
 
-export default MoveTheTmagesToTheRightPositionsScene
+export default MoveTheImagesToTheRightPositionsScene

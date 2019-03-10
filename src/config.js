@@ -24,7 +24,7 @@ import SortingCharactersScene from './scenes/SortingCharactersScene'
 import FindCharactersScene from './scenes/FindCharactersScene'
 import FormingAStoryScene from './scenes/FormingAStoryScene'
 import MoveTheImagesToTheRightGroups from './scenes/MoveTheImagesToTheRightGroups'
-import MoveTheTmagesToTheRightPositionsScene from './scenes/MoveTheTmagesToTheRightPositionsScene'
+import MoveTheImagesToTheRightPositionsScene from './scenes/MoveTheImagesToTheRightPositionsScene'
 import CompleteTheStoriesScene from './scenes/CompleteTheStoriesScene'
 
 export const title = 'Vui học cùng Cô Tiên Xanh'
@@ -53,7 +53,7 @@ export const scene = [
   GameTwoScene, GameTwoSubOneScene, GameTwoSubTwoScene,
   GameThreeScene,
   GameFourScene,
-  CompleteTheStoriesScene, MoveTheTmagesToTheRightPositionsScene,ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightGroups
+  CompleteTheStoriesScene, MoveTheImagesToTheRightPositionsScene,ChooseTheRightPictureScene, FindPairScene, FantasticRotationScene, SortingCharactersScene, FindCharactersScene, FormingAStoryScene, LittleTalentScene, PuzzleScene, MoveTheImagesToTheRightGroups
 ]
 export const allowedTime = 1800
 export const waitTime = 3600

@@ -9,7 +9,7 @@ import LevelEasyButton from '../components/LevelEasyButton'
 import LevelNormalButton from '../components/LevelNormalButton'
 import LevelHardButton from '../components/LevelHardButton'
 import LevelHardestButton from '../components/LevelHardestButton'
-import MoveTheTmagesToTheRightPositionsScene from './MoveTheTmagesToTheRightPositionsScene'
+import MoveTheImagesToTheRightPositionsScene from './MoveTheImagesToTheRightPositionsScene'
 import MainGameScene from './MainGameScene'
 import { destroyObject, addBee } from '../helpers'
 
@@ -19,7 +19,7 @@ class GameThreeScene extends Phaser.Scene {
   }
 
   static get GAME_SCENE_KEY () {
-    return MoveTheTmagesToTheRightPositionsScene.KEY
+    return MoveTheImagesToTheRightPositionsScene.KEY
   }
 
   constructor () {

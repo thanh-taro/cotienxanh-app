@@ -1,4 +1,5 @@
 import mau_trang from './mau_trang.png'
+import question from './question.jpg'
 
 import sach_1_bia_truoc from './sach_1_bia_truoc.png'
 import sach_1_bia_truoc_ten_sach from './sach_1_bia_truoc_ten_sach.png'
@@ -50,6 +51,7 @@ import trang_sachSound from './trang_sach.mp3'
 const assetSpec = {
   assetCollection: [
     { key: 'mau_trang', asset: mau_trang },
+    { key: 'question', asset: question },
 
     { key: 'sach_1_bia_truoc', asset: sach_1_bia_truoc },
     { key: 'sach_1_bia_truoc_ten_sach', asset: sach_1_bia_truoc_ten_sach },
