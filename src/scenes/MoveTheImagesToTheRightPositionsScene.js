@@ -26,8 +26,8 @@ class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
   create (data) {
     this.things = {
       data: bookContent,
-      questions: ['sach_1'],
-      kind_of_questions: ['bia_sau']
+      questions: ['sach_1', 'sach_2', 'sach_3'],
+      kind_of_questions: ['bia_truoc', 'bia_sau']
     }
     this.cameras.main.setBackgroundColor('#5f82ea')
 
@@ -70,6 +70,7 @@ class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
 
         for (let i = 0; i < pages.length; i++) {
           var data = this.configTheQuestionCard(i, pages.length)
+          console.log(key + '_' + pages[i]);
           card = new FreeSizeCard(this, key + '_' + pages[i], data, false)
           this.things.questionCards.push(card)
         }
@@ -122,8 +123,8 @@ class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
 
   configTheQuestionCard (number, total) {
     const padding = parseInt(this.cameras.main.width * 0.01)
-    const startX = 50
-    const endX = this.cameras.main.width / 3 * 2
+    const startX = 75
+    const endX = this.cameras.main.width / 7 * 5
     let width = (endX - startX - padding * (total - 1)) / total
     const height = this.cameras.main.height - 200
 
@@ -151,9 +152,9 @@ class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
   configTheAnswerCard (number, total) {
     const paddingX = parseInt(this.cameras.main.width * 0.01)
     const paddingY = parseInt(this.cameras.main.height * 0.01)
-    const startX = (this.cameras.main.width - 100) / 3 * 2 + 100
+    const startX = (this.cameras.main.width - 100) / 7 * 5 + 150
     const startY = 110
-    const endX = this.cameras.main.width - 50
+    const endX = this.cameras.main.width - 75
     const endY = this.cameras.main.height - 110
 
     const width = (endX - startX) - paddingX * 2
@@ -337,7 +338,7 @@ class MoveTheImagesToTheRightPositionsScene extends Phaser.Scene {
 
   addQuestionIcon(card) {
     console.log(card);
-    let length = 50
+    let length = 70
     let data = {
       x: card.x,
       y: card.y - card.displayHeight / 2 - length / 2,

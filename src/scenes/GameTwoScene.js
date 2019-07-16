@@ -61,7 +61,7 @@ class GameTwoScene extends Phaser.Scene {
     this.things.backgroundText = this.make.text({
       x: centerX,
       y: centerY,
-      text: 'Thông minh tinh mắt',
+      text: 'Vui kể chuyện',
       style: {
         font: fontSize + 'px Quicksand',
         fill: '#ffffff'

@@ -29,8 +29,8 @@ class CompleteTheStoriesScene extends Phaser.Scene {
     console.log(poemContent);
     this.things = {
       poem: {
-        'easy': ['ong_va_buom'],
-        // 'easy': ['khong_vut_rac', 'choi_ngoan', 'ong_va_buom'],
+        // 'easy': ['ong_va_buom'],
+        'easy': ['khong_vut_rac', 'choi_ngoan', 'ong_va_buom'],
         'normal': ['poem_3', 'poem_4'],
       },
       answers: ['Hoa_mẫu_đơn', 'Hoa_sen', 'Hoa_sứ', 'Màu_vàng']

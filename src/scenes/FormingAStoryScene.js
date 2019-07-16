@@ -29,9 +29,10 @@ class FormingAStoryScene extends Phaser.Scene {
 
     this.things = {
       stories: {
-        'easy': ['story_1'],
-        // 'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7'],
-        'normal': ['story_3', 'story_4']
+        'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7'],
+        // Story 4 (nong noc, 5 (banh pizza), 6 (nguoi tuyet) chua co ban thu 4
+        'normal': ['story_3']
+        // 'normal': ['story_3', 'story_4']
       },
       'numberOfPaintings': {
         'story_1': 4,
