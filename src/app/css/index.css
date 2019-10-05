@@ -1,0 +1,46 @@
+* {
+  font-family: 'Quicksand', Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+#game-panel,
+#game-panel > canvas {
+  width: 100% !important;
+  height: 100% !important;
+  /* object-fit: contain; */
+}
+
+.input-label {
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  font-size: 18px;
+}
+.radio {
+  margin-left: 16px;
+}
+.radio.no-margin-left {
+  margin-left: 0;
+}
+.radio-value {
+  font-size: 18px;
+}
+.hint {
+  color: #C70039;
+}
+.form-header {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.tingle-modal {
+  display: flex !important;
+}

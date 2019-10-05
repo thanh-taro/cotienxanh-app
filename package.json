@@ -1,0 +1,103 @@
+{
+  "name": "@taro/cotienxanh",
+  "version": "0.0.1",
+  "description": "Vui học cùng Cô Tiên Xanh",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint .",
+    "start": "webpack-dev-server",
+    "build": "npm run build-web && npm run build-cordova",
+    "build-web": "webpack --config webpack.production.config.js",
+    "build-cordova": "webpack --config webpack.cordova.config.js && cordova platform rm android ios && cordova platform add android ios && npm run generate-app-icon && cordova build",
+    "build-cordova-android": "webpack --config webpack.cordova.config.js && cordova platform rm android && cordova platform add android && npm run generate-app-icon && cordova build android",
+    "build-cordova-android-release": "webpack --config webpack.cordova.config.js && cordova platform rm android && cordova platform add android && npm run generate-app-icon && cordova build --release -- --buildConfig android",
+    "deploy-web": "npm run build-web && node deploy.js",
+    "generate-app-icon": "cordova-icon --config=config.xml --icon=icon.png"
+  },
+  "keywords": [
+    "game",
+    "cotienxanh",
+    "tro",
+    "choi",
+    "hoc",
+    "tap",
+    "co",
+    "tien",
+    "xanh",
+    "taro"
+  ],
+  "author": "Nguyen Tri Thanh <adamnguyen.itdn@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanh-taro/cotienxanh-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thanh-taro/cotienxanh-app.git/issues"
+  },
+  "homepage": "https://github.com/thanh-taro/cotienxanh-app.git#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "android-versions": "^1.3.0",
+    "autoprefixer": "^8.6.4",
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "cordova": "^9.0.0",
+    "cordova-icon": "^1.0.0",
+    "css-loader": "^3.2.0",
+    "es6-promise-plugin": "^4.2.2",
+    "eslint": "^5.7.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "file-loader": "^1.1.11",
+    "fontfaceobserver": "^2.0.13",
+    "ftp-deploy": "^2.1.4",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "phaser-plugin-update": "^1.0.0",
+    "postcss-loader": "^2.1.5",
+    "precss": "^3.1.2",
+    "stats.js": "^0.17.0",
+    "store": "^2.0.12",
+    "style-loader": "^0.21.0",
+    "svg-inline-loader": "^0.8.0",
+    "tingle.js": "^0.13.2",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "cordova-android": "^8.0.0",
+    "cordova-ios": "^4.5.5",
+    "cordova-plugin-device": "git+https://github.com/apache/cordova-plugin-device.git",
+    "cordova-plugin-fullscreen": "^1.2.0",
+    "cordova-plugin-network-information": "git+https://github.com/apache/cordova-plugin-network-information.git",
+    "cordova-plugin-screen-orientation": "^3.0.1",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "phaser": "3.15.1",
+    "phonegap-plugin-mobile-accessibility": "git+https://github.com/phonegap/phonegap-mobile-accessibility.git"
+  },
+  "cordova": {
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-screen-orientation": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-fullscreen": {},
+      "phonegap-plugin-mobile-accessibility": {}
+    }
+  }
+}
