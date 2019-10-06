@@ -29,9 +29,7 @@ class FormingAStoryScene extends Phaser.Scene {
 
     this.things = {
       stories: {
-        // tam thoi an story 5 (banh pizza) vi thieu hinh
-        'easy': ['story_5'],
-        // 'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7', 'vẽ_cá_heo', 'trồng_cây', 'xe_tông'],
+        'easy': ['story_1', 'story_2', 'story_5', 'story_6', 'story_7', 'vẽ_cá_heo', 'trồng_cây', 'xe_tông'],
         'normal': ['story_3', 'story_4', 'tina_tập_bơi', 'gia_đình', 'bắt_mèo']
       },
       'numberOfPaintings': {
