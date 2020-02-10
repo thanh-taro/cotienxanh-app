@@ -33,6 +33,11 @@ class MoveTheImagesToTheRightGroups extends Phaser.Scene {
         'Chủ_đề_ký_hiệu': ['Bệnh_viện', 'Bưu_điện', 'Cấm_đổ_xe', 'Cấm_vứt_rác', 'Cảnh_sát', 'Chùa', 'Có_bậc_thang', 'Đồng_ý', 'Ga_tàu', 'Giữ_im_lặng', 'Kí_hiệu_sân_bay', 'Lối_thoát_hiểm', 'Người_khuyết_tật', 'Nhà_vệ_sinh_nữ', 'Nơi_bỏ_rác', 'Sân_bay', 'Siêu_thị', 'Thuốc_lá', 'Trạm_xăng', 'Trường_học'],
         'Chủ_đề_ký_hiệu_trong_lớp': ['Bảng_danh_sách_lớp', 'Bảng_phân_chia_thức_ăn', 'Bảng_tên_lớp', 'Bảng_thực_đơn', 'Góc_âm_nhạc', 'Góc_cảm_xúc', 'Góc_chữ_cái', 'Góc_chuyên_cần', 'Góc_đóng_vai', 'Góc_học_tập', 'Góc_sinh_nhật', 'Góc_tạo_hình', 'Góc_toán', 'Khu_nhà_bếp', 'Khu_thể_chất', 'Khu_vệ_sinh', 'Khu_vui_chơi_ngoài_trời'],
         'Chủ_đề_màu_sắc': ['Màu_nâu', 'Màu_tím', 'Màu_hồng', 'Màu_trắng', 'Màu_đen', 'Màu_đỏ', 'Màu_cam', 'Màu_vàng', 'Màu_xanh_lá', 'Màu_xám'],
+        'Chủ_đề_bác_sĩ': ['bac_si', 'bang_dan_ca_nhan', 'bong_y_te', 'cai_nang', 'can_y_te', 'con_y_te', 'dao_phau_thuat', 'hop_cuu_thuong', 'kep_y_te', 'khau_trang_y_te', 'may_do_huyet_ap', 'nhiet_ke', 'ong_nghe', 'ong_tiem', 'quan_ao_bac_si', 'thuoc', 'xe_cuu_thuong', 'xe_lan', ],
+        'Chủ_đề_cảnh_sát': ['canh_sat', 'khau_sung', 'xe_canh_sat', 'coi_canh_sat', 'la_chan_chong_bao_dong', 'xe_mo_to_canh_sat', 'cong_tay', 'may_bo_dam', 'dui_cui', 'mu_canh_sat', ],
+        'Chủ_đề_cứu_hỏa': ['binh_chua_chay', 'linh_cuu_hoa', 'mu_cuu_hoa', 'bo_do_cuu_hoa', 'loa', 'ung_cao_su', 'gang_tay_cao_su', 'may_bom_cuu_hoa', 'xe_cuu_hoa', ],
+        'Chủ_đề_đầu_bếp': ['am_sieu_toc', 'cai_thot', 'lo_dung_gia_vi', 'bo_dao', 'cay_can_bot', 'may_xay_thuc_pham', 'cai_chao', 'dau_bep', 'mu_dau_bep', 'cai_noi', 'do_danh_trung', 'tap_de', 'cai_ro', 'khay_nuong', ],
+        'Chủ_đề_kỹ_sư': ['cai_bua', 'cai_kim', 'ky_su', 'sung_bom_dau', 'cai_cua', 'co_le', 'mo_han', 'thuoc_cuon', 'cai_duc', 'den_pin', 'mo_let', 'tuoc_no_vic', 'cai_giua', 'dong_ho_do', 'mu_ky_su', 'cai_khoan', 'hop_dung_cu', 'sung_ban_ding', ]
       },
       head: ['I'],
       'questionCards': []

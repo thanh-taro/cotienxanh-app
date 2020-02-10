@@ -493,6 +493,91 @@ import Chủ_đề_ký_hiệuI from './asset/Chủ_đề_ký_hiệu.png'
 import Chủ_đề_ký_hiệu_trong_lớpI from './asset/Chủ_đề_ký_hiệu_trong_lớp.png'
 import Chủ_đề_màu_sắcI from './asset/Chủ_đề_màu_sắc.png'
 
+import Chủ_đề_bác_sĩI from './asset/Chủ_đề_ký_hiệu.png'
+import Chủ_đề_cảnh_sátI from './asset/Chủ_đề_ký_hiệu.png'
+import Chủ_đề_cứu_hỏaI from './asset/Chủ_đề_ký_hiệu.png'
+import Chủ_đề_đầu_bếpI from './asset/Chủ_đề_ký_hiệu.png'
+import Chủ_đề_kỹ_sưI from './asset/Chủ_đề_ký_hiệu.png'
+
+// Nghề bác sĩ
+import bac_siI from './asset/bac si.png'
+import bang_dan_ca_nhanI from './asset/bang dan ca nhan.jpg'
+import bong_y_teI from './asset/bong y te.jpg'
+import cai_nangI from './asset/cai nang.jpg'
+import can_y_teI from './asset/can y te.jpg'
+import con_y_teI from './asset/con y te.jpg'
+import dao_phau_thuatI from './asset/dao phau thuat.jpg'
+import hop_cuu_thuongI from './asset/hop cuu thuong.jpg'
+import kep_y_teI from './asset/kep y te.jpg'
+import khau_trang_y_teI from './asset/khau trang y te.jpg'
+import may_do_huyet_apI from './asset/may do huyet ap.jpg'
+import nhiet_keI from './asset/nhiet ke.jpg'
+import ong_ngheI from './asset/ong nghe.png'
+import ong_tiemI from './asset/ong tiem.png'
+import quan_ao_bac_siI from './asset/quan ao bac si.jpg'
+import thuocI from './asset/thuoc.jpg'
+import xe_cuu_thuongI from './asset/xe cuu thuong.jpg'
+import xe_lanI from './asset/xe lan.jpg'
+
+// Cảnh sát
+import canh_satI from './asset/canh sat.jpg'
+import khau_sungI from './asset/khau sung.jpg'
+import xe_canh_satI from './asset/xe canh sat.png'
+import coi_canh_satI from './asset/coi canh sat.jpg'
+import la_chan_chong_bao_dongI from './asset/la chan chong bao dong.jpg'
+import xe_mo_to_canh_satI from './asset/xe mo to canh sat.jpg'
+import cong_tayI from './asset/cong tay.jpg'
+import may_bo_damI from './asset/may bo dam.png'
+import dui_cuiI from './asset/dui cui.jpg'
+import mu_canh_satI from './asset/mu canh sat.jpg'
+
+// Cứu hỏa
+import binh_chua_chayI from './asset/binh chua chay.jpg'
+import linh_cuu_hoaI from './asset/linh cuu hoa.png'
+import mu_cuu_hoaI from './asset/mu cuu hoa.jpg'
+import bo_do_cuu_hoaI from './asset/bo do cuu hoa.jpg'
+import loaI from './asset/loa.jpg'
+import ung_cao_suI from './asset/ung cao su.jpg'
+import gang_tay_cao_suI from './asset/gang tay cao su.jpg'
+import may_bom_cuu_hoaI from './asset/may bom cuu hoa.jpg'
+import xe_cuu_hoaI from './asset/xe cuu hoa.jpg'
+
+// Đầu bếp
+import am_sieu_tocI from './asset/am sieu toc.jpg'
+import cai_thotI from './asset/cai thot.jpg'
+import lo_dung_gia_viI from './asset/lo dung gia vi.jpg'
+import bo_daoI from './asset/bo dao.jpg'
+import cay_can_botI from './asset/cay can bot.png'
+import may_xay_thuc_phamI from './asset/may xay thuc pham.png'
+import cai_chaoI from './asset/cai chao.jpg'
+import dau_bepI from './asset/dau bep.jpg'
+import mu_dau_bepI from './asset/mu dau bep.jpg'
+import cai_noiI from './asset/cai noi.png'
+import do_danh_trungI from './asset/do danh trung.jpg'
+import tap_deI from './asset/tap de.jpg'
+import cai_roI from './asset/cai ro.jpg'
+import khay_nuongI from './asset/khay nuong.jpg'
+
+// Kỹ sư
+import cai_buaI from './asset/cai bua.jpg'
+import cai_kimI from './asset/cai kim.jpg'
+import ky_suI from './asset/ky su.jpg'
+import sung_bom_dauI from './asset/sung bom dau.jpg'
+import cai_cuaI from './asset/cai cua.png'
+import co_leI from './asset/co le.jpg'
+import mo_hanI from './asset/mo han.jpg'
+import thuoc_cuonI from './asset/thuoc cuon.jpg'
+import cai_ducI from './asset/cai duc.jpg'
+import den_pinI from './asset/den pin.jpg'
+import mo_letI from './asset/mo let.jpg'
+import tuoc_no_vicI from './asset/tuoc no vic.jpg'
+import cai_giuaI from './asset/cai giua.jpg'
+import dong_ho_doI from './asset/dong ho do.jpg'
+import mu_ky_suI from './asset/mu ky su.jpg'
+import cai_khoanI from './asset/cai khoan.jpg'
+import hop_dung_cuI from './asset/hop dung cu.jpg'
+import sung_ban_dingI from './asset/sung ban ding.png'
+
 // sound
 import Bến_xeSound from './asset/Bến xe.mp3'
 import Bệnh_việnSound from './asset/Bệnh viện.mp3'
@@ -556,6 +641,82 @@ import Khu_vui_chơi_ngoài_trờiSound from './asset/Khu vui choi ngoai troi.mp
 import Chủ_đề_ký_hiệuSound from './asset/Chủ_đề_ký_hiệu.mp3'
 import Chủ_đề_ký_hiệu_trong_lớpSound from './asset/Chủ_đề_ký_hiệu_trong_lớp.mp3'
 import Chủ_đề_màu_sắcSound from './asset/Chủ_đề_màu_sắc.mp3'
+
+import Chủ_đề_bác_sĩSound from './asset/chu de nghe bac si.mp3'
+import Chủ_đề_cảnh_sátSound from './asset/chu de canh sat.mp3'
+import Chủ_đề_cứu_hỏaSound from './asset/chu de cuu hoa.mp3'
+import Chủ_đề_đầu_bếpSound from './asset/chu de dau bep.mp3'
+import Chủ_đề_kỹ_sưSound from './asset/cho de ky su.mp3'
+
+import bac_siSound from './asset/bac si.mp3'
+import bang_dan_ca_nhanSound from './asset/bang dan ca nhan.mp3'
+import bong_y_teSound from './asset/bong y te.mp3'
+import cai_nangSound from './asset/cai nang.mp3'
+import can_y_teSound from './asset/can y te.mp3'
+import con_y_teSound from './asset/con y te.mp3'
+import dao_phau_thuatSound from './asset/dao phau thuat.mp3'
+import hop_cuu_thuongSound from './asset/hop cuu thuong.mp3'
+import kep_y_teSound from './asset/kep y te.mp3'
+import khau_trang_y_teSound from './asset/khau trang y te.mp3'
+import may_do_huyet_apSound from './asset/may do huyet ap.mp3'
+import nhiet_keSound from './asset/nhiet ke.mp3'
+import ong_ngheSound from './asset/ong nghe.mp3'
+import ong_tiemSound from './asset/ong tiem.mp3'
+import quan_ao_bac_siSound from './asset/quan ao bac si.mp3'
+import thuocSound from './asset/thuoc.mp3'
+import xe_cuu_thuongSound from './asset/xe cuu thuong.mp3'
+import xe_lanSound from './asset/xe lan.mp3'
+import canh_satSound from './asset/canh sat.mp3'
+import khau_sungSound from './asset/khau sung.mp3'
+import xe_canh_satSound from './asset/xe canh sat.mp3'
+import coi_canh_satSound from './asset/coi canh sat.mp3'
+import la_chan_chong_bao_dongSound from './asset/la chan chong bao dong.mp3'
+import xe_mo_to_canh_satSound from './asset/xe mo to canh sat.mp3'
+import cong_taySound from './asset/cong tay.mp3'
+import may_bo_damSound from './asset/may bo dam.mp3'
+import dui_cuiSound from './asset/dui cui.mp3'
+import mu_canh_satSound from './asset/mu canh sat.mp3'
+import binh_chua_chaySound from './asset/binh chua chay.mp3'
+import linh_cuu_hoaSound from './asset/linh cuu hoa.mp3'
+import mu_cuu_hoaSound from './asset/mu cuu hoa.mp3'
+import bo_do_cuu_hoaSound from './asset/bo do cuu hoa.mp3'
+import loaSound from './asset/loa.mp3'
+import ung_cao_suSound from './asset/ung cao su.mp3'
+import gang_tay_cao_suSound from './asset/gang tay cao su.mp3'
+import may_bom_cuu_hoaSound from './asset/may bom cuu hoa.mp3'
+import xe_cuu_hoaSound from './asset/xe cuu hoa.mp3'
+import am_sieu_tocSound from './asset/am sieu toc.mp3'
+import cai_thotSound from './asset/cai thot.mp3'
+import lo_dung_gia_viSound from './asset/lo dung gia vi.mp3'
+import bo_daoSound from './asset/bo dao.mp3'
+import cay_can_botSound from './asset/cay can bot.mp3'
+import may_xay_thuc_phamSound from './asset/may xay thuc pham.mp3'
+import cai_chaoSound from './asset/cai chao.mp3'
+import dau_bepSound from './asset/dau bep.mp3'
+import mu_dau_bepSound from './asset/mu dau bep.mp3'
+import cai_noiSound from './asset/cai noi.mp3'
+import do_danh_trungSound from './asset/do danh trung.mp3'
+import tap_deSound from './asset/tap de.mp3'
+import cai_roSound from './asset/cai ro.mp3'
+import khay_nuongSound from './asset/khay nuong.mp3'
+import cai_buaSound from './asset/cai bua.mp3'
+import cai_kimSound from './asset/cai kim.mp3'
+import ky_suSound from './asset/ky su.mp3'
+import sung_bom_dauSound from './asset/sung bom dau.mp3'
+import cai_cuaSound from './asset/cai cua.mp3'
+import co_leSound from './asset/co le.mp3'
+import mo_hanSound from './asset/mo han.mp3'
+import thuoc_cuonSound from './asset/thuoc cuon.mp3'
+import cai_ducSound from './asset/cai duc.mp3'
+import den_pinSound from './asset/den pin.mp3'
+import mo_letSound from './asset/mo let.mp3'
+import tuoc_no_vicSound from './asset/tuoc no vic.mp3'
+import cai_giuaSound from './asset/cai giua.mp3'
+import dong_ho_doSound from './asset/dong ho do.mp3'
+import mu_ky_suSound from './asset/mu ky su.mp3'
+import cai_khoanSound from './asset/cai khoan.mp3'
+import hop_dung_cuSound from './asset/hop dung cu.mp3'
+import sung_ban_dingSound from './asset/sung ban ding.mp3'
 
 const assetSpec = {
   assetScaleBy: 'height',
@@ -757,6 +918,85 @@ const assetSpec = {
     { key: 'Hình_bầu_dụcI', asset: Hình_bầu_dụcI },
     { key: 'Hình_tam_giácI', asset: Hình_tam_giácI },
 
+    // Nghề bác sĩ
+    { key: 'bac_siI', asset: bac_siI },
+    { key: 'bang_dan_ca_nhanI', asset: bang_dan_ca_nhanI },
+    { key: 'bong_y_teI', asset: bong_y_teI },
+    { key: 'cai_nangI', asset: cai_nangI },
+    { key: 'can_y_teI', asset: can_y_teI },
+    { key: 'con_y_teI', asset: con_y_teI },
+    { key: 'dao_phau_thuatI', asset: dao_phau_thuatI },
+    { key: 'hop_cuu_thuongI', asset: hop_cuu_thuongI },
+    { key: 'kep_y_teI', asset: kep_y_teI },
+    { key: 'khau_trang_y_teI', asset: khau_trang_y_teI },
+    { key: 'may_do_huyet_apI', asset: may_do_huyet_apI },
+    { key: 'nhiet_keI', asset: nhiet_keI },
+    { key: 'ong_ngheI', asset: ong_ngheI },
+    { key: 'ong_tiemI', asset: ong_tiemI },
+    { key: 'quan_ao_bac_siI', asset: quan_ao_bac_siI },
+    { key: 'thuocI', asset: thuocI },
+    { key: 'xe_cuu_thuongI', asset: xe_cuu_thuongI },
+    { key: 'xe_lanI', asset: xe_lanI },
+
+    // Cảnh sát
+    { key: 'canh_satI', asset: canh_satI },
+    { key: 'khau_sungI', asset: khau_sungI },
+    { key: 'xe_canh_satI', asset: xe_canh_satI },
+    { key: 'coi_canh_satI', asset: coi_canh_satI },
+    { key: 'la_chan_chong_bao_dongI', asset: la_chan_chong_bao_dongI },
+    { key: 'xe_mo_to_canh_satI', asset: xe_mo_to_canh_satI },
+    { key: 'cong_tayI', asset: cong_tayI },
+    { key: 'may_bo_damI', asset: may_bo_damI },
+    { key: 'dui_cuiI', asset: dui_cuiI },
+    { key: 'mu_canh_satI', asset: mu_canh_satI },
+
+    // Cứu hỏa
+    { key: 'binh_chua_chayI', asset: binh_chua_chayI },
+    { key: 'linh_cuu_hoaI', asset: linh_cuu_hoaI },
+    { key: 'mu_cuu_hoaI', asset: mu_cuu_hoaI },
+    { key: 'bo_do_cuu_hoaI', asset: bo_do_cuu_hoaI },
+    { key: 'loaI', asset: loaI },
+    { key: 'ung_cao_suI', asset: ung_cao_suI },
+    { key: 'gang_tay_cao_suI', asset: gang_tay_cao_suI },
+    { key: 'may_bom_cuu_hoaI', asset: may_bom_cuu_hoaI },
+    { key: 'xe_cuu_hoaI', asset: xe_cuu_hoaI },
+
+    // Đầu bếp
+    { key: 'am_sieu_tocI', asset: am_sieu_tocI },
+    { key: 'cai_thotI', asset: cai_thotI },
+    { key: 'lo_dung_gia_viI', asset: lo_dung_gia_viI },
+    { key: 'bo_daoI', asset: bo_daoI },
+    { key: 'cay_can_botI', asset: cay_can_botI },
+    { key: 'may_xay_thuc_phamI', asset: may_xay_thuc_phamI },
+    { key: 'cai_chaoI', asset: cai_chaoI },
+    { key: 'dau_bepI', asset: dau_bepI },
+    { key: 'mu_dau_bepI', asset: mu_dau_bepI },
+    { key: 'cai_noiI', asset: cai_noiI },
+    { key: 'do_danh_trungI', asset: do_danh_trungI },
+    { key: 'tap_deI', asset: tap_deI },
+    { key: 'cai_roI', asset: cai_roI },
+    { key: 'khay_nuongI', asset: khay_nuongI },
+
+    // Kỹ sư
+    { key: 'cai_buaI', asset: cai_buaI },
+    { key: 'cai_kimI', asset: cai_kimI },
+    { key: 'ky_suI', asset: ky_suI },
+    { key: 'sung_bom_dauI', asset: sung_bom_dauI },
+    { key: 'cai_cuaI', asset: cai_cuaI },
+    { key: 'co_leI', asset: co_leI },
+    { key: 'mo_hanI', asset: mo_hanI },
+    { key: 'thuoc_cuonI', asset: thuoc_cuonI },
+    { key: 'cai_ducI', asset: cai_ducI },
+    { key: 'den_pinI', asset: den_pinI },
+    { key: 'mo_letI', asset: mo_letI },
+    { key: 'tuoc_no_vicI', asset: tuoc_no_vicI },
+    { key: 'cai_giuaI', asset: cai_giuaI },
+    { key: 'dong_ho_doI', asset: dong_ho_doI },
+    { key: 'mu_ky_suI', asset: mu_ky_suI },
+    { key: 'cai_khoanI', asset: cai_khoanI },
+    { key: 'hop_dung_cuI', asset: hop_dung_cuI },
+    { key: 'sung_ban_dingI', asset: sung_ban_dingI },
+
     { key: 'Hoa_phượngW', asset: Hoa_phượngW },
     { key: 'Hoa_bằng_lăngW', asset: Hoa_bằng_lăngW },
     { key: 'Hoa_bồ_công_anhW', asset: Hoa_bồ_công_anhW },
@@ -932,6 +1172,12 @@ const assetSpec = {
     { key: 'Chủ_đề_ký_hiệuI', asset: Chủ_đề_ký_hiệuI },
     { key: 'Chủ_đề_ký_hiệu_trong_lớpI', asset: Chủ_đề_ký_hiệu_trong_lớpI },
     { key: 'Chủ_đề_màu_sắcI', asset: Chủ_đề_màu_sắcI },
+
+    { key: 'Chủ_đề_bác_sĩI', asset: Chủ_đề_bác_sĩI },
+    { key: 'Chủ_đề_cảnh_sátI', asset: Chủ_đề_cảnh_sátI },
+    { key: 'Chủ_đề_cứu_hỏaI', asset: Chủ_đề_cứu_hỏaI },
+    { key: 'Chủ_đề_đầu_bếpI', asset: Chủ_đề_đầu_bếpI },
+    { key: 'Chủ_đề_kỹ_sưI', asset: Chủ_đề_kỹ_sưI },
   ],
 
   soundCollection: [
@@ -1110,6 +1356,82 @@ const assetSpec = {
     { key: 'Chủ_đề_ký_hiệu', asset: Chủ_đề_ký_hiệuSound },
     { key: 'Chủ_đề_ký_hiệu_trong_lớp', asset: Chủ_đề_ký_hiệu_trong_lớpSound },
     { key: 'Chủ_đề_màu_sắc', asset: Chủ_đề_màu_sắcSound },
+
+    { key: 'Chủ_đề_bác_sĩ', asset: Chủ_đề_bác_sĩSound },
+    { key: 'Chủ_đề_cảnh_sát', asset: Chủ_đề_cảnh_sátSound },
+    { key: 'Chủ_đề_cứu_hỏa', asset: Chủ_đề_cứu_hỏaSound },
+    { key: 'Chủ_đề_đầu_bếp', asset: Chủ_đề_đầu_bếpSound },
+    { key: 'Chủ_đề_kỹ_sư', asset: Chủ_đề_kỹ_sưSound },
+
+    { key: 'bac_si', asset: bac_siSound },
+    { key: 'bang_dan_ca_nhan', asset: bang_dan_ca_nhanSound },
+    { key: 'bong_y_te', asset: bong_y_teSound },
+    { key: 'cai_nang', asset: cai_nangSound },
+    { key: 'can_y_te', asset: can_y_teSound },
+    { key: 'con_y_te', asset: con_y_teSound },
+    { key: 'dao_phau_thuat', asset: dao_phau_thuatSound },
+    { key: 'hop_cuu_thuong', asset: hop_cuu_thuongSound },
+    { key: 'kep_y_te', asset: kep_y_teSound },
+    { key: 'khau_trang_y_te', asset: khau_trang_y_teSound },
+    { key: 'may_do_huyet_ap', asset: may_do_huyet_apSound },
+    { key: 'nhiet_ke', asset: nhiet_keSound },
+    { key: 'ong_nghe', asset: ong_ngheSound },
+    { key: 'ong_tiem', asset: ong_tiemSound },
+    { key: 'quan_ao_bac_si', asset: quan_ao_bac_siSound },
+    { key: 'thuoc', asset: thuocSound },
+    { key: 'xe_cuu_thuong', asset: xe_cuu_thuongSound },
+    { key: 'xe_lan', asset: xe_lanSound },
+    { key: 'canh_sat', asset: canh_satSound },
+    { key: 'khau_sung', asset: khau_sungSound },
+    { key: 'xe_canh_sat', asset: xe_canh_satSound },
+    { key: 'coi_canh_sat', asset: coi_canh_satSound },
+    { key: 'la_chan_chong_bao_dong', asset: la_chan_chong_bao_dongSound },
+    { key: 'xe_mo_to_canh_sat', asset: xe_mo_to_canh_satSound },
+    { key: 'cong_tay', asset: cong_taySound },
+    { key: 'may_bo_dam', asset: may_bo_damSound },
+    { key: 'dui_cui', asset: dui_cuiSound },
+    { key: 'mu_canh_sat', asset: mu_canh_satSound },
+    { key: 'binh_chua_chay', asset: binh_chua_chaySound },
+    { key: 'linh_cuu_hoa', asset: linh_cuu_hoaSound },
+    { key: 'mu_cuu_hoa', asset: mu_cuu_hoaSound },
+    { key: 'bo_do_cuu_hoa', asset: bo_do_cuu_hoaSound },
+    { key: 'loa', asset: loaSound },
+    { key: 'ung_cao_su', asset: ung_cao_suSound },
+    { key: 'gang_tay_cao_su', asset: gang_tay_cao_suSound },
+    { key: 'may_bom_cuu_hoa', asset: may_bom_cuu_hoaSound },
+    { key: 'xe_cuu_hoa', asset: xe_cuu_hoaSound },
+    { key: 'am_sieu_toc', asset: am_sieu_tocSound },
+    { key: 'cai_thot', asset: cai_thotSound },
+    { key: 'lo_dung_gia_vi', asset: lo_dung_gia_viSound },
+    { key: 'bo_dao', asset: bo_daoSound },
+    { key: 'cay_can_bot', asset: cay_can_botSound },
+    { key: 'may_xay_thuc_pham', asset: may_xay_thuc_phamSound },
+    { key: 'cai_chao', asset: cai_chaoSound },
+    { key: 'dau_bep', asset: dau_bepSound },
+    { key: 'mu_dau_bep', asset: mu_dau_bepSound },
+    { key: 'cai_noi', asset: cai_noiSound },
+    { key: 'do_danh_trung', asset: do_danh_trungSound },
+    { key: 'tap_de', asset: tap_deSound },
+    { key: 'cai_ro', asset: cai_roSound },
+    { key: 'khay_nuong', asset: khay_nuongSound },
+    { key: 'cai_bua', asset: cai_buaSound },
+    { key: 'cai_kim', asset: cai_kimSound },
+    { key: 'ky_su', asset: ky_suSound },
+    { key: 'sung_bom_dau', asset: sung_bom_dauSound },
+    { key: 'cai_cua', asset: cai_cuaSound },
+    { key: 'co_le', asset: co_leSound },
+    { key: 'mo_han', asset: mo_hanSound },
+    { key: 'thuoc_cuon', asset: thuoc_cuonSound },
+    { key: 'cai_duc', asset: cai_ducSound },
+    { key: 'den_pin', asset: den_pinSound },
+    { key: 'mo_let', asset: mo_letSound },
+    { key: 'tuoc_no_vic', asset: tuoc_no_vicSound },
+    { key: 'cai_giua', asset: cai_giuaSound },
+    { key: 'dong_ho_do', asset: dong_ho_doSound },
+    { key: 'mu_ky_su', asset: mu_ky_suSound },
+    { key: 'cai_khoan', asset: cai_khoanSound },
+    { key: 'hop_dung_cu', asset: hop_dung_cuSound },
+    { key: 'sung_ban_ding', asset: sung_ban_dingSound },
   ]
 }
 
