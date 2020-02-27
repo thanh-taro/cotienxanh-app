@@ -493,11 +493,11 @@ import Chủ_đề_ký_hiệuI from './asset/Chủ_đề_ký_hiệu.png'
 import Chủ_đề_ký_hiệu_trong_lớpI from './asset/Chủ_đề_ký_hiệu_trong_lớp.png'
 import Chủ_đề_màu_sắcI from './asset/Chủ_đề_màu_sắc.png'
 
-import Chủ_đề_bác_sĩI from './asset/Chủ_đề_ký_hiệu.png'
-import Chủ_đề_cảnh_sátI from './asset/Chủ_đề_ký_hiệu.png'
-import Chủ_đề_cứu_hỏaI from './asset/Chủ_đề_ký_hiệu.png'
-import Chủ_đề_đầu_bếpI from './asset/Chủ_đề_ký_hiệu.png'
-import Chủ_đề_kỹ_sưI from './asset/Chủ_đề_ký_hiệu.png'
+import Chủ_đề_bác_sĩI from './asset/Chu de bac si.png'
+import Chủ_đề_cảnh_sátI from './asset/Chu de canh sat.png'
+import Chủ_đề_cứu_hỏaI from './asset/Chu de cuu hoa.png'
+import Chủ_đề_đầu_bếpI from './asset/Chu de dau bep.png'
+import Chủ_đề_kỹ_sưI from './asset/Chu de ky su.png'
 
 // Nghề bác sĩ
 import bac_siI from './asset/bac si.png'
